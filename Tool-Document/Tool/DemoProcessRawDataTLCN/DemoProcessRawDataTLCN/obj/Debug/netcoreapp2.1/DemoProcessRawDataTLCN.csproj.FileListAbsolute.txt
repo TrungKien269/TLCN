@@ -1,0 +1,12 @@
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.deps.json
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.runtimeconfig.json
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.runtimeconfig.dev.json
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.dll
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.csprojAssemblyReference.cache
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.csproj.CoreCompileInputs.cache
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.AssemblyInfoInputs.cache
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.AssemblyInfo.cs
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\appsettings.json
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.pdb
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.dll
+E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.pdb
