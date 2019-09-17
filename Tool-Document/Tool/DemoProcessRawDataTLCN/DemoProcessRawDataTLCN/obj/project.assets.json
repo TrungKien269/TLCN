@@ -4551,11 +4551,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CodeC#\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN.csproj",
+      "projectUniqueName": "C:\\Users\\Trung Kien\\Documents\\GitHub\\TLCN\\Tool-Document\\Tool\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN.csproj",
       "projectName": "DemoProcessRawDataTLCN",
-      "projectPath": "E:\\CodeC#\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN.csproj",
+      "projectPath": "C:\\Users\\Trung Kien\\Documents\\GitHub\\TLCN\\Tool-Document\\Tool\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN.csproj",
       "packagesPath": "C:\\Users\\Trung Kien\\.nuget\\packages\\",
-      "outputPath": "E:\\CodeC#\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN\\obj\\",
+      "outputPath": "C:\\Users\\Trung Kien\\Documents\\GitHub\\TLCN\\Tool-Document\\Tool\\DemoProcessRawDataTLCN\\DemoProcessRawDataTLCN\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
