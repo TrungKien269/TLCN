@@ -1,0 +1,12 @@
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\bin\Debug\netcoreapp2.1\DemoCrawlBookStore.deps.json
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\bin\Debug\netcoreapp2.1\DemoCrawlBookStore.runtimeconfig.json
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\bin\Debug\netcoreapp2.1\DemoCrawlBookStore.runtimeconfig.dev.json
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\bin\Debug\netcoreapp2.1\DemoCrawlBookStore.dll
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\bin\Debug\netcoreapp2.1\DemoCrawlBookStore.pdb
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\obj\Debug\netcoreapp2.1\DemoCrawlBookStore.csprojAssemblyReference.cache
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\obj\Debug\netcoreapp2.1\DemoCrawlBookStore.csproj.CoreCompileInputs.cache
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\obj\Debug\netcoreapp2.1\DemoCrawlBookStore.AssemblyInfoInputs.cache
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\obj\Debug\netcoreapp2.1\DemoCrawlBookStore.AssemblyInfo.cs
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\obj\Debug\netcoreapp2.1\DemoCrawlBookStore.dll
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\obj\Debug\netcoreapp2.1\DemoCrawlBookStore.pdb
+E:\CodeC#\DemoCrawlBookStore\DemoCrawlBookStore\bin\Debug\netcoreapp2.1\appsettings.json
