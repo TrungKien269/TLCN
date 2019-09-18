@@ -10,3 +10,15 @@ E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\
 E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.pdb
 E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.dll
 E:\CodeC#\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.pdb
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\appsettings.json
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.deps.json
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.runtimeconfig.json
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.runtimeconfig.dev.json
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.dll
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\bin\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.pdb
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.csprojAssemblyReference.cache
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.csproj.CoreCompileInputs.cache
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.AssemblyInfoInputs.cache
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.AssemblyInfo.cs
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.dll
+C:\Users\Trung Kien\Documents\GitHub\TLCN\Tool-Document\Tool\DemoProcessRawDataTLCN\DemoProcessRawDataTLCN\obj\Debug\netcoreapp2.1\DemoProcessRawDataTLCN.pdb
