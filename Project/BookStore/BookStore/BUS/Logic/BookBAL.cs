@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using BookStore.Models.Objects;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookStore.BUS
+namespace BookStore.BUS.Logic
 {
     public class BookBAL:IReporsitory<Book, string>
     {
@@ -24,7 +24,8 @@ namespace BookStore.BUS
 
         public Task<int> Insert(Book obj)
         {
-            throw new NotImplementedException();
+            context.Book.Add(obj);
+            return context.SaveChangesAsync();
         }
 
         public Task<int> Delete(Book obj)

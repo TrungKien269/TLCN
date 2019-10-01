@@ -4,9 +4,31 @@
 @{
     Layout = "Dashboard_Layout";
 }
-@model List<BookStore.Models.Objects.Book>
+@*@model List<BookStore.Models.Objects.Book>*@
+@model List<BookStore.Models.Objects.Category>
 
-@foreach (var book in Model)
-{
-    <p>@book.Name</p>
-}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <ul>
+                @foreach (var category in Model)
+                {
+                    <li class="Category" id="@category.Id" style="cursor: pointer">@category.Name</li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <div style="display: inline-block">
+                @if (ViewBag.Session is null)
+                {
+                    <a style="display: inline-block" href="/Login">Login</a>
+                }
+                else
+                {
+                    <a style="display: inline-block" id="lbLogout" href="/Logout">Logout</a>
+                    <p>@ViewBag.FullName</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookStore.BUS
+namespace BookStore.BUS.Logic
 {
     public interface IReporsitory<T, V>
     {

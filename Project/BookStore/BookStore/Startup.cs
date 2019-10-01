@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStore.Helper;
 using BookStore.Models.Objects;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,11 +40,15 @@ namespace BookStore
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromHours(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
+            services.AddDistributedMemoryCache();
 
             //var connection = @"Server=localhost;Database=BookStore;Trusted_Connection=True;ConnectRetryCount=0";
             var connection = Configuration.GetSection("ConnectionString").Value.ToString();
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(connection));
+            SettingHelper.ConnectionString = connection;
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -62,6 +67,7 @@ namespace BookStore
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

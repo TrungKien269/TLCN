@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace BookStore.Models
 {
-    public class Notification
+    public class Response
     {
         public string Message { get; set; }
         public bool Status { get; set; }
         public int? Line { get; set; }
         public object Obj { get; set; }
 
-        public Notification() { }
+        public Response() { }
 
-        public Notification(string message, bool status, int line, object obj)
+        public Response(string message, bool status, int line, object obj)
         {
             this.Line = line;
             this.Message = message;
