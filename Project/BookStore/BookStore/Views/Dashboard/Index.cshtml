@@ -68,14 +68,14 @@
 
 <section class="section__bestseller">
     <div class="title-wrapper">
-        <h3>top rated books</h3>
+        <h3>best sellers</h3>
         <a href="#">View all</a>
     </div>
 
     <div class="owl-carousel owl-carousel-product owl-theme">
         @foreach (var book in ListSalesBook)
         {
-            <div class="card">
+            <div class="card card-product">
                 <a href="#">
                     <img class="card-img-top" src="@book.Image" alt="Card image cap">
                     <div class="card-body">
