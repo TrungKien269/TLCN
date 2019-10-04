@@ -80,8 +80,8 @@
                     <img class="card-img-top" src="@book.Image" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card__book-title">@book.Name</h5>
-                        <p class="card__book-price">
-                            @book.CurrentPrice VND
+                        <p class="card__book-price" style="text-align: center">
+                            @book.CurrentPrice.ToString("##,###") VND
                         </p>
                         <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
                     </div>
@@ -120,7 +120,7 @@
         <div class="tab-pane active container-fluid" id="menu">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="card card-product">
+                    <div class="card card-product" style="height: 10rem">
                         <a href="#">
                             <img class="card-img-top" src="images/data/book13.webp" alt="Card image cap">
                             <div class="card-body">

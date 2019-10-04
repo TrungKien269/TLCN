@@ -72,19 +72,16 @@
 
     $("a.nav-link").click(function (e) {
         var id = $(this).attr("id").substring(5);
-        //console.log($(".tab-content div.card:eq(" + (parseInt(id) - 1) + ") img.card-img-top").attr("src"));
-        //console.log($(".tab-content div.card:eq(" + (parseInt(id) - 1) + ") h5.card__book-title").text());
-        //console.log($(".tab-content div.card:eq(" + (parseInt(id) - 1) + ") p.card__book-price").text());
 
         $.post("/FamousPublisherBookList", {
             id: id
         }, function (data) {
-            console.log(data.obj);
             for (var i = 0; i, data.obj.length; i++) {
                 $(".tab-content div.card:eq(" + (parseInt(i)) + ") img.card-img-top").attr("src", data.obj[i].image);
                 $(".tab-content div.card:eq(" + (parseInt(i)) + ") h5.card__book-title").text(data.obj[i].name);
                 $(".tab-content div.card:eq(" + (parseInt(i)) + ") p.card__book-price")
-                    .text(data.obj[i].currentPrice + "VND");
+                    .text((parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND");
+                $(".tab-content div.card p.card__book-price").css("text-align", "center");
             }
         });
         
