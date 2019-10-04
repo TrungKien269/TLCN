@@ -12,9 +12,9 @@ namespace BookStore.BUS.Logic
     {
         private BookStoreContext context;
 
-        public CategoryBAL(BookStoreContext context)
+        public CategoryBAL()
         {
-            this.context = context;
+            this.context = new BookStoreContext();
         }
 
         public async Task<Response> GetList()

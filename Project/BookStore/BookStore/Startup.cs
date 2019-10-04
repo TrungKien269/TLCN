@@ -45,7 +45,8 @@ namespace BookStore
             });
             services.AddDistributedMemoryCache();
 
-            //var connection = @"Server=localhost;Database=BookStore;Trusted_Connection=True;ConnectRetryCount=0";
+            //var connection =
+            //    @"Server=den1.mssql7.gear.host;Database=demobookstore;User Id=demobookstore;Password=Lo9c21-5z9_d;";
             var connection = Configuration.GetSection("ConnectionString").Value.ToString();
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(connection));
             SettingHelper.ConnectionString = connection;

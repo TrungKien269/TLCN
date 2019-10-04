@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace BookStore.BUS.Logic
 {
-    public interface IReporsitory<T, V>
+    public interface IReporsitory<Obj, Key, Response>
     {
-        Task<List<T>> GetList();
-        Task<int> Insert(T obj);
-        Task<int> Delete(T obj);
-        Task<int> Update(T obj);
-        Task<T> GetObject(V obj);
+        Task<Response> GetList();
+        Task<Response> Insert(Obj obj);
+        Task<Response> Delete(Obj obj);
+        Task<Response> Update(Obj obj);
+        Task<Response> GetObject(Key id);
     }
 }

@@ -19,7 +19,7 @@ namespace BookStore.BUS.Control
         public LoginBAL()
         {
             this.context = new BookStoreContext();
-            this.accountBal = new AccountBAL(this.context);
+            this.accountBal = new AccountBAL();
         }
 
         public async Task<Response> Login(string username, string password)

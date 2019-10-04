@@ -13,9 +13,9 @@ namespace BookStore.BUS.Logic
     {
         private BookStoreContext context;
 
-        public AccountBAL(BookStoreContext context)
+        public AccountBAL()
         {
-            this.context = context;
+            this.context = new BookStoreContext();
         }
 
         public async Task<Response> Login(string username, string password)

@@ -1,34 +1,212 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using BookStore.Models.Objects;
 @{
     Layout = "Dashboard_Layout";
+    List<Book> ListSalesBook = (List<Book>)ViewBag.ListSalesBook;
+    List<FamousPublisher> FamousPublisherList = (List<FamousPublisher>)ViewBag.ListFamousPublisher;
 }
-@*@model List<BookStore.Models.Objects.Book>*@
-@model List<BookStore.Models.Objects.Category>
+@model List<Category>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-8">
-            <ul>
-                @foreach (var category in Model)
-                {
-                    <li class="Category" id="@category.Id" style="cursor: pointer">@category.Name</li>
-                }
-            </ul>
+<nav class="navbar navbar-shadow justify-content-between">
+    <a href="/" class="navbar-sm-brand">
+        <img src="images/logo.webp" alt="">
+    </a>
+    <div class="input__search-bar">
+        <input type="text" placeholder="Search">
+        <i class="fas fa-search"></i>
+    </div>
+    <div class="nav__social-icon d-flex justify-content-center">
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Wish list">
+            <i class="far fa-heart"></i>
+        </a>
+        <div class="dropdown">
+            <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <div style="display: inline-block">
-                @if (ViewBag.Session is null)
-                {
-                    <a style="display: inline-block" href="/Login">Login</a>
-                }
-                else
-                {
-                    <a style="display: inline-block" id="lbLogout" href="/Logout">Logout</a>
-                    <p>@ViewBag.FullName</p>
-                }
+
+
+        <a href="/Login">
+            <i class="far fa-user"></i>
+        </a>
+    </div>
+
+</nav>
+
+<header class="header">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="promo-text">
+                    <p class="wow slideInLeft">Back to school</p>
+                    <div class="promo-text-sub wow slideInRight" data-wow-delay=".5s">
+                        Special
+                        <h2>50% OFF</h2>
+                    </div>
+                    <h2 class="wow fadeInUp" data-wow-delay="1s">for our student community</h2>
+                    <a href="#" class="btn btn--blue wow fadeIn" data-wow-delay="1.5s">get the deal</a>
+                </div>
+                <img class="d-block w-100" src="images/img__sale.webp" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="images/img__sale.webp" alt="Second slide">
+            </div>
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+</header>
+
+<section class="section__bestseller">
+    <div class="title-wrapper">
+        <h3>top rated books</h3>
+        <a href="#">View all</a>
+    </div>
+
+    <div class="owl-carousel owl-carousel-product owl-theme">
+        @foreach (var book in ListSalesBook)
+        {
+            <div class="card">
+                <a href="#">
+                    <img class="card-img-top" src="@book.Image" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card__book-title">@book.Name</h5>
+                        <p class="card__book-price">
+                            @book.CurrentPrice VND
+                        </p>
+                        <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
+                    </div>
+                    <div class="badge badge__utilities">
+                        <a href="#" class="badge__utilities-blue">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                        <a href="#" class="badge__utilities-blue">
+                            <i class="fas fa-search"></i>
+                        </a>
+
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+
+</section>
+
+<section class="section__publisher">
+    <ul class="nav nav-tabs">
+        @for (int i = 0; i < @FamousPublisherList.Count; i++)
+        {
+            <li class="nav-item nav-item__tab">
+                <a class="nav-link" data-toggle="tab" href="#menu" id="menu_@FamousPublisherList[i].Id">
+                    <img src="@FamousPublisherList[i].Image"
+                         class="img-cover" alt="">
+                </a>
+            </li>
+        }
+    </ul>
+
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active container-fluid" id="menu">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-product">
+                        <a href="#">
+                            <img class="card-img-top" src="images/data/book13.webp" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card__book-title">Product example #12</h5>
+                                <p class="card__book-price">$120.00</p>
+                                <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
+                            </div>
+                            <div class="badge badge__utilities">
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-product">
+                        <a href="#">
+                            <img class="card-img-top" src="images/data/book14.webp" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card__book-title">Product example #13</h5>
+                                <p class="card__book-price">
+                                    $120.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
+                            </div>
+                            <div class="badge badge__utilities">
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-product">
+                        <a href="#">
+                            <img class="card-img-top" src="images/data/book15.webp" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card__book-title">Product example #14</h5>
+                                <p class="card__book-price">
+                                    $120.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
+                            </div>
+                            <div class="badge badge__utilities">
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-product">
+                        <a href="#">
+                            <img class="card-img-top" src="images/data/book16.webp" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card__book-title">Product example #15</h5>
+                                <p class="card__book-price">
+                                    $120.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
+                            </div>
+                            <div class="badge badge__utilities">
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
+</section>

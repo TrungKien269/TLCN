@@ -38,7 +38,6 @@ namespace BookStore.Controllers
                     var account = await dashboardBal.GetAccountByCookie(cookie);
                     if (account.Status is true)
                     {
-                        //SessionHelper.SetObjectAsJson(HttpContext.Session, "BookStore", (account.Obj as Account).Username);
                         HttpContext.Session.SetString("BookStore", cookie);
                         ViewBag.Session = HttpContext.Session.GetString("BookStore");
                         ViewBag.FullName = (account.Obj as Account).IdNavigation.FullName;
@@ -51,6 +50,9 @@ namespace BookStore.Controllers
                 var account = await dashboardBal.GetAccountByCookie(session);
                 ViewBag.FullName = (account.Obj as Account).IdNavigation.FullName;
             }
+            ViewBag.ListSalesBook = (await dashboardBal.GetListSalesBook()).Obj as List<Book>;
+            ViewBag.ListFamousPublisher = (await dashboardBal.GetListFamousPublisher()).Obj as List<FamousPublisher>;
+
             return View(response.Obj as List<Category>);
         }
 
@@ -59,6 +61,13 @@ namespace BookStore.Controllers
         {
             var response = await dashboardBal.GetListSubCategory(name);
             return response.Obj as List<SubCategory>;
+        }
+
+        [HttpPost("FamousPublisherBookList")]
+        public async Task<Response> GetBookFromFamousPublisher(string id)
+        {
+            var response = await dashboardBal.GetListBookFromFamousPublisher(id);
+            return response;
         }
 
         [HttpGet("Logout")]

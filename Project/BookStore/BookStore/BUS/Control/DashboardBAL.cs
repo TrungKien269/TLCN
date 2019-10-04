@@ -14,13 +14,15 @@ namespace BookStore.BUS.Control
         private BookBAL bookBal;
         private CategoryBAL categoryBal;
         private AccountBAL accountBal;
+        private PublisherBAL publisherBal;
 
         public DashboardBAL()
         {
             this.context = new BookStoreContext();
-            bookBal = new BookBAL(this.context);
-            this.categoryBal = new CategoryBAL(this.context);
-            this.accountBal = new AccountBAL(this.context);
+            bookBal = new BookBAL();
+            this.categoryBal = new CategoryBAL();
+            this.accountBal = new AccountBAL();
+            publisherBal = new PublisherBAL();
         }
 
         public async Task<Response> GetListCategory()
@@ -28,9 +30,24 @@ namespace BookStore.BUS.Control
             return await categoryBal.GetList();
         }
 
+        public async Task<Response> GetListSalesBook()
+        {
+            return await bookBal.GetList();
+        }
+
         public async Task<Response> GetListSubCategory(string category)
         {
             return await categoryBal.GetSubList(category);
+        }
+
+        public async Task<Response> GetListFamousPublisher()
+        {
+            return await publisherBal.GetFamousList();
+        }
+
+        public async Task<Response> GetListBookFromFamousPublisher(string id)
+        {
+            return await bookBal.GetBookFromFamousPublisher(id);
         }
 
         public async Task<Response> GetAccountByCookie(string cookie)
