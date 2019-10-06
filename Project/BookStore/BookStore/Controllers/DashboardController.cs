@@ -39,8 +39,13 @@ namespace BookStore.Controllers
                     if (account.Status is true)
                     {
                         HttpContext.Session.SetString("BookStore", cookie);
+                        HttpContext.Session.SetInt32("UserID",
+                            account.Obj as Account is null ? -1 : (account.Obj as Account).Id);
                         ViewBag.Session = HttpContext.Session.GetString("BookStore");
-                        ViewBag.FullName = (account.Obj as Account).IdNavigation.FullName;
+                        ViewBag.UserID = (account.Obj as Account).Id;
+                        ViewBag.FullName = account.Obj as Account is null
+                            ? null
+                            : (account.Obj as Account).IdNavigation.FullName;
                     }
                 }
             }
@@ -48,7 +53,12 @@ namespace BookStore.Controllers
             {
                 ViewBag.Session = session;
                 var account = await dashboardBal.GetAccountByCookie(session);
-                ViewBag.FullName = (account.Obj as Account).IdNavigation.FullName;
+                HttpContext.Session.SetInt32("UserID",
+                    account.Obj as Account is null ? -1 : (account.Obj as Account).Id);
+                ViewBag.UserID = (account.Obj as Account).Id;
+                ViewBag.FullName = account.Obj as Account is null
+                    ? null
+                    : (account.Obj as Account).IdNavigation.FullName;
             }
             ViewBag.ListSalesBook = (await dashboardBal.GetListSalesBook()).Obj as List<Book>;
             ViewBag.ListFamousPublisher = (await dashboardBal.GetListFamousPublisher()).Obj as List<FamousPublisher>;
@@ -71,7 +81,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("Logout")]
-        public async Task<Response> Logout()
+        public async Task<IActionResult> Logout()
         {
             string cookie =
                 await Task.FromResult<string>(Request.Cookies.Where(x => x.Key.Equals("BookStore")).FirstOrDefault()
@@ -80,13 +90,15 @@ namespace BookStore.Controllers
             {
                 var session = HttpContext.Session.GetString("BookStore");
                 HttpContext.Session.Remove("BookStore");
-                return await dashboardBal.Logout(session);
+                await dashboardBal.Logout(session);
+                return RedirectToAction("Index", "Dashboard");
             }
             else
             {
                 Response.Cookies.Delete("BookStore");
                 HttpContext.Session.Remove("BookStore");
-                return await dashboardBal.Logout(cookie);
+                await dashboardBal.Logout(cookie);
+                return RedirectToAction("Index", "Dashboard");
             }
         }
     }

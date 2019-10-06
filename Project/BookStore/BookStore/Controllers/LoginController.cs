@@ -41,10 +41,14 @@ namespace BookStore.Controllers
                     CryptographyHelper.GenerateHash(username + DateTime.Now.ToString(), (respone.Obj as Account).Salt));
                 //SessionHelper.SetObjectAsJson(HttpContext.Session, "BookStore", hash);
                 HttpContext.Session.SetString("BookStore", hash);
+                HttpContext.Session.SetInt32("UserID",
+                    respone.Obj as Account is null ? -1 : (respone.Obj as Account).Id);
                 Response.Cookies.Append("BookStore", hash, await CookieHelper.SetCookie());
                 await loginBal.SetCookieForAccount(hash, respone.Obj as Account);
                 ViewBag.Session = HttpContext.Session.GetString("BookStore");
-                ViewBag.FullName = (respone.Obj as Account).IdNavigation.FullName;
+                ViewBag.FullName = respone.Obj as Account is null
+                    ? null
+                    : (respone.Obj as Account).IdNavigation.FullName;
                 return respone;
             }
             return respone;

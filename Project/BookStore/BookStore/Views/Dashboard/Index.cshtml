@@ -15,10 +15,10 @@
         <i class="fas fa-search"></i>
     </div>
     <div class="nav__social-icon d-flex justify-content-center">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Wish list">
+        @*<a href="#" data-toggle="tooltip" data-placement="bottom" title="Wish list">
             <i class="far fa-heart"></i>
-        </a>
-        <div class="dropdown">
+        </a>*@
+        @*<div class="dropdown">
             <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-shopping-cart"></i>
             </a>
@@ -32,7 +32,37 @@
 
         <a href="/Login">
             <i class="far fa-user"></i>
-        </a>
+        </a>*@
+
+        <a href="#"><i class="fas fa-shopping-cart"></i></a>
+        @*<div class="dropdown">
+            <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-user"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>*@
+
+        @if (@ViewBag.FullName is null)
+        {
+            <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
+        }
+        else
+        {
+            <div class="dropdown">
+                <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="far fa-user"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="/Logout">Logout</a>
+                </div>
+            </div>
+        }
+
     </div>
 
 </nav>
@@ -119,34 +149,15 @@
     <div class="tab-content">
         <div class="tab-pane active container-fluid" id="menu">
             <div class="row">
+                
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
                         <a href="#">
-                            <img class="card-img-top" src="images/data/book13.webp" alt="Card image cap">
+                            <img class="card-img-top" src="@ListSalesBook[0].Image" alt="Card image cap">
                             <div class="card-body">
-                                <h5 class="card__book-title">Product example #12</h5>
-                                <p class="card__book-price">$120.00</p>
-                                <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
-                            </div>
-                            <div class="badge badge__utilities">
-                                <a href="#" class="badge__utilities-blue">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                                <a href="#" class="badge__utilities-blue">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card card-product">
-                        <a href="#">
-                            <img class="card-img-top" src="images/data/book14.webp" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card__book-title">Product example #13</h5>
-                                <p class="card__book-price">
-                                    $120.00
+                                <h5 class="card__book-title">@ListSalesBook[0].Name</h5>
+                                <p class="card__book-price" style="text-align: center">
+                                    @ListSalesBook[0].CurrentPrice.ToString("##,###") VND
                                 </p>
                                 <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
                             </div>
@@ -161,14 +172,15 @@
                         </a>
                     </div>
                 </div>
+
                 <div class="col-md-3">
-                    <div class="card card-product">
+                    <div class="card card-product" style="height: 10rem">
                         <a href="#">
-                            <img class="card-img-top" src="images/data/book15.webp" alt="Card image cap">
+                            <img class="card-img-top" src="@ListSalesBook[1].Image" alt="Card image cap">
                             <div class="card-body">
-                                <h5 class="card__book-title">Product example #14</h5>
-                                <p class="card__book-price">
-                                    $120.00
+                                <h5 class="card__book-title">@ListSalesBook[1].Name</h5>
+                                <p class="card__book-price" style="text-align: center">
+                                    @ListSalesBook[1].CurrentPrice.ToString("##,###") VND
                                 </p>
                                 <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
                             </div>
@@ -183,14 +195,38 @@
                         </a>
                     </div>
                 </div>
+
                 <div class="col-md-3">
-                    <div class="card card-product">
+                    <div class="card card-product" style="height: 10rem">
                         <a href="#">
-                            <img class="card-img-top" src="images/data/book16.webp" alt="Card image cap">
+                            <img class="card-img-top" src="@ListSalesBook[2].Image" alt="Card image cap">
                             <div class="card-body">
-                                <h5 class="card__book-title">Product example #15</h5>
-                                <p class="card__book-price">
-                                    $120.00
+                                <h5 class="card__book-title">@ListSalesBook[2].Name</h5>
+                                <p class="card__book-price" style="text-align: center">
+                                    @ListSalesBook[2].CurrentPrice.ToString("##,###") VND
+                                </p>
+                                <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
+                            </div>
+                            <div class="badge badge__utilities">
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card card-product" style="height: 10rem">
+                        <a href="#">
+                            <img class="card-img-top" src="@ListSalesBook[3].Image" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card__book-title">@ListSalesBook[3].Name</h5>
+                                <p class="card__book-price" style="text-align: center">
+                                    @ListSalesBook[3].CurrentPrice.ToString("##,###") VND
                                 </p>
                                 <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
                             </div>
