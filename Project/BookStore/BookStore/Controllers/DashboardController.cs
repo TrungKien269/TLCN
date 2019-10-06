@@ -101,5 +101,12 @@ namespace BookStore.Controllers
                 return RedirectToAction("Index", "Dashboard");
             }
         }
+
+        [HttpPost("Profile")]
+        public async Task<Response> GetProfile()
+        {
+            var userid = await Task.FromResult<int>(HttpContext.Session.GetInt32("UserID").Value);
+            return await dashboardBal.GetUser(userid);
+        }
     }
 }

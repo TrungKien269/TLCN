@@ -19,18 +19,32 @@ namespace BookStore.BUS.Logic
 
         public async Task<Response> GetList()
         {
-            var list = await context.Book.Where(x => x.OriginalPrice > 50000 && x.OriginalPrice < 130000)
-                .OrderBy(x => x.Id)
-                .Take(30).Skip(10).ToListAsync();
-            return new Response("Success", true, 0, list);
+            try
+            {
+                var list = await context.Book.Where(x => x.OriginalPrice > 50000 && x.OriginalPrice < 130000)
+                    .OrderBy(x => x.Id)
+                    .Take(30).Skip(10).ToListAsync();
+                return new Response("Success", true, 0, list);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
         }
 
         public async Task<Response> GetBookFromFamousPublisher(string id)
         {
-            var publisher = await context.FamousPublisher.Where(x => x.Id.Equals(int.Parse(id))).FirstOrDefaultAsync();
-            var task = await context.PublisherBook.Where(x => x.Publisher.Name.Contains(publisher.Name))
-                .Select(x => x.Book).Take(4).ToListAsync();
-            return new Response("Success", true, 1, task);
+            try
+            {
+                var publisher = await context.FamousPublisher.Where(x => x.Id.Equals(int.Parse(id))).FirstOrDefaultAsync();
+                var task = await context.PublisherBook.Where(x => x.Publisher.Name.Contains(publisher.Name))
+                    .Select(x => x.Book).Take(4).ToListAsync();
+                return new Response("Success", true, 1, task);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
         }
 
         public Task<Response> Insert(Book obj)
@@ -48,9 +62,26 @@ namespace BookStore.BUS.Logic
             throw new NotImplementedException();
         }
 
-        public Task<Response> GetObject(string id)
+        public async Task<Response> GetObject(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var book = await context.Book.Include(x => x.AuthorBook).Include(x => x.BookCategory)
+                    .Include(x => x.Comment).Include(x => x.FormBook).Include(x => x.ImageBook)
+                    .Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+                if (book is null)
+                {
+                    return new Response("Cannot find this book", false, 0, null);
+                }
+                else
+                {
+                    return new Response("Success", true, 1, book);
+                }
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
         }
     }
 }

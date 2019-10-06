@@ -10,19 +10,19 @@ namespace BookStore.BUS.Control
 {
     public class DashboardBAL
     {
-        private BookStoreContext context;
         private BookBAL bookBal;
         private CategoryBAL categoryBal;
         private AccountBAL accountBal;
         private PublisherBAL publisherBal;
+        private UserBAL UserBal;
 
         public DashboardBAL()
         {
-            this.context = new BookStoreContext();
             bookBal = new BookBAL();
             this.categoryBal = new CategoryBAL();
             this.accountBal = new AccountBAL();
             publisherBal = new PublisherBAL();
+            this.UserBal = new UserBAL();
         }
 
         public async Task<Response> GetListCategory()
@@ -63,6 +63,11 @@ namespace BookStore.BUS.Control
                 return await Task.FromResult(new Response("Success", true, 0, null));
             }
             return await accountBal.SetCookie(null, account.Obj as Account);
+        }
+
+        public async Task<Response> GetUser(int id)
+        {
+            return await UserBal.GetUser(id);
         }
     }
 }

@@ -84,6 +84,13 @@
                 $(".tab-content div.card p.card__book-price").css("text-align", "center");
             }
         });
-        
+    });
+
+    $("a#linkProfile").click(function (e) {
+        e.preventDefault();
+        $.post("/Profile",
+            function (data) {
+                console.log(data);
+            });
     });
 });

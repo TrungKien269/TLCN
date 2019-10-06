@@ -21,5 +21,10 @@ namespace BookStore.Models
             this.Status = status;
             this.Obj = obj;
         }
+
+        public static Response CatchError(string message)
+        {
+            return new Response(message, false, 0, null);
+        }
     }
 }

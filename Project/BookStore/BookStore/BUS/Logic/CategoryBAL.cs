@@ -19,14 +19,28 @@ namespace BookStore.BUS.Logic
 
         public async Task<Response> GetList()
         {
-            var list = await context.Category.Include(x => x.SubCategory).ToListAsync();
-            return new Response("Success", true, 0, list);
+            try
+            {
+                var list = await context.Category.Include(x => x.SubCategory).ToListAsync();
+                return new Response("Success", true, 0, list);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
         }
 
         public async Task<Response> GetSubList(string category)
         {
-            var list = await context.SubCategory.Where(x => x.Cate.Name.Equals(category)).ToListAsync();
-            return new Response("Success", true, 0, list);
+            try
+            {
+                var list = await context.SubCategory.Where(x => x.Cate.Name.Equals(category)).ToListAsync();
+                return new Response("Success", true, 0, list);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
         }
     }
 }

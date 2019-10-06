@@ -19,8 +19,15 @@ namespace BookStore.BUS.Logic
 
         public async Task<Response> GetFamousList()
         {
-            var task = await context.FamousPublisher.ToListAsync();
-            return new Response("Success", true, 1, task);
+            try
+            {
+                var task = await context.FamousPublisher.ToListAsync();
+                return new Response("Success", true, 1, task);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
         }
     }
 }
