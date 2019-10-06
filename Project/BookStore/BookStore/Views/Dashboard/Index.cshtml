@@ -106,8 +106,9 @@
         @foreach (var book in ListSalesBook)
         {
             <div class="card card-product">
-                <a href="#">
+                <a href="/Book/@book.Id">
                     <img class="card-img-top img-cover img-cover-30" src="@book.Image" alt="Card image cap">
+                    <p></p>
                     <div class="card-body">
                         <h5 class="card__book-title">@book.Name</h5>
                         <p class="card__book-price" style="text-align: center">
@@ -149,10 +150,9 @@
     <div class="tab-content">
         <div class="tab-pane active container-fluid" id="menu">
             <div class="row">
-                
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="#">
+                        <a href="/Book/@ListSalesBook[0].Id" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[0].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[0].Name</h5>
@@ -172,10 +172,9 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="#">
+                        <a href="/Book/@ListSalesBook[1].Id" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[1].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[1].Name</h5>
@@ -195,10 +194,9 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="#">
+                        <a href="/Book/@ListSalesBook[2].Id" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[2].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[2].Name</h5>
@@ -218,10 +216,9 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="#">
+                        <a href="/Book/@ListSalesBook[3].Id" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[3].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[3].Name</h5>

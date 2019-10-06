@@ -1,0 +1,13 @@
+﻿@using BookStore.Models.Objects
+@{
+    Layout = "BookInfo_Layout";
+    ViewBag.Title = Model.Name;
+}
+@model Book
+Name: <p>@Model.Name</p><br />
+Release Year: <p>@Model.ReleaseYear</p><br />
+Current Price: <p>@Model.CurrentPrice</p><br />
+Weight: <p>@Model.Weight</p><br />
+Number of pages: <p>@Model.NumOfPage</p><br />
+Description:
+@Html.Raw(Model.Summary);
