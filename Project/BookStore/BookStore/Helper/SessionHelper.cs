@@ -19,5 +19,15 @@ namespace BookStore.Helper
             var value = session.GetString(key);
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
+
+        public static void SetWebsiteSession(ISession session, string hash)
+        {
+            session.SetString("BookStore", hash);
+        }
+
+        public static void SetUserSession(ISession session, int userID)
+        {
+            session.SetInt32("UserID", userID);
+        }
     }
 }

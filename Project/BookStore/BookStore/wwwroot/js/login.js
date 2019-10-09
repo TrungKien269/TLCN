@@ -1,13 +1,14 @@
 ﻿$(document).ready(function () {
 
-    $("form").submit(function (e) {
+    $("#loginForm").submit(function (e) {
         e.preventDefault();
         var username = "rletty0";
         var password = "HY5KFJLu";
         var form = $(this);
         var url = form.attr('action');
 
-        if (checkFormValidateOrNot() === true) {
+
+        if (checkFormValidateOrNot(form) === true) {
             $.ajax({
                 type: "POST",
                 //url: "/Login/",
@@ -27,22 +28,42 @@
                 }
             });
         }
+
     });
 
-    function checkFormValidateOrNot() {
+    $("#signupForm").submit(function (e) {
+        e.preventDefault();
+        var form = $(this);
+        var url = form.attr('action');
 
-        if ($(".field-validation-error").length > 0) {
+        if (checkFormValidateOrNot(form) === true) {
+            $.post(url,
+                form.serialize(),
+                function (data) {
+                    if (data.status === true) {
+                        alert("Success");
+                        window.location = "/";
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                });
+        }
+    });
+
+    function checkFormValidateOrNot(form) {
+        console.log(form.attr("id"));
+        if ($("#" + form.attr("id") + " .field-validation-error").length > 0) {
             return false;
         }
 
         $(".form-control").each(function () {
-            if ($(this).attr("data-val") == "true" && $(this).val() == "" &&
-                $(this).is("select") == false) {
+            if ($(this).attr("data-val") === "true" && $(this).val() === "" &&
+                $(this).is("select") === false) {
                 return false;
             }
         });
 
         return true;
     }
-
 });

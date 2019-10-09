@@ -9,19 +9,25 @@ namespace BookStore.Models.Objects
         const string RegExInvalidCharacters = @"[^&<>\""'/]*$";
 
         public int Id { get; set; }
+
         [Required(ErrorMessage = "Username must not be blank!")]
         [DataType(DataType.MultilineText)]
-        [RegularExpression(RegExInvalidCharacters, ErrorMessage = "InvalidCharacters")]
+        [RegularExpression(RegExInvalidCharacters, ErrorMessage = "Invalid Characters")]
         public string Username { get; set; }
+
         [Required(ErrorMessage = "Password must not be blank!")]
         [DataType(DataType.Password)]
-        [RegularExpression(RegExInvalidCharacters, ErrorMessage = "InvalidCharacters")]
+        [MinLength(8, ErrorMessage = "Password must be at least 8")]
+        [RegularExpression(RegExInvalidCharacters, ErrorMessage = "Invalid Characters")]
         public string Password { get; set; }
+
         public string Salt { get; set; }
-        [Required(ErrorMessage = "Email must not be blank!")]
+
         [DataType(DataType.EmailAddress)]
-        [RegularExpression(RegExInvalidCharacters, ErrorMessage = "InvalidCharacters")]
+        [Required(ErrorMessage = "Email must not be blank!")]
+        [RegularExpression(RegExInvalidCharacters, ErrorMessage = "Invalid Characters")]
         public string Email { get; set; }
+
         public DateTime CreatedDateTime { get; set; }
         public string Cookie { get; set; }
 

@@ -9,12 +9,17 @@ namespace BookStore.Helper
 {
     public class CookieHelper
     {
-        public static async Task<CookieOptions> SetCookie()
+        public static CookieOptions SetCookie()
         {
-            return await Task.FromResult<CookieOptions>(new CookieOptions
+            return new CookieOptions
             {
                 Expires = DateTime.Now.AddHours(2)
-            });
+            };
+        }
+
+        public static void SetWebsiteCookie(HttpResponse Response, string hash)
+        {
+            Response.Cookies.Append("BookStore", hash, CookieHelper.SetCookie());
         }
     }
 }

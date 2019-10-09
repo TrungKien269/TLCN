@@ -22,7 +22,8 @@ namespace BookStore.BUS.Logic
         {
             try
             {
-                var account = await context.Account.Include(x => x.IdNavigation).Where(x => x.Username.Equals(username))
+                var account = await context.Account.Include(x => x.IdNavigation)
+                    .Where(x => x.Username.Equals(username) || x.Email.Equals(username))
                     .FirstOrDefaultAsync();
                 if (account != null)
                 {
@@ -32,15 +33,8 @@ namespace BookStore.BUS.Logic
                     {
                         return new Response("Success", true, 1, account);
                     }
-                    else
-                    {
-                        return new Response("Wrong password", false, 0, null);
-                    }
                 }
-                else
-                {
-                    return new Response("Wrong username", false, 0, null);
-                }
+                return new Response("Username or Password was wrong!", false, 0, null);
             }
             catch (Exception e)
             {
@@ -88,6 +82,47 @@ namespace BookStore.BUS.Logic
             catch (Exception e)
             {
                 return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> CheckAccount(Account account)
+        {
+            try
+            {
+                var username = await context.Account.Where(x => x.Username.Equals(account.Username))
+                    .FirstOrDefaultAsync();
+                if (username is null)
+                {
+                    var email = await context.Account.Where(x => x.Email.Equals(account.Email))
+                        .FirstOrDefaultAsync();
+                    if (email != null)
+                    {
+                        return new Response("This email has already been used!", false, 0, null);
+                    }
+                    return new Response("Success", true, 1, null);
+                }
+                else
+                {
+                    return new Response("This username has already been used!", false, 0, null);
+                }
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> Create(Account account)
+        {
+            await context.Account.AddAsync(account);
+            var check = await context.SaveChangesAsync();
+            if (check is 1)
+            {
+                return new Response("Success", true, 1, account);
+            }
+            else
+            {
+                return new Response("Can not create this account", false, 0, null);
             }
         }
     }

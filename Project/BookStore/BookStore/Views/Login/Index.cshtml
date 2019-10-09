@@ -2,30 +2,79 @@
 @{
     Layout = "Login_Layout";
 }
-@model Account
+@model User
 
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
+            <h2 style="text-align: center">Login</h2>
             @Html.AntiForgeryToken()
             <form asp-action="Login" asp-controller="Login" method="post" id="loginForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Username" class="control-label"></label>
-                    <input asp-for="Username" class="form-control" />
-                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <label asp-for="Account.Username" class="control-label">Username or Email</label>
+                    <input asp-for="Account.Username" class="form-control" />
+                    <span asp-validation-for="Account.Username" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <label asp-for="Account.Password" class="control-label"></label>
+                    <input asp-for="Account.Password" class="form-control" />
+                    <span asp-validation-for="Account.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Login" class="btn btn-info" />
                 </div>
-                @*Username: <input type="text" name="username" /> <br />
-                    Password: <input type="password" name="password" /> <br />
-                    <input type="submit" value="Login" />*@
+            </form>
+        </div>
+
+        <div class="col-sm-6">
+            @Html.AntiForgeryToken()
+            <h2 style="text-align: center">Sign up</h2>
+            <form asp-controller="Login" asp-action="Signup" id="signupForm" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Account.Username" class="control-label"></label>
+                    <input asp-for="Account.Username" class="form-control" />
+                    <span asp-validation-for="Account.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Account.Password" class="control-label"></label>
+                    <input asp-for="Account.Password" class="form-control" />
+                    <span asp-validation-for="Account.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Account.Email" class="control-label"></label>
+                    <input asp-for="Account.Email" class="form-control" />
+                    <span asp-validation-for="Account.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Gender" type="radio" value="Male" /> Male
+                    <input asp-for="Gender" type="radio" value="Female" /> Female
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Birthday" class="control-label"></label>
+                    <input asp-for="Birthday" type="date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Birthday" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Signup" class="btn btn-info" />
+                </div>
             </form>
         </div>
     </div>
