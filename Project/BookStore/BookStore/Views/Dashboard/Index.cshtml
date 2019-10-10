@@ -1,4 +1,10 @@
 ﻿@using BookStore.Models.Objects;
+@using System.Net
+@using BookStore.Models.Objects;
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http.Extensions;
+@using Microsoft.AspNetCore.WebUtilities
+@using BookStore.Helper;
 @{
     Layout = "Dashboard_Layout";
     List<Book> ListSalesBook = (List<Book>)ViewBag.ListSalesBook;
@@ -16,23 +22,23 @@
     </div>
     <div class="nav__social-icon d-flex justify-content-center">
         @*<a href="#" data-toggle="tooltip" data-placement="bottom" title="Wish list">
-            <i class="far fa-heart"></i>
-        </a>*@
+                <i class="far fa-heart"></i>
+            </a>*@
         @*<div class="dropdown">
-            <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-shopping-cart"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
             </div>
-        </div>
 
 
-        <a href="/Login">
-            <i class="far fa-user"></i>
-        </a>*@
+            <a href="/Login">
+                <i class="far fa-user"></i>
+            </a>*@
 
         <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
 
@@ -96,7 +102,7 @@
         @foreach (var book in ListSalesBook)
         {
             <div class="card card-product">
-                <a href="/Book/@book.Id">
+                <a href="@WebUtility.UrlEncode("/Book/" + book.Id)">
                     <img class="card-img-top img-cover img-cover-30" src="@book.Image" alt="Card image cap">
                     <p></p>
                     <div class="card-body">
@@ -140,9 +146,10 @@
     <div class="tab-content">
         <div class="tab-pane active container-fluid" id="menu">
             <div class="row">
+
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="/Book/@ListSalesBook[0].Id" class="linkBook">
+                        <a href="@WebUtility.UrlEncode("/Book/" + ListSalesBook[0].Id)" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[0].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[0].Name</h5>
@@ -164,7 +171,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="/Book/@ListSalesBook[1].Id" class="linkBook">
+                        <a href="@WebUtility.UrlEncode("/Book/" + ListSalesBook[1].Id)" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[1].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[1].Name</h5>
@@ -186,7 +193,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="/Book/@ListSalesBook[2].Id" class="linkBook">
+                        <a href="@WebUtility.UrlEncode("/Book/" + ListSalesBook[2].Id)" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[2].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[2].Name</h5>
@@ -208,7 +215,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="/Book/@ListSalesBook[3].Id" class="linkBook">
+                        <a href="@WebUtility.UrlEncode("/Book/" + ListSalesBook[3].Id)" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[3].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[3].Name</h5>

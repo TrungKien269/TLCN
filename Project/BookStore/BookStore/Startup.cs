@@ -39,7 +39,8 @@ namespace BookStore
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.IdleTimeout =
+                    TimeSpan.FromHours(int.Parse(Configuration.GetSection("ExpireTime").Value.ToString()));
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });

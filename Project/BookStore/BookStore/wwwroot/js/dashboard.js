@@ -6,7 +6,7 @@
 
     $(".Category").click(function (e) {
         e.stopPropagation();
-        if ($("ol").length == 0) {
+        if ($("ol").length === 0) {
             var name = $(this).text();
             var currentCate = $(this);
             $("ol").remove();
@@ -14,10 +14,6 @@
                 type: "GET",
                 url: "/SubLists/" + name,
                 success: function (data) {
-                    //console.log(data);
-                    //for (var i = 0; i < data.length; i++) {
-                    //    console.log(data[i]);
-                    //}
                     $("<ol></ol>").insertAfter(currentCate);
                     data.forEach(function (item) {
                         $("ol").prepend(
@@ -33,38 +29,13 @@
         else {
             $("ol").remove();
         }
-
-        //$.ajax({
-        //    //type: "POST",
-        //    //url: "/Login/",
-        //    //data: {username: username, password: password},
-        //    //success: function (data) {
-        //    //    console.log(data.message);
-        //    //},
-        //    //error: function (err) {
-        //    //    console.log(err);
-        //    //}
-        //});
-
-        //$.post("/Login",
-        //    {
-        //        username: username,
-        //        password: password
-        //    }, function (data) {
-        //        console.log(data.obj);
-        //        $("ul").append(
-        //            '<li>' + data.obj.username + '</li>' +
-        //            '<li>' + data.obj.password + '</li>' +
-        //            '<li>' + data.obj.salt + '</li>'
-        //        );
-        //    });
     });
 
     $("#lbLogout").click(function (e) {
         e.preventDefault();
         $.get("/Logout",
             function (data) {
-                if (data.status == true) {
+                if (data.status === true) {
                     window.location = "/";
                 };
             });
@@ -83,7 +54,7 @@
                     .text((parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND");
                 $(".tab-content div.card p.card__book-price").css("text-align", "center");
                 $(".tab-content div.col-md-3:eq(" + (parseInt(i)) + ") a.linkBook")
-                    .attr("href", "/Book/" + data.obj[i].id);
+                    .attr("href", encodeURIComponent("/Book/" + data.obj[i].id));
             }
         });
     });
