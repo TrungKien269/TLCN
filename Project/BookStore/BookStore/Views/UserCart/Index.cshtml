@@ -2,5 +2,10 @@
 @{
     Layout = "Cart_Layout";
 }
+@model Cart
 
 <h1>List of Product</h1>
+@foreach (var book in Model.CartBook)
+{
+    <p>@book.Book.Name</p>
+}

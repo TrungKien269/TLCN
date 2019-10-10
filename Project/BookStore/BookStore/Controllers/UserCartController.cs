@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStore.BUS.Control;
+using BookStore.BUS.Logic;
+using BookStore.Models.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +14,17 @@ namespace BookStore.Controllers
 {
     public class UserCartController : Controller
     {
+        private UserCartBAL userCartBal;
+        private AccountBAL accountBal;
+
+        public UserCartController()
+        {
+            this.userCartBal = new UserCartBAL();
+            this.accountBal = new AccountBAL();
+        }
+
         [HttpGet("Cart")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var session = HttpContext.Session.GetString("BookStore");
             if (session is null)
@@ -20,7 +32,8 @@ namespace BookStore.Controllers
                 HttpContext.Session.SetString("PreviousState", "Cart");
                 return RedirectToAction("Index", "Login");
             }
-            return View();
+            var userID = ((await accountBal.GetAccountByCookie(session)).Obj as Account).Id;
+            return View((await userCartBal.GetCart(userID)).Obj as Cart);
         }
     }
 }

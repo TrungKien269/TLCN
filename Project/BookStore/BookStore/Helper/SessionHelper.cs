@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStore.Models.Objects;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -28,6 +29,21 @@ namespace BookStore.Helper
         public static void SetUserSession(ISession session, int userID)
         {
             session.SetInt32("UserID", userID);
+        }
+
+        public static void SetCartSession(ISession session)
+        {
+            SetObjectAsJson(session, "Cart", new List<CartBook>());
+        }
+
+        public static List<CartBook> GetCartSession(ISession session)
+        {
+            return GetObjectFromJson<List<CartBook>>(session, "Cart");
+        }
+
+        public static void ClearSession(ISession session)
+        {
+            session.Clear();
         }
     }
 }
