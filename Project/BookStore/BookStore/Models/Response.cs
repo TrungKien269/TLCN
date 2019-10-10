@@ -11,8 +11,18 @@ namespace BookStore.Models
         public bool Status { get; set; }
         public int? Line { get; set; }
         public object Obj { get; set; }
+        public string previousState { get; set; }
 
         public Response() { }
+
+        public Response(string message, bool status, int line, object obj, string state)
+        {
+            this.Line = line;
+            this.Message = message;
+            this.Status = status;
+            this.Obj = obj;
+            this.previousState = state;
+        }
 
         public Response(string message, bool status, int line, object obj)
         {
@@ -20,6 +30,7 @@ namespace BookStore.Models
             this.Message = message;
             this.Status = status;
             this.Obj = obj;
+            this.previousState = null;
         }
 
         public static Response CatchError(string message)

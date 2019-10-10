@@ -7,17 +7,17 @@ namespace BookStore.Models.Objects
     {
         public Book()
         {
-            AuthorBook = new HashSet<AuthorBook>();
-            BookCategory = new HashSet<BookCategory>();
-            CartBook = new HashSet<CartBook>();
-            Comment = new HashSet<Comment>();
-            FormBook = new HashSet<FormBook>();
-            ImageBook = new HashSet<ImageBook>();
-            OrderDetail = new HashSet<OrderDetail>();
-            PromotionDetail = new HashSet<PromotionDetail>();
-            PublisherBook = new HashSet<PublisherBook>();
-            Rating = new HashSet<Rating>();
-            SupplierBook = new HashSet<SupplierBook>();
+            AuthorBook = new List<AuthorBook>();
+            BookCategory = new List<BookCategory>();
+            CartBook = new List<CartBook>();
+            Comment = new List<Comment>();
+            FormBook = new List<FormBook>();
+            ImageBook = new List<ImageBook>();
+            OrderDetail = new List<OrderDetail>();
+            PromotionDetail = new List<PromotionDetail>();
+            PublisherBook = new List<PublisherBook>();
+            Rating = new List<Rating>();
+            SupplierBook = new List<SupplierBook>();
         }
 
         public string Id { get; set; }
@@ -31,16 +31,16 @@ namespace BookStore.Models.Objects
         public string Summary { get; set; }
         public string Status { get; set; }
 
-        public ICollection<AuthorBook> AuthorBook { get; set; }
-        public ICollection<BookCategory> BookCategory { get; set; }
-        public ICollection<CartBook> CartBook { get; set; }
-        public ICollection<Comment> Comment { get; set; }
-        public ICollection<FormBook> FormBook { get; set; }
-        public ICollection<ImageBook> ImageBook { get; set; }
-        public ICollection<OrderDetail> OrderDetail { get; set; }
-        public ICollection<PromotionDetail> PromotionDetail { get; set; }
-        public ICollection<PublisherBook> PublisherBook { get; set; }
-        public ICollection<Rating> Rating { get; set; }
-        public ICollection<SupplierBook> SupplierBook { get; set; }
+        public List<AuthorBook> AuthorBook { get; set; }
+        public List<BookCategory> BookCategory { get; set; }
+        public List<CartBook> CartBook { get; set; }
+        public List<Comment> Comment { get; set; }
+        public List<FormBook> FormBook { get; set; }
+        public List<ImageBook> ImageBook { get; set; }
+        public List<OrderDetail> OrderDetail { get; set; }
+        public List<PromotionDetail> PromotionDetail { get; set; }
+        public List<PublisherBook> PublisherBook { get; set; }
+        public List<Rating> Rating { get; set; }
+        public List<SupplierBook> SupplierBook { get; set; }
     }
 }

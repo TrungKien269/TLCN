@@ -7,12 +7,12 @@ namespace BookStore.Models.Objects
     {
         public Category()
         {
-            SubCategory = new HashSet<SubCategory>();
+            SubCategory = new List<SubCategory>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<SubCategory> SubCategory { get; set; }
+        public List<SubCategory> SubCategory { get; set; }
     }
 }

@@ -7,12 +7,12 @@ namespace BookStore.Models.Objects
     {
         public Form()
         {
-            FormBook = new HashSet<FormBook>();
+            FormBook = new List<FormBook>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<FormBook> FormBook { get; set; }
+        public List<FormBook> FormBook { get; set; }
     }
 }

@@ -7,12 +7,12 @@ namespace BookStore.Models.Objects
     {
         public Author()
         {
-            AuthorBook = new HashSet<AuthorBook>();
+            AuthorBook = new List<AuthorBook>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<AuthorBook> AuthorBook { get; set; }
+        public List<AuthorBook> AuthorBook { get; set; }
     }
 }

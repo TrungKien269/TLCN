@@ -16,7 +16,12 @@
                 data: form.serialize(),
                 success: function (data) {
                     if (data.status === true) {
-                        window.location = "/";
+                        if (data.previousState === null) {
+                            window.location = "/";
+                        }
+                        else {
+                            window.location = "/" + data.previousState;
+                        }
                     }
                     else {
                         alert(data.message);

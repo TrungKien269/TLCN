@@ -7,7 +7,7 @@ namespace BookStore.Models.Objects
     {
         public Promotion()
         {
-            PromotionDetail = new HashSet<PromotionDetail>();
+            PromotionDetail = new List<PromotionDetail>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace BookStore.Models.Objects
         public DateTime EndedDate { get; set; }
         public string Description { get; set; }
 
-        public ICollection<PromotionDetail> PromotionDetail { get; set; }
+        public List<PromotionDetail> PromotionDetail { get; set; }
     }
 }

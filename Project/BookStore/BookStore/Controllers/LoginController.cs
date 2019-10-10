@@ -34,6 +34,7 @@ namespace BookStore.Controllers
         public async Task<Response> Login([FromForm] Account account)
         {
             var response = await loginBal.Login(account.Username, account.Password);
+            response.previousState = HttpContext.Session.GetString("PreviousState");
             if (response.Status == true)
             {
                 var hash = await Task.FromResult<string>(

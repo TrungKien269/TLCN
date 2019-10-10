@@ -7,7 +7,7 @@ namespace BookStore.Models.Objects
     {
         public SubCategory()
         {
-            BookCategory = new HashSet<BookCategory>();
+            BookCategory = new List<BookCategory>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace BookStore.Models.Objects
         public int CateId { get; set; }
 
         public Category Cate { get; set; }
-        public ICollection<BookCategory> BookCategory { get; set; }
+        public List<BookCategory> BookCategory { get; set; }
     }
 }

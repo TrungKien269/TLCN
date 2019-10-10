@@ -7,7 +7,7 @@ namespace BookStore.Models.Objects
     {
         public Order()
         {
-            OrderDetail = new HashSet<OrderDetail>();
+            OrderDetail = new List<OrderDetail>();
         }
 
         public string Id { get; set; }
@@ -19,6 +19,6 @@ namespace BookStore.Models.Objects
         public string Status { get; set; }
 
         public User User { get; set; }
-        public ICollection<OrderDetail> OrderDetail { get; set; }
+        public List<OrderDetail> OrderDetail { get; set; }
     }
 }

@@ -10,9 +10,9 @@ namespace BookStore.Models.Objects
 
         public User()
         {
-            Comment = new HashSet<Comment>();
-            Order = new HashSet<Order>();
-            Rating = new HashSet<Rating>();
+            Comment = new List<Comment>();
+            Order = new List<Order>();
+            Rating = new List<Rating>();
         }
 
         public int Id { get; set; }
@@ -40,8 +40,8 @@ namespace BookStore.Models.Objects
 
         public Account Account { get; set; }
         public Cart Cart { get; set; }
-        public ICollection<Comment> Comment { get; set; }
-        public ICollection<Order> Order { get; set; }
-        public ICollection<Rating> Rating { get; set; }
+        public List<Comment> Comment { get; set; }
+        public List<Order> Order { get; set; }
+        public List<Rating> Rating { get; set; }
     }
 }
