@@ -23,7 +23,7 @@
 
     var setDirection = {
         bgVertical: function (elem, bgOffset) {
-            return elem.css({'background-position': 'center ' + -bgOffset + 'px'});
+            return elem.css({'background-position': 'center' + -bgOffset + 'px'});
         },
         bgHorizontal: function (elem, bgOffset) {
             return elem.css({'background-position': -bgOffset + 'px' + ' center'});

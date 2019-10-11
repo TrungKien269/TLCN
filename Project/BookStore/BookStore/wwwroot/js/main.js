@@ -1,7 +1,4 @@
 
-
-
-
 jQuery(document).ready(function ($) {
   jQuery(".owl-carousel-product").length && jQuery('.owl-carousel-product').owlCarousel({
     nav: true
@@ -25,10 +22,43 @@ jQuery(document).ready(function ($) {
         items: 6
       }
     }
-    , navElement:'div',   
+    , navElement: 'div',
   });
 
 });
+$('.owl-service').owlCarousel({
+  loop: false,
+  autoWidth: false,
+  margin: 0,
+  dots: false,
+  items: 4,
+  responsive: {
+    0: {
+      items: 2
+    }
+    , 320: {
+      items: 3
+    }
+    , 1200: {
+      items: 4
+    }
+  }
+})
+$('.owl-feature').owlCarousel({
+  loop: true,
+  margin: 0,
+  dots: false,
+  items: 1.25,
+  center: true,
+  responsive: {
+    320: {
+      items: 1
+    }
+    , 1200: {
+      items: 1.25
+    }
+  }
+})
 
 
 

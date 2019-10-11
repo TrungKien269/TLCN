@@ -67,11 +67,11 @@
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div class="promo-text">
-                    <p class="wow slideInLeft">Back to school</p>
+                <div class="promo-text promo-text--right">
+                    <h3 class="wow slideInLeft">Back to school</h3>
                     <div class="promo-text-sub wow slideInRight" data-wow-delay=".5s">
                         Special
-                        <h2>50% OFF</h2>
+                        <h3>50% OFF</h3>
                     </div>
                     <h2 class="wow fadeInUp" data-wow-delay="1s">for our student community</h2>
                     <a href="#" class="btn btn--blue wow fadeIn" data-wow-delay="1.5s">get the deal</a>
@@ -90,6 +90,48 @@
             <i class="fas fa-chevron-right"></i>
         </a>
     </div>
+    <div class="service-bar">
+        <div class="container">
+            <div class="owl-carousel owl-theme owl-service">
+                <div class="service-item">
+                    <div class="service-img">
+                        <img src="img/delivery-icon.webp" alt="">
+                    </div>
+                    <div class="service-text">
+                        <div class="service-title">Quick delivery</div>
+                        <div class="service-caption">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</div>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-img">
+                        <img src="img/payment-icon.webp" alt="">
+                    </div>
+                    <div class="service-text">
+                        <div class="service-title">Pay with Easy</div>
+                        <div class="service-caption">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</div>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-img">
+                        <img src="img/deal-icon.webp" alt="">
+                    </div>
+                    <div class="service-text">
+                        <div class="service-title">best deal</div>
+                        <div class="service-caption">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</div>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-img">
+                        <img src="img/secured-icon.webp" alt="">
+                    </div>
+                    <div class="service-text">
+                        <div class="service-title">secured payment</div>
+                        <div class="service-caption">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 <section class="section__bestseller">
@@ -101,7 +143,7 @@
     <div class="owl-carousel owl-carousel-product owl-theme">
         @foreach (var book in ListSalesBook)
         {
-            <div class="card card-product">
+            <div class="card display-on-hover">
                 <a href="@WebUtility.UrlEncode("/Book/" + book.Id)">
                     <img class="card-img-top img-cover img-cover-30" src="@book.Image" alt="Card image cap">
                     <p></p>
@@ -110,9 +152,9 @@
                         <p class="card__book-price" style="text-align: center">
                             @book.CurrentPrice.ToString("##,###") VND
                         </p>
-                        <a href="#" class="btn btn-sm btn--blue">Add to cart</a>
+                        <a href="#" class="btn btn-sm btn--blue item-display">Add to cart</a>
                     </div>
-                    <div class="badge badge__utilities">
+                    <div class="badge badge__utilities item-display">
                         <a href="#" class="badge__utilities-blue">
                             <i class="fas fa-heart"></i>
                         </a>
