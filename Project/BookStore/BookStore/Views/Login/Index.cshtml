@@ -4,7 +4,40 @@
 }
 @model User
 
-<div class="container">
+<nav class="navbar navbar-shadow justify-content-between">
+    <a href="/" class="navbar-sm-brand">
+        <img src="images/logo.webp" alt="">
+    </a>
+    @*<div class="input__search-bar">
+        <input type="text" placeholder="Search">
+        <i class="fas fa-search"></i>
+    </div>
+    <div class="nav__social-icon d-flex justify-content-center">
+
+        <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
+
+        @if (@ViewBag.FullName is null)
+        {
+            <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
+        }
+        else
+        {
+            <div class="dropdown">
+                <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="far fa-user"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" id="linkProfile">Profile</a>
+                    <a class="dropdown-item" href="/Logout">Logout</a>
+                </div>
+            </div>
+        }
+
+    </div>*@
+
+</nav>
+
+@*<div class="container">
     <div class="row">
         <div class="col-sm-6">
             <h2 style="text-align: center">Login</h2>
@@ -78,4 +111,87 @@
             </form>
         </div>
     </div>
-</div>
+</div>*@
+
+<section class="section__login">
+    <div class="containter-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.AntiForgeryToken()
+                <h1>Login</h1>
+                <form asp-action="Login" asp-controller="Login" method="post" id="loginForm">
+                    <div class="field-control">
+                        <label asp-for="Account.Username">Username or Email</label>
+                        <input asp-for="Account.Username" required class="col-md-8">
+                        <span asp-validation-for="Account.Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="field-control">
+                        <label asp-for="Account.Password">Password</label>
+                        <input type="password" required asp-for="Account.Password" class="col-md-8">
+                        <span asp-validation-for="Account.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-12 pad-0-0 mar-top-md">
+                        <input type="submit" value="Login" class="btn btn-fit btn--blue" />
+                        @*<a href="#" class="btn btn-fit btn--blue">Login</a>*@
+                        <a href="#" class="reset_password">Lost your password ?</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                @Html.AntiForgeryToken()
+                <h1>Register</h1>
+                <div class="field-control">
+                    <label asp-for="Account.Username">Username</label>
+                    <input asp-for="Account.Username" class="col-md-8" />
+                    <span asp-validation-for="Account.Username" class="text-danger"></span>
+                </div>
+
+                <div class="field-control">
+                    <label asp-for="Account.Password">Password</label>
+                    <input asp-for="Account.Password" class="col-md-8" />
+                    <span asp-validation-for="Account.Password" class="text-danger"></span>
+                </div>
+
+                <div class="field-control">
+                    <label asp-for="Account.Email">Email</label>
+                    <input asp-for="Account.Email" class="col-md-8" />
+                    <span asp-validation-for="Account.Email" class="text-danger"></span>
+                </div>
+
+                <div class="field-control">
+                    <label asp-for="FullName">Full Name</label>
+                    <input asp-for="FullName" class="col-md-8" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="field-control">
+                    <input asp-for="Gender" type="radio" value="Male" /> Male
+                    <input asp-for="Gender" type="radio" value="Female" /> Female
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="field-control">
+                    <label asp-for="Birthday">Birthday</label>
+                    <input asp-for="Birthday" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Birthday" class="text-danger"></span>
+                </div>
+                <div class="field-control">
+                    <label asp-for="PhoneNumber">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="col-md-8" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="field-control">
+                    <label asp-for="Address">Address</label>
+                    <input asp-for="Address" class="col-md-8" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-12 pad-0-0 mar-top-md">
+                    @*<a href="#" class="btn btn-fit btn--blue">Register</a>*@
+                    <input type="submit" value="Signup" class="btn btn-fit btn--blue" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
