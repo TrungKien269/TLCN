@@ -31,9 +31,14 @@ namespace BookStore.Helper
             session.SetInt32("UserID", userID);
         }
 
-        public static void SetCartSession(ISession session)
+        public static void CreateCartSession(ISession session)
         {
             SetObjectAsJson(session, "Cart", new List<CartBook>());
+        }
+
+        public static void SetCartSession(ISession session, List<CartBook> cart)
+        {
+            SetObjectAsJson(session, "Cart", cart);
         }
 
         public static List<CartBook> GetCartSession(ISession session)

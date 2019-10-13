@@ -5,7 +5,14 @@
 @model Cart
 
 <h1>List of Product</h1>
-@foreach (var book in Model.CartBook)
+@if (Model is null)
 {
-    <p>@book.Book.Name</p>
+    <p>Not book to show!</p>
+}
+else
+{
+    foreach (var book in Model.CartBook)
+    {
+        <p>@book.Book.Name</p>
+    }
 }

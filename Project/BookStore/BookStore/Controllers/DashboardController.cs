@@ -40,7 +40,7 @@ namespace BookStore.Controllers
                     {
                         SessionHelper.SetWebsiteSession(HttpContext.Session, cookie);
                         SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id);
-                        SessionHelper.SetCartSession(HttpContext.Session);
+                        SessionHelper.CreateCartSession(HttpContext.Session);
                         ViewBag.Session = cookie;
                         ViewBag.UserID = (account.Obj as Account).Id;
                         ViewBag.FullName = account.Obj as Account is null
@@ -54,7 +54,7 @@ namespace BookStore.Controllers
                 ViewBag.Session = session;
                 var account = await dashboardBal.GetAccountByCookie(session);
                 SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id);
-                SessionHelper.SetCartSession(HttpContext.Session);
+                SessionHelper.CreateCartSession(HttpContext.Session);
                 ViewBag.FullName = account.Obj as Account is null
                     ? null
                     : (account.Obj as Account).IdNavigation.FullName;
