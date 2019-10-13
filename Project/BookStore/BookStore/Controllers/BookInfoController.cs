@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStore.BUS.Control;
+using BookStore.Helper;
 using BookStore.Models.Objects;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,8 @@ namespace BookStore.Controllers
         [HttpGet("Book/{id}")]
         public async Task<IActionResult> Index(string id)
         {
-            var response = await bookInfoBal.GetBook(id);
+            var originalID = SecureHelper.GetOriginalInput(id);
+            var response = await bookInfoBal.GetBook(originalID);
             return View(response.Obj as Book);
         }
     }

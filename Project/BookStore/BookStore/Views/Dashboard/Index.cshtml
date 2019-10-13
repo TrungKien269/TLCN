@@ -158,7 +158,7 @@
         @foreach (var book in ListSalesBook)
         {
             <div class="card display-on-hover">
-                <a href="@WebUtility.UrlEncode("/Book/" + book.Id)">
+                <a href="/Book/@SecureHelper.GetSecureOutput(book.Id)">
                     <img class="card-img-top img-cover img-cover-30" src="@book.Image" alt="Card image cap">
                     <p></p>
                     <div class="card-body">
@@ -205,7 +205,7 @@
 
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="@WebUtility.UrlEncode("/Book/" + ListSalesBook[0].Id)" class="linkBook">
+                        <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[0].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[0].Name</h5>
@@ -227,7 +227,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="@WebUtility.UrlEncode("/Book/" + ListSalesBook[1].Id)" class="linkBook">
+                        <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[1].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[1].Name</h5>
@@ -249,7 +249,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="@WebUtility.UrlEncode("/Book/" + ListSalesBook[2].Id)" class="linkBook">
+                        <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[2].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[2].Name</h5>
@@ -271,7 +271,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card card-product" style="height: 10rem">
-                        <a href="@WebUtility.UrlEncode("/Book/" + ListSalesBook[3].Id)" class="linkBook">
+                        <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" class="linkBook">
                             <img class="card-img-top" src="@ListSalesBook[3].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[3].Name</h5>

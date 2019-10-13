@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStore.Helper;
 using BookStore.Models;
 using BookStore.Models.Objects;
 using Microsoft.EntityFrameworkCore;
@@ -37,9 +38,13 @@ namespace BookStore.BUS.Logic
             try
             {
                 var publisher = await context.FamousPublisher.Where(x => x.Id.Equals(int.Parse(id))).FirstOrDefaultAsync();
-                var task = await context.PublisherBook.Where(x => x.Publisher.Name.Contains(publisher.Name))
+                var listBook = await context.PublisherBook.Where(x => x.Publisher.Name.Contains(publisher.Name))
                     .Select(x => x.Book).Take(4).ToListAsync();
-                return new Response("Success", true, 1, task);
+                foreach (var book in listBook)
+                {
+                    book.Id = SecureHelper.GetSecureOutput(book.Id);
+                }
+                return new Response("Success", true, 1, listBook);
             }
             catch (Exception e)
             {
