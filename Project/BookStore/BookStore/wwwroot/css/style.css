@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 html {
   font-size: 62.5%; }
@@ -365,13 +365,15 @@ body {
 .btn:link, .btn:visited {
   text-transform: uppercase;
   text-decoration: none;
-  padding: 1.5rem 6rem;
   display: inline-block;
   transition: all 0.2s;
   position: relative;
   font-size: 2rem;
   font-weight: 400;
   cursor: pointer; }
+
+.btn--lg {
+  padding: 1.5rem 6rem; }
 
 .btn--square {
   color: #1b8bcc;
@@ -392,7 +394,7 @@ body {
 .btn-fw {
   width: 100%;
   font-size: 1.4rem !important;
-  padding: 2rem 1.75rem !important;
+  padding: 1rem 1.75rem;
   filter: drop-shadow(0 0.5rem 0.4rem rgba(27, 139, 204, 0.6)); }
 
 .btn--rounded {
@@ -468,6 +470,7 @@ body {
   padding: 0 0 !important; }
 
 .carousel-control-prev, .carousel-control-next {
+  z-index: 90;
   color: #1b8bcc !important;
   font-size: 3rem;
   height: 5rem;
