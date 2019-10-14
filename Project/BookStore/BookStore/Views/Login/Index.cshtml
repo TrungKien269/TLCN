@@ -132,7 +132,7 @@
                         <span asp-validation-for="Account.Password" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-12 pad-0-0 mar-top-md">
+                    <div class="col-md-8 pad-0-0 mar-top-md">
                         <input type="submit" value="Login" class="btn btn-fit btn--blue" />
                         @*<a href="#" class="btn btn-fit btn--blue">Login</a>*@
                         <a href="#" class="reset_password">Lost your password ?</a>
@@ -173,7 +173,7 @@
                 </div>
                 <div class="field-control">
                     <label asp-for="Birthday">Birthday</label>
-                    <input asp-for="Birthday" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <input asp-for="Birthday" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="col-md-8" />
                     <span asp-validation-for="Birthday" class="text-danger"></span>
                 </div>
                 <div class="field-control">
@@ -187,7 +187,7 @@
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
 
-                <div class="col-md-12 pad-0-0 mar-top-md">
+                <div class="col-md-8 pad-0-0 mar-top-md">
                     @*<a href="#" class="btn btn-fit btn--blue">Register</a>*@
                     <input type="submit" value="Signup" class="btn btn-fit btn--blue" />
                 </div>
