@@ -58,14 +58,18 @@ namespace BookStore.Controllers
             {
                 ViewBag.Session = session;
                 var account = await dashboardBal.GetAccountByCookie(session);
-                SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id);
-                SessionHelper.CreateCartSession(HttpContext.Session);
+                if (account.Status is true)
+                {
+                    SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id);
+                }
+                //SessionHelper.CreateCartSession(HttpContext.Session);
                 ViewBag.FullName = account.Obj as Account is null
                     ? null
                     : (account.Obj as Account).IdNavigation.FullName;
             }
             ViewBag.ListSalesBook = (await dashboardBal.GetListSalesBook()).Obj as List<Book>;
             ViewBag.ListFamousPublisher = (await dashboardBal.GetListFamousPublisher()).Obj as List<FamousPublisher>;
+            ViewBag.ListCategory = (await dashboardBal.GetListCategory()).Obj as List<Category>;
 
             return View(response.Obj as List<Category>);
         }
