@@ -34,5 +34,31 @@ namespace BookStore.BUS.Logic
                 return Response.CatchError(e.Message);
             }
         }
+
+        public async Task<Response> CreateCart(int userID)
+        {
+            try
+            {
+                var cart = new Cart
+                {
+                    Id = userID,
+                    CreatedDate = DateTime.Now
+                };
+                await context.Cart.AddAsync(cart);
+                var check = await context.SaveChangesAsync();
+                if (check is 1)
+                {
+                    return new Response("Success", true, 1, cart);
+                }
+                else
+                {
+                    return new Response("Can not create a cart for this account!", false, 0, null);
+                }
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
     }
 }

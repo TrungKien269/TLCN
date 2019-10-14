@@ -88,5 +88,25 @@ namespace BookStore.BUS.Logic
                 return Response.CatchError(e.Message);
             }
         }
+
+        public async Task<Response> GetBookOnly(string id)
+        {
+            try
+            {
+                var book = await context.Book.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+                if (book is null)
+                {
+                    return new Response("Cannot find this book", false, 0, null);
+                }
+                else
+                {
+                    return new Response("Success", true, 1, book);
+                }
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
     }
 }

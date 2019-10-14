@@ -2,7 +2,7 @@
 @{
     Layout = "Cart_Layout";
 }
-@model Cart
+@model List<CartBook>
 
 <h1>List of Product</h1>
 @if (Model is null)
@@ -11,8 +11,8 @@
 }
 else
 {
-    foreach (var book in Model.CartBook)
+    foreach (var cartbook in Model)
     {
-        <p>@book.Book.Name</p>
+        <p>@cartbook.Book.Name</p>
     }
 }

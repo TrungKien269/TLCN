@@ -1,4 +1,5 @@
-﻿@using BookStore.Models.Objects
+﻿@using BookStore.Helper
+@using BookStore.Models.Objects
 @{
     Layout = "BookInfo_Layout";
     ViewBag.Title = Model.Name;
@@ -11,3 +12,19 @@ Weight: <p>@Model.Weight</p><br />
 Number of pages: <p>@Model.NumOfPage</p><br />
 Description:
 @Html.Raw(Model.Summary);
+
+<button class="btn btn-info" id="btnAddCart">Add to cart</button>
+
+<script src="/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    $("#btnAddCart").click(function(e) {
+        $.post("/AddToCart",
+            {
+                id: "@SecureHelper.GetSecureOutput(Model.Id)"
+            },
+            function(data) {
+                console.log(data);
+            });
+    });
+</script>

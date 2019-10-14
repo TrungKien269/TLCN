@@ -48,6 +48,11 @@ namespace BookStore.Controllers
                             : (account.Obj as Account).IdNavigation.FullName;
                     }
                 }
+                else
+                {
+                    SessionHelper.SetAnonymousWebsiteSession(HttpContext.Session);
+                    SessionHelper.CreateCartSession(HttpContext.Session);
+                }
             }
             else
             {

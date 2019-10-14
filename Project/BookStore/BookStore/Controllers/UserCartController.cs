@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookStore.BUS.Control;
 using BookStore.BUS.Logic;
+using BookStore.Helper;
 using BookStore.Models.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,14 +27,25 @@ namespace BookStore.Controllers
         [HttpGet("Cart")]
         public async Task<IActionResult> Index()
         {
+            //var session = HttpContext.Session.GetString("BookStore");
+            //if (session is null)
+            //{
+            //    HttpContext.Session.SetString("PreviousState", "Cart");
+            //    return RedirectToAction("Index", "Login");
+            //}
+            //var userID = ((await accountBal.GetAccountByCookie(session)).Obj as Account).Id;
+            //return View((await userCartBal.GetCart(userID)).Obj as Cart);
+            HttpContext.Session.SetString("PreviousState", "Cart");
             var session = HttpContext.Session.GetString("BookStore");
-            if (session is null)
+            var task = await accountBal.GetAccountByCookie(session);
+            if (task.Status is false)
             {
-                HttpContext.Session.SetString("PreviousState", "Cart");
-                return RedirectToAction("Index", "Login");
+                return View(SessionHelper.GetCartSession(HttpContext.Session));
             }
-            var userID = ((await accountBal.GetAccountByCookie(session)).Obj as Account).Id;
-            return View((await userCartBal.GetCart(userID)).Obj as Cart);
+            else
+            {
+                return View((task.Obj as Cart).CartBook);
+            }
         }
     }
 }
