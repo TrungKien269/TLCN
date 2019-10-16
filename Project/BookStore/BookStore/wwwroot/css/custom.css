@@ -5,11 +5,11 @@
 [type="date"]::-webkit-calendar-picker-indicator {
     height:100%;    
     opacity: 0;
+ 
 }
-
-[type="date"]::-webkit-color-datetime-edit {
-    display: none;
-}
+    [type="date"]::-webkit-calendar-picker-indicator:hover{
+        cursor:pointer;
+    }
 
 [type="date"] {
     background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
@@ -20,22 +20,7 @@
     height: 0 !important;
 }
 
-.gender__selector {
-    font-size: 1.8rem !important;
-    cursor: pointer !important;
-    padding: 1rem 1rem;
-    margin: 1rem 0 !important;
-    height: auto;
-    width: auto !important;  
-    text-transform: uppercase;
-    border: 1px solid rgba(27, 139, 204,0);
-    transition: border .3s;
-}
 
-    .gender__selector:hover {
-        color: #1b8bcc !important;
-        border: 1px solid rgba(27, 139, 204,1);
-    }
 
 ul li {
     color: #aaaaaa;
