@@ -308,38 +308,42 @@
 </header>
 
 <section class="section__bestseller">
-    <div class="title-wrapper">
-        <h3>best sellers</h3>
-        <a href="#">View all</a>
-    </div>
+    <div class="container">
+        <div class="title-wrapper">
+            <h3>best sellers</h3>
+            <a href="#">View all</a>
+        </div>
 
-    <div class="owl-carousel owl-carousel-product owl-theme">
-        @foreach (var book in ListSalesBook)
-        {
-            <div class="card display-on-hover">
-                <a href="/Book/@SecureHelper.GetSecureOutput(book.Id)">
-                    <img class="card-img-top img-cover img-cover-30" src="@book.Image" alt="Card image cap">
-                    <p></p>
-                    <div class="card-body">
-                        <h5 class="card__book-title">@book.Name</h5>
-                        <p class="card__book-price" style="text-align: center">
-                            @book.CurrentPrice.ToString("##,###") VND
-                        </p>
-                        <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
-                    </div>
-                    <div class="badge badge__utilities item-display">
-                        <a href="#" class="badge__utilities-blue">
-                            <i class="fas fa-heart"></i>
-                        </a>
-                        <a href="#" class="badge__utilities-blue">
-                            <i class="fas fa-search"></i>
-                        </a>
+        <div class="owl-carousel owl-carousel-product owl-theme">
+            @foreach (var book in ListSalesBook)
+            {
+                <div class="card display-on-hover">
+                    <a href="/Book/@SecureHelper.GetSecureOutput(book.Id)">
+                        <img class="card-img-top img-cover img-cover-30" src="@book.Image" alt="Card image cap">
+                        <p></p>
+                        <div class="card-body">
+                            <h5 class="card__book-title">@book.Name</h5>
+                            <p class="card__book-price" style="text-align: center">
+                                @book.CurrentPrice.ToString("##,###") VND
+                            </p>
+                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                        </div>
+                        <div class="badge badge__utilities item-display">
+                            <a href="#" class="badge__utilities-blue">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                            <a href="#" class="badge__utilities-blue">
+                                <i class="fas fa-search"></i>
+                            </a>
 
-                    </div>
-                </a>
-            </div>
-        }
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
     </div>
+    
+    
 
 </section>
 

@@ -13,13 +13,13 @@ jQuery(document).ready(function ($) {
         items: 2
       }
       , 768: {
-        items: 4
+        items: 3
       }
       , 992: {
-        items: 5
+        items: 4
       }
       , 1200: {
-        items: 6
+        items: 5
       }
     }
     , navElement: 'div',
