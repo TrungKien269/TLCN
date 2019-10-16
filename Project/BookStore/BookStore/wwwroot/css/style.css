@@ -122,6 +122,29 @@ body {
   margin-bottom: 2rem;
   text-transform: capitalize; }
 
+.counting {
+  margin: 4rem 0; }
+  .counting-box {
+    padding: 1rem 1rem;
+    min-height: 11rem;
+    min-width: 11rem;
+    margin: 1rem 1rem;
+    border: 1px solid rgba(187, 187, 187, 0.7);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+  .counting__number {
+    font-size: 4rem;
+    font-weight: 400;
+    color: #1b8bcc;
+    filter: drop-shadow(0 0.2rem 0.2rem rgba(27, 139, 204, 0.5)); }
+  .counting__text {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    color: #bbb; }
+
 .ful-screen {
   position: absolute;
   height: 100vh;
@@ -199,6 +222,7 @@ body {
   transform: translateX(-30rem); }
 
 .footer {
+  margin-top: 10rem;
   padding: 10rem 5rem;
   position: relative;
   height: auto;
@@ -222,12 +246,50 @@ body {
     background-size: 100%; }
   .footer__infor {
     list-style: none;
-    text-transform: capitalize; }
+    text-transform: capitalize;
+    padding: 0 0; }
     .footer__infor li {
       transition: all .1s;
       margin: .75rem 0; }
-      .footer__infor li:hover {
-        color: #000; }
+
+.subcribe-form {
+  width: 80%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  background-size: cover;
+  background-image: url("../images/mailing_bg.webp");
+  color: #000;
+  text-transform: uppercase;
+  border: 1px solid #1b8bcc;
+  border-radius: 4px; }
+  .subcribe-form h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.9);
+    margin-bottom: 2rem; }
+
+.blur-layer-text {
+  width: 100%;
+  height: 100%;
+  padding: 6rem 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  text-align: center; }
+
+.input__subcribe {
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  width: 60%;
+  border: 1px solid rgba(187, 187, 187, 0.5);
+  border-radius: 10rem;
+  color: #bbb; }
+  .input__subcribe::placeholder {
+    color: rgba(187, 187, 187, 0.6); }
+  .input__subcribe:focus {
+    outline: none;
+    border: 1px solid #1b8bcc; }
 
 .navbar {
   padding: 3rem 10rem;
@@ -376,11 +438,13 @@ body {
   padding: 1.5rem 6rem; }
 
 .btn--square {
+  padding: 2rem 1rem !important;
   color: #1b8bcc;
   font-weight: 600 !important;
   border-radius: 0;
   border: 1px solid #1b8bcc;
-  background-color: transparent; }
+  background-color: transparent;
+  box-shadow: none !important; }
   .btn--square:hover {
     border-color: #000; }
 
@@ -908,6 +972,7 @@ h1 {
     width: 100%;
     border-radius: 3rem;
     border: 0.5px solid rgba(187, 187, 187, 0.8);
+    color: #5e5e5e;
     margin-bottom: 1rem; }
     .section__login input:focus {
       outline: none; }
