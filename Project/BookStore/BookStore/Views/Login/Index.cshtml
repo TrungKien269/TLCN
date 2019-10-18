@@ -141,81 +141,83 @@
             </div>
 
             <div class="col-md-6">
-                @Html.AntiForgeryToken()
-                <h1>Register</h1>
-                <div class="field-control">
-                    <label asp-for="Account.Username">Username</label>
-                    <input asp-for="Account.Username" class="col-md-8" />
-                    <span asp-validation-for="Account.Username" class="text-danger"></span>
-                </div>
-
-                <div class="field-control">
-                    <label asp-for="Account.Password">Password</label>
-                    <input asp-for="Account.Password" class="col-md-8" />
-                    <span asp-validation-for="Account.Password" class="text-danger"></span>
-                </div>
-
-                <div class="field-control">
-                    <label asp-for="Account.Email">Email</label>
-                    <input asp-for="Account.Email" class="col-md-8" />
-                    <span asp-validation-for="Account.Email" class="text-danger"></span>
-                </div>
-
-                <div class="field-control">
-                    <label asp-for="FullName">Full Name</label>
-                    <input asp-for="FullName" class="col-md-8" />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
-                </div>
-                <div class="field-control">                   
-                    <label>Gender</label>
-                    <div class="row">
-                        @*<div class="col-md-6">
-                            <label for="Male" class="gender__selector">Male</label>
-                            <input asp-for="Gender" id="Male" class="input__gender" type="radio" value="Male" />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="Female" class="gender__selector">Female</label>
-                            <input asp-for="Gender" id="Female" class="input__gender" type="radio" value="Female" />
-                        </div>*@
-                        <ul>
-                            <li>
-                                <label for="Male">Male</label>
-                                <input asp-for="Gender" id="Male"type="radio" value="Male" />
-
-                                <div class="check"></div>
-                            </li>
-
-                            <li>
-                                <label for="Female" >Female</label>
-                                <input asp-for="Gender" id="Female" type="radio" value="Female" />
-                                <div class="check">
-                                    <div class="inside"></div>
-                                </div>
-                            </li>
-                        </ul>
+                <form asp-action="Signup" asp-controller="Login" method="post" id="signupForm">
+                    @Html.AntiForgeryToken()
+                    <h1>Register</h1>
+                    <div class="field-control">
+                        <label asp-for="Account.Username">Username</label>
+                        <input asp-for="Account.Username" class="col-md-8" />
+                        <span asp-validation-for="Account.Username" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="Gender" class="text-danger"></span>
-                </div>
-                <div class="field-control">
-                    <label asp-for="Birthday">Birthday</label>
-                    <input asp-for="Birthday" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="col-md-8" />
-                    <span asp-validation-for="Birthday" class="text-danger"></span>
-                </div>
-                <div class="field-control">
-                    <label asp-for="PhoneNumber">Phone Number</label>
-                    <input asp-for="PhoneNumber" class="col-md-8" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
-                <div class="field-control">
-                    <label asp-for="Address">Address</label>
-                    <input asp-for="Address" class="col-md-8" />
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                </div>
 
-                <div class="col-md-8 pad-0-0 mar-top-md">
-                    @*<a href="#" class="btn btn-fit btn--blue">Register</a>*@
-                    <input type="submit" value="Signup" class="btn btn-fit btn--blue" />
+                    <div class="field-control">
+                        <label asp-for="Account.Password">Password</label>
+                        <input asp-for="Account.Password" class="col-md-8" />
+                        <span asp-validation-for="Account.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="field-control">
+                        <label asp-for="Account.Email">Email</label>
+                        <input asp-for="Account.Email" class="col-md-8" />
+                        <span asp-validation-for="Account.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="field-control">
+                        <label asp-for="FullName">Full Name</label>
+                        <input asp-for="FullName" class="col-md-8" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="field-control">
+                        <label>Gender</label>
+                        <div class="row">
+                            @*<div class="col-md-6">
+                    <label for="Male" class="gender__selector">Male</label>
+                    <input asp-for="Gender" id="Male" class="input__gender" type="radio" value="Male" />
                 </div>
+                <div class="col-md-6">
+                    <label for="Female" class="gender__selector">Female</label>
+                    <input asp-for="Gender" id="Female" class="input__gender" type="radio" value="Female" />
+                </div>*@
+                            <ul>
+                                <li>
+                                    <label for="Male">Male</label>
+                                    <input asp-for="Gender" id="Male" type="radio" value="Male" />
+
+                                    <div class="check"></div>
+                                </li>
+
+                                <li>
+                                    <label for="Female">Female</label>
+                                    <input asp-for="Gender" id="Female" type="radio" value="Female" />
+                                    <div class="check">
+                                        <div class="inside"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="field-control">
+                        <label asp-for="Birthday">Birthday</label>
+                        <input asp-for="Birthday" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="col-md-8" />
+                        <span asp-validation-for="Birthday" class="text-danger"></span>
+                    </div>
+                    <div class="field-control">
+                        <label asp-for="PhoneNumber">Phone Number</label>
+                        <input asp-for="PhoneNumber" class="col-md-8" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="field-control">
+                        <label asp-for="Address">Address</label>
+                        <input asp-for="Address" class="col-md-8" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-8 pad-0-0 mar-top-md">
+                        @*<a href="#" class="btn btn-fit btn--blue">Register</a>*@
+                        <input type="submit" value="Signup" class="btn btn-fit btn--blue" />
+                    </div>
+                </form>
             </div>
         </div>
     </div>
