@@ -307,6 +307,118 @@
     </div>
 </header>
 
+
+<!--Modal-->
+<div class="modal fade" id="modalQuickview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close__badge" data-dismiss="modal" aria-label="Close">
+                <span class="close__icon"></span>
+            </button>
+            <div class="row">
+                <div class="col-5 mar-right-sm d-flex align-items-center">
+                    <!--Carousel-slide-->
+                    <div class="container-fluid">
+                        <!--Carousel Wrapper-->
+                        <div class="badge badge__sale">SALE</div>
+                        <div id="carousel-example-1z" class="carousel slide carousel-slide pointer-event "
+                             data-ride="carousel" data-interval="3000">
+
+                            <!--Slides-->
+                            <div class="carousel-inner" role="listbox">
+                                <!--First slide-->
+                                <div class="carousel-item active cursor-zoom" data-image="~/images/data/book11.webp"
+                                     data-toggle="zoom">
+                                    <div class="card">
+                                        <img src="~/images/data/book11.webp" class="card-img-top img-cover"
+                                             alt="...">
+                                    </div>
+                                </div>
+                                <!--/First slide-->
+                                <!--Second slide-->
+                                <div class="carousel-item cursor-zoom" data-image="~/images/data/book12.webp"
+                                     data-toggle="zoom">
+                                    <div class="card">
+                                        <img src="~/images/data/book12.webp"
+                                             class="card-img-top img-cover" alt="...">
+                                    </div>
+                                </div>
+                                <!--/Second slide-->
+                                <!--Third slide-->
+                                <div class="carousel-item cursor-zoom" data-image="~/images/data/book13.webp"
+                                     data-toggle="zoom">
+                                    <div class="card">
+                                        <img src="~/images/data/book13.webp"
+                                             class="card-img-top img-cover" alt="...">
+                                    </div>
+                                </div>
+                                <!--/Third slide-->
+                                <!--Fourth slide-->
+                                <div class="carousel-item cursor-zoom" data-image="~/images/data/book14.webp"
+                                     data-toggle="zoom">
+                                    <div class="card">
+                                        <img src="~/images/data/book14.webp"
+                                             class="card-img-top img-cover" alt="...">
+                                    </div>
+                                </div>
+                                <!--/Fourth slide-->
+
+                            </div>
+                            <!--/.Slides-->
+                            <!--Indicators-->
+                            <ol class="carousel-indicators carousel-indicators-dark">
+                                <li data-target="#carousel-example-1z" data-slide-to="0" class="active"
+                                    style="background-image: url('~/images/data/book11.webp')">
+                                </li>
+                                <li data-target="#carousel-example-1z" data-slide-to="1"
+                                    style="background-image: url('~/images/data/book12.webp')"></li>
+                                <li data-target="#carousel-example-1z" data-slide-to="2"
+                                    style="background-image: url('~/images/data/book13.webp')"></li>
+                                <li data-target="#carousel-example-1z" data-slide-to="3"
+                                    style="background-image: url('~/images/data/book14.webpp')"></li>
+                            </ol>
+                            <!--/.Indicators-->
+                        </div>
+                        <!--/.Carousel Wrapper-->
+                    </div>
+                    <!--/Carousel-slide-->
+                </div>
+                <div class="col-6 text-left pad-top-bot-md">
+                    <a href="#" class="f-3 f-w-100">The Example Product</a>
+
+                    <p class="f-2 product__price f-w-100">$400.00</p>
+                    <div class="special-author text-dark">Author: Jessica therrien</div>
+
+                    <div class="mar-top-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="quantity buttons_added d-flex flex-row mar-top-2">
+                                    <input type="button" value="-" class="minus quantity__button">
+                                    <input type="text" step="1" min="1" max="" name="quantity" value="1" title="Qty"
+                                           class="input-text qty text h-100" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus quantity__button">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <a href="#" class="btn btn-fw btn--rounded btn--blue">
+                                    Buy
+                                    it now
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="articles__link f-w-100">View Product →</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section class="section__bestseller">
     <div class="container">
         <div class="title-wrapper">
@@ -332,7 +444,7 @@
                             <a href="#" class="badge__utilities-blue">
                                 <i class="fas fa-heart"></i>
                             </a>
-                            <a href="#" class="badge__utilities-blue">
+                            <a href="#" class="badge__utilities-blue" data-toggle="modal" data-target="#modalQuickview">
                                 <i class="fas fa-search"></i>
                             </a>
 
@@ -342,8 +454,8 @@
             }
         </div>
     </div>
-    
-    
+
+
 
 </section>
 
@@ -818,7 +930,7 @@
 </section>
 
 <footer class="footer">
-    <div class="subcribe-form">
+    <div class="subcribe-form"  style="background-image: url(/images/mailing_bg.webp)";>
         <div class="blur-layer-text">
             <h2>Subcribe to our new letters</h2>
             <div class="d-flex justify-content-center align-items-center">
