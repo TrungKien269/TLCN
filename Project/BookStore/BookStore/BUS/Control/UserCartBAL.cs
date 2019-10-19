@@ -4,21 +4,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookStore.BUS.Logic;
 using BookStore.Models;
+using BookStore.Models.Objects;
 
 namespace BookStore.BUS.Control
 {
     public class UserCartBAL
     {
         private CartBAL cartBal;
+        private AccountBAL accountBal;
 
         public UserCartBAL()
         {
             this.cartBal = new CartBAL();
+            this.accountBal = new AccountBAL();
         }
 
-        public async Task<Response> GetCart(int userID)
+        public async Task<Response> GetCart(string cookie)
         {
-            return await cartBal.GetCart(userID);
+            var response_Account = await accountBal.GetAccountByCookie(cookie);
+            if (response_Account.Status is true)
+            {
+                return await cartBal.GetCart((response_Account.Obj as Account).Id);
+            }
+            else
+            {
+                return new Response("Cannot recognize an account!", false, 0, null);
+            }
         }
     }
 }

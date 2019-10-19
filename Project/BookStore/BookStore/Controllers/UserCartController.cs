@@ -16,12 +16,10 @@ namespace BookStore.Controllers
     public class UserCartController : Controller
     {
         private UserCartBAL userCartBal;
-        private AccountBAL accountBal;
 
         public UserCartController()
         {
             this.userCartBal = new UserCartBAL();
-            this.accountBal = new AccountBAL();
         }
 
         [HttpGet("Cart")]
@@ -37,14 +35,14 @@ namespace BookStore.Controllers
             //return View((await userCartBal.GetCart(userID)).Obj as Cart);
             HttpContext.Session.SetString("PreviousState", "Cart");
             var session = HttpContext.Session.GetString("BookStore");
-            var task = await accountBal.GetAccountByCookie(session);
-            if (task.Status is false)
+            var response = await userCartBal.GetCart(session);
+            if (response.Status is false)
             {
                 return View(SessionHelper.GetCartSession(HttpContext.Session));
             }
             else
             {
-                return View((task.Obj as Cart).CartBook);
+                return View((response.Obj as Cart).CartBook);
             }
         }
     }
