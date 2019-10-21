@@ -36,5 +36,10 @@ namespace BookStore.BUS.Control
         {
             return await cartBal.RemoveFromCart(cartID, bookID);
         }
+
+        public async Task<Response> EditQuantityInCart(int cartID, string bookID, int quantity)
+        {
+            return await cartBal.UpdateQuantity(cartID, bookID, quantity);
+        }
     }
 }

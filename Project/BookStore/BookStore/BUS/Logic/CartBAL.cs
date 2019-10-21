@@ -84,6 +84,41 @@ namespace BookStore.BUS.Logic
             }
         }
 
+        public async Task<Response> InsertToCartFromSession(Cart cart, Book book, int quantity, int subtotal)
+        {
+            try
+            {
+                var checkCartBook = await context.CartBook.Where(x => x.BookId.Equals(book.Id) && x.CartId.Equals(cart.Id))
+                    .FirstOrDefaultAsync();
+                if (checkCartBook is null)
+                {
+                    var cartBook = new CartBook
+                    {
+                        BookId = book.Id,
+                        CartId = cart.Id,
+                        PickedDate = DateTime.Now,
+                        Quantity = quantity,
+                        SubTotal = subtotal
+                    };
+                    context.CartBook.Add(cartBook);
+                    await context.SaveChangesAsync();
+                    return new Response("Success", true, 1, cartBook);
+                }
+                else
+                {
+                    checkCartBook.Quantity += quantity;
+                    checkCartBook.SubTotal += subtotal;
+                    context.CartBook.Update(checkCartBook);
+                    await context.SaveChangesAsync();
+                    return new Response("Success", true, 1, checkCartBook);
+                }
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
         public async Task<Response> RemoveFromCart(int cartID, string bookID)
         {
             try
@@ -91,6 +126,24 @@ namespace BookStore.BUS.Logic
                 var cartBook = await context.CartBook.Where(x => x.BookId.Equals(bookID) && x.CartId.Equals(cartID))
                     .FirstOrDefaultAsync();
                 context.CartBook.Remove(cartBook);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, cartBook);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> UpdateQuantity(int cartID, string bookID, int quantity)
+        {
+            try
+            {
+                var cartBook = await context.CartBook.Where(x => x.BookId.Equals(bookID) && x.CartId.Equals(cartID))
+                    .FirstOrDefaultAsync();
+                cartBook.Quantity = quantity;
+                cartBook.SubTotal = cartBook.Book.CurrentPrice * quantity;
+                context.CartBook.Update(cartBook);
                 await context.SaveChangesAsync();
                 return new Response("Success", true, 1, cartBook);
             }

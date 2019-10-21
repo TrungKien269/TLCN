@@ -52,6 +52,12 @@ namespace BookStore.Helper
             return GetObjectFromJson<List<CartBook>>(session, "Cart");
         }
 
+        public static void ResetCartSession(ISession session, List<CartBook> cart)
+        {
+            cart.Clear();
+            SetObjectAsJson(session, "Cart", cart);
+        }
+
         public static void ClearSession(ISession session)
         {
             session.Clear();

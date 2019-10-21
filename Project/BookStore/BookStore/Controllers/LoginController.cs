@@ -44,6 +44,7 @@ namespace BookStore.Controllers
                 SessionHelper.SetUserSession(this.HttpContext.Session, (response.Obj as Account).Id);
                 CookieHelper.SetWebsiteCookie(this.Response, hash);
 
+                await loginBal.SetCartAfterLogin(this.HttpContext.Session, (response.Obj as Account).Id);
                 await loginBal.SetCookieForAccount(hash, response.Obj as Account);
                 ViewBag.Session = HttpContext.Session.GetString("BookStore");
                 ViewBag.FullName = response.Obj as Account is null

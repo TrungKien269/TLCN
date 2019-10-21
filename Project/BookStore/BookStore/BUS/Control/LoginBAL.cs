@@ -10,16 +10,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace BookStore.BUS.Control
 {
-    public class LoginBAL: IHttpContextAccessor
+    public class LoginBAL
     {
         private AccountBAL accountBal;
         private UserBAL userBal;
-        public HttpContext HttpContext { get; set; }
+        private CartBAL cartBal;
 
         public LoginBAL()
         {
             this.accountBal = new AccountBAL();
             this.userBal = new UserBAL();
+            this.cartBal = new CartBAL();
         }
 
         public async Task<Response> Login(string username, string password)
@@ -58,6 +59,26 @@ namespace BookStore.BUS.Control
             user.Account.CreatedDateTime = DateTime.Now;
             user.Account.Cookie = null;
             return await Task.FromResult<User>(user);
+        }
+
+        public async Task<Response> SetCartAfterLogin(ISession session, int userID)
+        {
+            var ListCartBook = SessionHelper.GetCartSession(session);
+            var cart = await cartBal.GetCart(userID);
+            if (cart.Status is true)
+            {
+                foreach (var cartbook in ListCartBook)
+                {
+                    await cartBal.InsertToCartFromSession(cart.Obj as Cart, cartbook.Book, cartbook.Quantity,
+                        cartbook.SubTotal);
+                }
+                SessionHelper.ResetCartSession(session, ListCartBook);
+                return cart;
+            }
+            else
+            {
+                return cart;
+            }
         }
     }
 }

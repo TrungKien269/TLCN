@@ -97,14 +97,14 @@ namespace BookStore.Controllers
             if (cookie is null)
             {
                 var session = HttpContext.Session.GetString("BookStore");
-                HttpContext.Session.Remove("BookStore");
+                //HttpContext.Session.Remove("BookStore");
                 await dashboardBal.Logout(session);
                 return RedirectToAction("Index", "Dashboard");
             }
             else
             {
                 Response.Cookies.Delete("BookStore");
-                HttpContext.Session.Remove("BookStore");
+                //HttpContext.Session.Remove("BookStore");
                 await dashboardBal.Logout(cookie);
                 return RedirectToAction("Index", "Dashboard");
             }
