@@ -60,7 +60,23 @@ namespace BookStore.Controllers
             }
             else
             {
-                return await bookInfoBal.GetCart(int.Parse(userID.ToString()));
+                var cart = (await bookInfoBal.GetCart(int.Parse(userID.ToString()))).Obj as Cart;
+                if (cart is null)
+                {
+                    var newCart_Response = await bookInfoBal.CreateCart(int.Parse(userID.ToString()));
+                    Cart newCart = newCart_Response.Obj as Cart;
+                    var originalID = SecureHelper.GetOriginalInput(id);
+                    var book = (await bookInfoBal.GetBook(originalID)).Obj as Book;
+                    await bookInfoBal.AddToCart(newCart, book);
+                    return new Response("Success", true, 1, newCart.CartBook);
+                }
+                else
+                {
+                    var originalID = SecureHelper.GetOriginalInput(id);
+                    var book = (await bookInfoBal.GetBook(originalID)).Obj as Book;
+                    await bookInfoBal.AddToCart(cart, book);
+                    return new Response("Success", true, 1, cart.CartBook);
+                }
             }
         }
     }

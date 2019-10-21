@@ -21,7 +21,8 @@ namespace BookStore.BUS.Logic
         {
             try
             {
-                var cart = await context.Cart.Include(x => x.CartBook).Include(x => x.IdNavigation)
+                var cart = await context.Cart.Include(x => x.IdNavigation).Include(x => x.CartBook)
+                    .ThenInclude(x => x.Book)
                     .Where(x => x.IdNavigation.Id.Equals(userID)).FirstOrDefaultAsync();
                 if (cart is null)
                 {
@@ -54,6 +55,44 @@ namespace BookStore.BUS.Logic
                 {
                     return new Response("Can not create a cart for this account!", false, 0, null);
                 }
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> InsertToCart(Cart cart, Book book)
+        {
+            try
+            {
+                var cartBook = new CartBook
+                {
+                    BookId = book.Id,
+                    CartId = cart.Id,
+                    PickedDate = DateTime.Now,
+                    Quantity = 1,
+                    SubTotal = book.CurrentPrice
+                };
+                context.CartBook.Add(cartBook);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, cartBook);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> RemoveFromCart(int cartID, string bookID)
+        {
+            try
+            {
+                var cartBook = await context.CartBook.Where(x => x.BookId.Equals(bookID) && x.CartId.Equals(cartID))
+                    .FirstOrDefaultAsync();
+                context.CartBook.Remove(cartBook);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, cartBook);
             }
             catch (Exception e)
             {

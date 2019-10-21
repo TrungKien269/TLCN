@@ -1,18 +1,36 @@
 ﻿@using BookStore.Models.Objects
+@using BookStore.Helper
 @{
     Layout = "Cart_Layout";
 }
 @model List<CartBook>
 
 <h1>List of Product</h1>
-@if (Model is null)
+@if (Model is null || Model.Count.Equals(0))
 {
     <p>Not book to show!</p>
 }
 else
 {
-    foreach (var cartbook in Model)
-    {
-        <p>@cartbook.Book.Name</p>
-    }
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Book</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>SubTotal</th>
+            </tr>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td style="display: none">@SecureHelper.GetSecureOutput(book.BookId)</td>
+                    <td>@book.Book.Name</td>
+                    <td>@book.Book.CurrentPrice.ToString("##,###")</td>
+                    <td>1</td>
+                    <td>@book.Book.CurrentPrice.ToString("##,###") VND</td>
+                    <td><button class="btn btn-danger">Remove</button></td>
+                </tr>
+            }
+        </table>
+    </div>
 }

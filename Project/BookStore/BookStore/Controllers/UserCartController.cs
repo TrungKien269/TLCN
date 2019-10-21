@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BookStore.BUS.Control;
 using BookStore.BUS.Logic;
 using BookStore.Helper;
+using BookStore.Models;
 using BookStore.Models.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,35 @@ namespace BookStore.Controllers
             else
             {
                 return View((response.Obj as Cart).CartBook);
+            }
+        }
+
+        [HttpPost("RemoveBookCart")]
+        public async Task<Response> RemoveBookInCart(string id)
+        {
+            var session = HttpContext.Session.GetString("BookStore");
+            var response = await userCartBal.GetCart(session);
+            var originalID = SecureHelper.GetOriginalInput(id);
+            if (response.Status is false)
+            {
+                try
+                {
+                    var listCartBook = SessionHelper.GetCartSession(this.HttpContext.Session);
+                    var book = listCartBook.Where(x => x.BookId.Equals(originalID)).FirstOrDefault();
+                    listCartBook.Remove(book);
+                    SessionHelper.SetCartSession(this.HttpContext.Session, listCartBook);
+                    return await Task.FromResult<Response>(new Response("Success", true, 1, listCartBook));
+                }
+                catch (Exception e)
+                {
+                    return Models.Response.CatchError(e.Message);
+                }
+            }
+            else
+            {
+                var cart = response.Obj as Cart;
+                await userCartBal.RemoveFromCart(cart.Id, originalID);
+                return await Task.FromResult<Response>(new Response("Success", true, 1, cart.CartBook));
             }
         }
     }

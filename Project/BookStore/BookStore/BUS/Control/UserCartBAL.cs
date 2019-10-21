@@ -31,5 +31,10 @@ namespace BookStore.BUS.Control
                 return new Response("Cannot recognize an account!", false, 0, null);
             }
         }
+
+        public async Task<Response> RemoveFromCart(int cartID, string bookID)
+        {
+            return await cartBal.RemoveFromCart(cartID, bookID);
+        }
     }
 }
