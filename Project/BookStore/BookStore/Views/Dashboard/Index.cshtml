@@ -77,68 +77,6 @@
         <!-- Links -->
         <ul class="navbar-nav">
 
-            <!-- Books -->
-            @*<li class="nav-item dropdown mega-dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        Books
-                        <span class="sr-only">(current)</span>
-                        <i class="fa fa-angle-down hidden-xs"></i>
-                    </a>
-                    <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdownMenuLink2">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h3>Collections</h3>
-                                <div class="card">
-                                    <a href="#">
-                                        <img class="card-img-top" src="/images/data/book_collection.jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card__book-title">Product example #2</h5>
-                                        </div>
-
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <h3>Publishers</h3>
-                                <div class="card">
-                                    <a href="#">
-                                        <img class="card-img-top" src="/images/data/book_publisher.jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card__book-title">Product example #2</h5>
-                                        </div>
-
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <h3>Best Seller</h3>
-                                <div class="card">
-                                    <a href="#">
-                                        <img class="card-img-top" src="/images/data/book_sale.jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card__book-title">Product example #2</h5>
-                                        </div>
-
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <h3>Most Rating</h3>
-                                <div class="card">
-                                    <a href="#">
-                                        <img class="card-img-top" src="/images/data/book_rating.jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card__book-title">Product example #2</h5>
-                                        </div>
-
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>*@
-
             <!-- Categories -->
             <li class="nav-item dropdown mega-dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown"
@@ -438,7 +376,8 @@
                             <p class="card__book-price" style="text-align: center">
                                 @book.CurrentPrice.ToString("##,###") VND
                             </p>
-                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                            <a href="@SecureHelper.GetSecureOutput(book.Id)" 
+                               class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
                         </div>
                         <div class="badge badge__utilities item-display">
                             <a href="#" class="badge__utilities-blue">
@@ -478,7 +417,7 @@
         <div class="tab-pane active container-fluid" id="menu">
             <div class="row">
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="card display-on-hover">
                         <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" class="linkBook">
                             <img class="card-img-top  img-cover img-cover-30" src="@ListSalesBook[0].Image" alt="Card image cap">
@@ -487,7 +426,8 @@
                                 <p class="card__book-price" style="text-align: center">
                                     @ListSalesBook[0].CurrentPrice.ToString("##,###") VND
                                 </p>
-                                <a href="#" class="btn btn-fw btn--blue btn--rounded">Add to cart</a>
+                                <a href="@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" 
+                                   class="btn btn-fw btn--blue btn--rounded">Add to cart</a>
                             </div>
                             <div class="badge badge__utilities item-display">
                                 <a href="#" class="badge__utilities-blue">
@@ -500,7 +440,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="card display-on-hover">
                         <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" class="linkBook">
                             <img class="card-img-top img-cover img-cover-30" src="@ListSalesBook[1].Image" alt="Card image cap">
@@ -509,7 +449,8 @@
                                 <p class="card__book-price" style="text-align: center">
                                     @ListSalesBook[1].CurrentPrice.ToString("##,###") VND
                                 </p>
-                                <a href="#" class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
+                                <a href="@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" 
+                                   class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
                             </div>
                             <div class="badge badge__utilities">
                                 <a href="#" class="badge__utilities-blue">
@@ -522,7 +463,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="card display-on-hover">
                         <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" class="linkBook">
                             <img class="card-img-top img-cover img-cover-30" src="@ListSalesBook[2].Image" alt="Card image cap">
@@ -531,7 +472,8 @@
                                 <p class="card__book-price" style="text-align: center">
                                     @ListSalesBook[2].CurrentPrice.ToString("##,###") VND
                                 </p>
-                                <a href="#" class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
+                                <a href="@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" 
+                                   class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
                             </div>
                             <div class="badge badge__utilities item-display">
                                 <a href="#" class="badge__utilities-blue">
@@ -544,7 +486,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="card display-on-hover">
                         <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" class="linkBook">
                             <img class="card-img-top img-cover img-cover-30" src="@ListSalesBook[3].Image" alt="Card image cap">
@@ -553,7 +495,8 @@
                                 <p class="card__book-price" style="text-align: center">
                                     @ListSalesBook[3].CurrentPrice.ToString("##,###") VND
                                 </p>
-                                <a href="#" class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
+                                <a href="@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" 
+                                   class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
                             </div>
                             <div class="badge badge__utilities item-display">
                                 <a href="#" class="badge__utilities-blue">
@@ -627,6 +570,7 @@
         </div>
     </div>
 </section>
+
 <section class="section__promo">
     <h2>Limited time offer</h2>
     <div class="counting">

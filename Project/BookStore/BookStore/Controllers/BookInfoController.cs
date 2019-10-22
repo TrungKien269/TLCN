@@ -41,14 +41,23 @@ namespace BookStore.Controllers
                     var originalID = SecureHelper.GetOriginalInput(id);
                     var book = (await bookInfoBal.GetBook(originalID)).Obj as Book;
                     var listCartBook = SessionHelper.GetCartSession(this.HttpContext.Session);
-                    listCartBook.Add(new CartBook
+                    var index = listCartBook.FindIndex(x => x.BookId.Equals(originalID));
+                    if (index >= 0)
                     {
-                        BookId = book.Id,
-                        Quantity = 1,
-                        SubTotal = 1 * book.CurrentPrice,
-                        PickedDate = DateTime.Now,
-                        Book = book
-                    });
+                        listCartBook[index].Quantity += 1;
+                        listCartBook[index].SubTotal += book.CurrentPrice;
+                    }
+                    else
+                    {
+                        listCartBook.Add(new CartBook
+                        {
+                            BookId = book.Id,
+                            Quantity = 1,
+                            SubTotal = 1 * book.CurrentPrice,
+                            PickedDate = DateTime.Now,
+                            Book = book
+                        });
+                    }
                     SessionHelper.SetCartSession(this.HttpContext.Session, listCartBook);
                     return await Task.FromResult<Response>(new Response("Success", true, 1, listCartBook));
                 }

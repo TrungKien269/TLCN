@@ -66,17 +66,30 @@ namespace BookStore.BUS.Logic
         {
             try
             {
-                var cartBook = new CartBook
+                var checkCartBook = await context.CartBook.Where(x => x.BookId.Equals(book.Id) && x.CartId.Equals(cart.Id))
+                    .FirstOrDefaultAsync();
+                if (checkCartBook is null)
                 {
-                    BookId = book.Id,
-                    CartId = cart.Id,
-                    PickedDate = DateTime.Now,
-                    Quantity = 1,
-                    SubTotal = book.CurrentPrice
-                };
-                context.CartBook.Add(cartBook);
-                await context.SaveChangesAsync();
-                return new Response("Success", true, 1, cartBook);
+                    var cartBook = new CartBook
+                    {
+                        BookId = book.Id,
+                        CartId = cart.Id,
+                        PickedDate = DateTime.Now,
+                        Quantity = 1,
+                        SubTotal = book.CurrentPrice
+                    };
+                    context.CartBook.Add(cartBook);
+                    await context.SaveChangesAsync();
+                    return new Response("Success", true, 1, cartBook);
+                }
+                else
+                {
+                    checkCartBook.Quantity += 1;
+                    checkCartBook.SubTotal += book.CurrentPrice;
+                    context.CartBook.Update(checkCartBook);
+                    await context.SaveChangesAsync();
+                    return new Response("Success", true, 1, checkCartBook);
+                }
             }
             catch (Exception e)
             {

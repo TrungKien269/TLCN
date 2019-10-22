@@ -47,6 +47,7 @@
         $.post("/FamousPublisherBookList", {
             id: id
         }, function (data) {
+            console.log(data);
             for (var i = 0; i, data.obj.length; i++) {
                 $(".tab-content div.card:eq(" + (parseInt(i)) + ") img.card-img-top").attr("src", data.obj[i].image);
                 $(".tab-content div.card:eq(" + (parseInt(i)) + ") h5.card__book-title").text(data.obj[i].name);
@@ -54,7 +55,9 @@
                     .text((parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND");
                 $(".tab-content div.card p.card__book-price").css("text-align", "center");
                 $(".tab-content div.col-md-3:eq(" + (parseInt(i)) + ") a.linkBook")
-                    .attr("href", encodeURIComponent("/Book/" + data.obj[i].id));
+                    .attr("href", "/Book/" + data.obj[i].id);
+                $(".tab-content div.col-md-3:eq(" + (parseInt(i)) + ") a.btn--rounded")
+                    .attr("href", data.obj[i].id);
             }
         });
     });
@@ -62,6 +65,17 @@
     $("a#linkProfile").click(function (e) {
         e.preventDefault();
         $.post("/Profile",
+            function (data) {
+                console.log(data);
+            });
+    });
+
+    $("a.btn--rounded").click(function (e) {
+        e.preventDefault();
+        $.post("/AddToCart",
+            {
+                id: $(this).attr("href")
+            },
             function (data) {
                 console.log(data);
             });
