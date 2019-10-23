@@ -2443,13 +2443,6 @@ $(function () {
 
 });
 
-$('[data-toggle="zoom"]').each(function () {
-  $(this).zoom({
-    url: $(this).attr('data-image'),
-    on: 'click',
-    duration: 0
-  });
-});
 
 jQuery(document).ready(function ($) {
   jQuery(".owl-carousel-product").length && jQuery('.owl-carousel-product').owlCarousel({
