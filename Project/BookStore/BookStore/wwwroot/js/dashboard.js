@@ -83,9 +83,40 @@
             });
     });
 
-    $("div.card div.badge__utilities a:eq(1)").click(function(e) {
-        $.post("/Book", { id: $(this).attr("data-object") }, function(data) {
-            console.log(data);
-        })
+    $("div.card div.badge a.badge__utilities-blue").click(function (e) {
+        $.post("/Book",
+            { id: $(this).attr("data-object") },
+            function(data) {
+                if (data.status === true) {
+                    $("a.articles__link").attr("href", "/Book/" + data.obj.id);
+                    $("p.product__price").text((parseInt(data.obj.currentPrice) / 1000).toFixed(3) + " VND");
+
+                    var authors = "";
+                    for (var i = 0; i < data.obj.authorBook.length; i++) {
+                        authors += data.obj.authorBook[i].author.name;
+                        authors += ", ";
+                    }
+                    authors = authors.substring(0, authors.length - 2);
+                    $("div.special-author").text("Authors: " + authors);
+
+                    $("a.f-3").text(data.obj.name);
+                    $("a.f-3").attr("href", "/Book/" + data.obj.id);
+
+                    $("div.modal div.carousel-inner").append(
+                        '<div class="carousel-item active cursor-zoom" data-image="' +
+                        data.obj.image +
+                        '" data-toggle="zoom"> ' +
+                        '<div class="card">' +
+                        '<img src="' + data.obj.image + '" class="card-img-top img-cover" alt="...">' +
+                        '</div></div>');
+                }
+                else {
+                    console.log(data);
+                }
+            });
+    });
+
+    $("#modalQuickview").on('hide.bs.modal', function () {
+        $("div.modal div.carousel-inner").find("div.carousel-item").remove();
     });
 });

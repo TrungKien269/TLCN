@@ -93,13 +93,15 @@ namespace BookStore.BUS.Logic
         {
             try
             {
-                var book = await context.Book.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+                var book = await context.Book.Include(x => x.AuthorBook).ThenInclude(x => x.Author)
+                    .Include(x => x.ImageBook).Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
                 if (book is null)
                 {
                     return new Response("Cannot find this book", false, 0, null);
                 }
                 else
                 {
+                    book.Id = SecureHelper.GetSecureOutput(book.Id);
                     return new Response("Success", true, 1, book);
                 }
             }
