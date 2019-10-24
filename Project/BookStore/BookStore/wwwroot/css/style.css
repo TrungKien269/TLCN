@@ -734,7 +734,7 @@ body {
     left: 0;
     padding: 1rem .75rem;
     width: auto;
-    background-color: #f7ca18; }
+    background-color: #fec600; }
   .badge__utilities {
     font-size: 1.4rem;
     color: #fff;
@@ -1590,3 +1590,42 @@ h1 {
   .size-picker:hover {
     background: #1b8bcc;
     color: #fff; }
+
+.section__detail {
+  margin: 2rem 0; }
+  .section__detail .detail__describe {
+    margin: 2rem 0;
+    font-size: 1.4rem; }
+  .section__detail .detail__link {
+    margin: 1rem 0;
+    font-size: 1.4rem; }
+    .section__detail .detail__link a {
+      margin-right: 2rem;
+      text-transform: capitalize; }
+      .section__detail .detail__link a:hover {
+        color: #1b8bcc; }
+  .section__detail .detail__social {
+    display: flex; }
+    .section__detail .detail__social-icon {
+      margin-right: 1rem;
+      width: 33%;
+      height: 4.5rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: capitalize;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 300; }
+      .section__detail .detail__social-icon:hover {
+        filter: brightness(0.8); }
+      .section__detail .detail__social-icon svg {
+        font-size: 2rem;
+        margin-right: 1rem; }
+      .section__detail .detail__social-icon-twitter {
+        background-color: #1da1f2; }
+      .section__detail .detail__social-icon-fb {
+        background-color: #3b5998; }
+      .section__detail .detail__social-icon-gg {
+        background-color: #e04a39; }

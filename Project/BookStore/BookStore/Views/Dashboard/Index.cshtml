@@ -14,18 +14,19 @@
 @model List<Category>
 
 <nav class="navbar navbar-shadow justify-content-between">
-    <a href="/" class="navbar-sm-brand">
-        <img src="images/logo.webp" alt="">
-    </a>
-    <div class="input__search-bar">
-        <input type="text" placeholder="Search">
-        <i class="fas fa-search"></i>
-    </div>
-    <div class="nav__social-icon d-flex justify-content-center">
-        @*<a href="#" data-toggle="tooltip" data-placement="bottom" title="Wish list">
+    <div class="container">
+        <a href="/" class="navbar-sm-brand">
+            <img src="images/logo.webp" alt="">
+        </a>
+        <div class="input__search-bar">
+            <input type="text" placeholder="Search">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="nav__social-icon d-flex justify-content-center">
+            @*<a href="#" data-toggle="tooltip" data-placement="bottom" title="Wish list">
                 <i class="far fa-heart"></i>
             </a>*@
-        @*<div class="dropdown">
+            @*<div class="dropdown">
                 <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
@@ -41,26 +42,28 @@
                 <i class="far fa-user"></i>
             </a>*@
 
-        <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
+            <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
 
-        @if (@ViewBag.FullName is null)
-        {
-            <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
-        }
-        else
-        {
-            <div class="dropdown">
-                <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="far fa-user"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" id="linkProfile">Profile</a>
-                    <a class="dropdown-item" href="/Logout">Logout</a>
+            @if (@ViewBag.FullName is null)
+            {
+                <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
+            }
+            else
+            {
+                <div class="dropdown">
+                    <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" id="linkProfile">Profile</a>
+                        <a class="dropdown-item" href="/Logout">Logout</a>
+                    </div>
                 </div>
-            </div>
-        }
+            }
 
+        </div>
     </div>
+   
 
 </nav>
 
@@ -419,10 +422,10 @@
         <div class="tab-pane active container-fluid" id="menu">
             <div class="row">
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="card display-on-hover">
                         <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" class="linkBook">
-                            <img class="card-img-top  img-cover img-cover-30" src="@ListSalesBook[0].Image" alt="Card image cap">
+                            <img class="card-img-top  img-cover" src="@ListSalesBook[0].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[0].Name</h5>
                                 <p class="card__book-price" style="text-align: center">
@@ -443,10 +446,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="card display-on-hover">
                         <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" class="linkBook">
-                            <img class="card-img-top img-cover img-cover-30" src="@ListSalesBook[1].Image" alt="Card image cap">
+                            <img class="card-img-top img-cover" src="@ListSalesBook[1].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[1].Name</h5>
                                 <p class="card__book-price" style="text-align: center">
@@ -467,10 +470,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="card display-on-hover">
                         <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" class="linkBook">
-                            <img class="card-img-top img-cover img-cover-30" src="@ListSalesBook[2].Image" alt="Card image cap">
+                            <img class="card-img-top img-cover" src="@ListSalesBook[2].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[2].Name</h5>
                                 <p class="card__book-price" style="text-align: center">
@@ -491,10 +494,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="card display-on-hover">
                         <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" class="linkBook">
-                            <img class="card-img-top img-cover img-cover-30" src="@ListSalesBook[3].Image" alt="Card image cap">
+                            <img class="card-img-top img-cover" src="@ListSalesBook[3].Image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card__book-title">@ListSalesBook[3].Name</h5>
                                 <p class="card__book-price" style="text-align: center">
