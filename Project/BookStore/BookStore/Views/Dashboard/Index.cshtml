@@ -383,7 +383,9 @@
                             <a href="#" class="badge__utilities-blue">
                                 <i class="fas fa-heart"></i>
                             </a>
-                            <a href="#" class="badge__utilities-blue" data-toggle="modal" data-target="#modalQuickview">
+                            <a href="#" class="badge__utilities-blue" 
+                               data-toggle="modal" data-target="#modalQuickview" 
+                               data-object="@SecureHelper.GetSecureOutput(book.Id)">
                                 <i class="fas fa-search"></i>
                             </a>
 
@@ -433,7 +435,8 @@
                                 <a href="#" class="badge__utilities-blue">
                                     <i class="fas fa-heart"></i>
                                 </a>
-                                <a href="#" class="badge__utilities-blue">
+                                <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" 
+                                   class="badge__utilities-blue">
                                     <i class="fas fa-search"></i>
                                 </a>
                             </div>
@@ -456,7 +459,8 @@
                                 <a href="#" class="badge__utilities-blue">
                                     <i class="fas fa-heart"></i>
                                 </a>
-                                <a href="#" class="badge__utilities-blue">
+                                <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" 
+                                   class="badge__utilities-blue">
                                     <i class="fas fa-search"></i>
                                 </a>
                             </div>
@@ -479,7 +483,8 @@
                                 <a href="#" class="badge__utilities-blue">
                                     <i class="fas fa-heart"></i>
                                 </a>
-                                <a href="#" class="badge__utilities-blue">
+                                <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" 
+                                   class="badge__utilities-blue">
                                     <i class="fas fa-search"></i>
                                 </a>
                             </div>
@@ -502,7 +507,8 @@
                                 <a href="#" class="badge__utilities-blue">
                                     <i class="fas fa-heart"></i>
                                 </a>
-                                <a href="#" class="badge__utilities-blue">
+                                <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" 
+                                   class="badge__utilities-blue">
                                     <i class="fas fa-search"></i>
                                 </a>
                             </div>

@@ -58,6 +58,8 @@
                     .attr("href", "/Book/" + data.obj[i].id);
                 $(".tab-content div.col-md-3:eq(" + (parseInt(i)) + ") a.btn--rounded")
                     .attr("href", data.obj[i].id);
+                $(".tab-content div.col-md-3:eq(" + (parseInt(i)) + ") a.badge__utilities-blue:eq(1)")
+                    .attr("href", "/Book/" + data.obj[i].id);
             }
         });
     });
@@ -79,5 +81,11 @@
             function (data) {
                 console.log(data);
             });
+    });
+
+    $("div.card div.badge__utilities a:eq(1)").click(function(e) {
+        $.post("/Book", { id: $(this).attr("data-object") }, function(data) {
+            console.log(data);
+        })
     });
 });

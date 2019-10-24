@@ -30,6 +30,14 @@ namespace BookStore.Controllers
             return View(response.Obj as Book);
         }
 
+        [HttpPost("Book")]
+        public async Task<Response> GetBook(string id)
+        {
+            var originalID = SecureHelper.GetOriginalInput(id);
+            var response = await bookInfoBal.GetBook(originalID);
+            return response;
+        }
+
         [HttpPost("AddToCart")]
         public async Task<Response> AddBookToCart(string id)
         {

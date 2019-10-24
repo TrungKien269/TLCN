@@ -62,13 +62,6 @@
             return false;
         }
 
-        //$(".form-control").each(function () {
-        //    if ($(this).attr("data-val") === "true" && $(this).val() === "" &&
-        //        $(this).is("select") === false) {
-        //        return false;
-        //    }
-        //});
-
         $(".field-control").each(function () {
             if ($(this).attr("data-val") === "true" && $(this).val() === "" &&
                 $(this).is("select") === false) {
