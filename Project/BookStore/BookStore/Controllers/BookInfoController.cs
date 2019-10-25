@@ -25,6 +25,7 @@ namespace BookStore.Controllers
         [HttpGet("Book/{id}")]
         public async Task<IActionResult> Index(string id)
         {
+            ViewBag.ListCategory = (await bookInfoBal.GetListCategory()).Obj as List<Category>;
             var originalID = SecureHelper.GetOriginalInput(id);
             var response = await bookInfoBal.GetBook(originalID);
             return View(response.Obj as Book);
@@ -34,7 +35,7 @@ namespace BookStore.Controllers
         public async Task<Response> GetBook(string id)
         {
             var originalID = SecureHelper.GetOriginalInput(id);
-            var response = await bookInfoBal.GetBook(originalID);
+            var response = await bookInfoBal.GetBookWithSecureID(originalID);
             return response;
         }
 
@@ -47,7 +48,7 @@ namespace BookStore.Controllers
                 try
                 {
                     var originalID = SecureHelper.GetOriginalInput(id);
-                    var book = (await bookInfoBal.GetBook(originalID)).Obj as Book;
+                    var book = (await bookInfoBal.GetBookWithoutDetail(originalID)).Obj as Book;
                     var listCartBook = SessionHelper.GetCartSession(this.HttpContext.Session);
                     var index = listCartBook.FindIndex(x => x.BookId.Equals(originalID));
                     if (index >= 0)

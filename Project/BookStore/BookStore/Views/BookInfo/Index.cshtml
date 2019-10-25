@@ -1,24 +1,456 @@
-﻿@using BookStore.Helper
-@using BookStore.Models.Objects
+﻿@using BookStore.Models.Objects;
+@using System.Net
+@using BookStore.Models.Objects;
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http.Extensions;
+@using Microsoft.AspNetCore.WebUtilities
+@using BookStore.Helper;
 @{
     Layout = "BookInfo_Layout";
     ViewBag.Title = Model.Name;
+    List<Category> CategoryList = (List<Category>)ViewBag.ListCategory;
 }
 @model Book
-Name: <p>@Model.Name</p><br />
-Release Year: <p>@Model.ReleaseYear</p><br />
-Current Price: <p>@Model.CurrentPrice</p><br />
-Weight: <p>@Model.Weight</p><br />
-Number of pages: <p>@Model.NumOfPage</p><br />
-Description:
-@Html.Raw(Model.Summary);
+@*Name: <p>@Model.Name</p><br />
+    Release Year: <p>@Model.ReleaseYear</p><br />
+    Current Price: <p>@Model.CurrentPrice</p><br />
+    Weight: <p>@Model.Weight</p><br />
+    Number of pages: <p>@Model.NumOfPage</p><br />
+    Description:
+    @Html.Raw(Model.Summary);
 
-<button class="btn btn-info" id="btnAddCart">Add to cart</button>
+    <button class="btn btn-info" id="btnAddCart">Add to cart</button>*@
+
+<nav class="navbar navbar-shadow justify-content-between">
+    <div class="container">
+        <a href="/" class="navbar-sm-brand">
+            <img src="images/logo.webp" alt="">
+        </a>
+        <div class="input__search-bar">
+            <input type="text" placeholder="Search">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="nav__social-icon d-flex justify-content-center">
+
+            <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
+
+            @if (@ViewBag.FullName is null)
+            {
+                <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
+            }
+            else
+            {
+                <div class="dropdown">
+                    <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" id="linkProfile">Profile</a>
+                        <a class="dropdown-item" href="/Logout">Logout</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+
+</nav>
+
+<nav class="navbar navbar-pad-sm navbar-expand-lg bg-light" style="z-index: 15">
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
+            aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent2">
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+
+            <!-- Categories -->
+            <li class="nav-item dropdown mega-dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Categories
+                    <i class="fa fa-angle-down hidden-xs"></i>
+                </a>
+                <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdownMenuLink3">
+                    <div class="row">
+                        @for (int i = 0; i < 4; i++)
+                        {
+                            <div class="col-md-3">
+                                <h3>@CategoryList[i].Name</h3>
+                                <ul class="list-unstyled">
+                                    @for (int j = 0; j < 4; j++)
+                                    {
+                                        <li><a href="#" class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        @for (int i = 4; i < 8; i++)
+                        {
+                            <div class="col-md-3">
+                                <h3>@CategoryList[i].Name</h3>
+                                <ul class="list-unstyled">
+                                    @for (int j = 0; j < 4; j++)
+                                    {
+                                        <li><a href="#" class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <!-- Dictionaries -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Dictionaries</a></li>
+
+            <!-- Audio book -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Audio books</a></li>
+
+            <!-- Recommended -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Recommended</a></li>
+
+            <!-- Sale -->
+            <li class="nav-item mega-dropdown">
+                <a href="#" class="nav-link dropdown-toggle">Sale</a>
+
+            </li>
+            <!--Pages-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink4" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Pages
+                    <i class="fa fa-angle-down hidden-xs"></i>
+                </a>
+                <div class="dropdown-menu mega-menu v-2 z-depth-1 py-5 px-3"
+                     aria-labelledby="navbarDropdownMenuLink4">
+                    <div class="row">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Reference</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Terms of use</a></li>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">About us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+        <!-- Links -->
+
+    </div>
+    <!-- Collapsible content -->
+
+</nav>
+
+<section class="section__detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="sidebar-block">
+                    <h2>Related Books</h2>
+                    <ul class="list-unstyled sidebar-list">
+                        <li>
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="/images/data/book10.webp" class="img-cover shadow-lg" alt="">
+                                </div>
+                                <div class="col">
+                                    <a href="#">Product example #1</a>
+                                    <p class="card__book-price">
+                                        50$
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="/images/data/book1.webp" class="img-cover shadow-lg" alt="">
+                                </div>
+                                <div class="col">
+                                    <a href="#">Product example #1</a>
+                                    <p class="card__book-price">
+                                        50$
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="/images/data/book2.webp" class="img-cover shadow-lg" alt="">
+                                </div>
+                                <div class="col">
+                                    <a href="#">Product example #1</a>
+                                    <p class="card__book-price">
+                                        50$
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="/images/data/book3.webp" class="img-cover shadow-lg" alt="">
+                                </div>
+                                <div class="col">
+                                    <a href="#">Product example #1</a>
+                                    <p class="card__book-price">
+                                        50$
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="/images/data/book6.webp" class="img-cover shadow-lg" alt="">
+                                </div>
+                                <div class="col">
+                                    <a href="#">Product example #1</a>
+                                    <p class="card__book-price">
+                                        50$
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="row">
+                    <div class="col-md-5 mar-right-sm d-flex align-items-center">
+                        <!--Carousel-slide-->
+                        <div class="container-fluid">
+                            <!--Carousel Wrapper-->
+                            <div class="badge sale__badge">SALE</div>
+                            <div id="carousel-example-1z" class="carousel slide carousel-slide pointer-event "
+                                 data-ride="carousel" data-interval="0">
+
+                                <!--Slides-->
+                                <div class="carousel-inner" role="listbox">
+                                    <!--First slide-->
+                                    <div class="carousel-item active cursor-zoom" data-image="data/book6.webp"
+                                         data-toggle="zoom" style="position: relative; overflow: hidden;">
+                                        <div class="card">
+                                            @*<img src="/images/data/book6.webp" class="card-img-top img-cover" alt="...">*@
+                                            <img src="@Model.Image" class="card-img-top img-cover" alt="...">
+                                        </div>
+                                        <img role="presentation" alt="" src="/images/data/book6.webp" class="zoomImg"
+                                             style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 270px;
+                                                                                                                                                                                                                                                          height: 380px; border: none; max-width: none; max-height: none;">
+                                    </div>
+
+                                    @if (Model.ImageBook != null || Model.ImageBook.Count > 0)
+                                    {
+                                        if (Model.ImageBook.Count >= 3)
+                                        {
+                                            for (int i = 0; i < 3; i++)
+                                            {
+                                                <div class="carousel-item cursor-zoom"
+                                                     data-image="data/book6.webp"
+                                                     data-toggle="zoom" style="position: relative; overflow: hidden;">
+                                                    <div class="card">
+                                                        <img src="@Model.ImageBook[i].Path" class="card-img-top img-cover" alt="...">
+                                                    </div>
+                                                    <img role="presentation" alt=""
+                                                         src="@Model.ImageBook[i].Path" class="zoomImg"
+                                                         style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 270px; height: 380px; border: none; max-width: none; max-height: none;">
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int i = 0; i < Model.ImageBook.Count; i++)
+                                            {
+                                                <div class="carousel-item cursor-zoom"
+                                                     data-image="data/book6.webp"
+                                                     data-toggle="zoom" style="position: relative; overflow: hidden;">
+                                                    <div class="card">
+                                                        <img src="@Model.ImageBook[i].Path" class="card-img-top img-cover" alt="...">
+                                                    </div>
+                                                    <img role="presentation" alt=""
+                                                         src="@Model.ImageBook[i].Path" class="zoomImg"
+                                                         style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 270px; height: 380px; border: none; max-width: none; max-height: none;">
+                                                </div>
+                                            }
+                                        }
+                                    }
+
+                                </div>
+                                <!--/.Slides-->
+                                <!--Indicators-->
+                                <ol class="carousel-indicators carousel-indicators-dark">
+                                    <li data-target="#carousel-example-1z" data-slide-to="0" class="active"
+                                        style="background-image: url('@Model.Image')">
+                                    </li>
+                                    @if (Model.ImageBook != null || Model.ImageBook.Count > 0)
+                                    {
+                                        if (Model.ImageBook.Count >= 3)
+                                        {
+                                            for (int i = 0; i < 3; i++)
+                                            {
+                                                <li data-target="#carousel-example-1z" data-slide-to="@(i + 1)"
+                                                    style="background-image: url('@Model.ImageBook[i].Path')">
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int i = 0; i < Model.ImageBook.Count; i++)
+                                            {
+                                                <li data-target="#carousel-example-1z" data-slide-to="@(i + 1)"
+                                                    style="background-image: url('@Model.ImageBook[i].Path')">
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ol>
+                                <!--/.Indicators-->
+                            </div>
+                            <!--/.Carousel Wrapper-->
+                        </div>
+                        <!--/Carousel-slide-->
+                    </div>
+                    <div class="col-md">
+                        <div class="title-wrapper">
+                            <h3>@Model.Name</h3>
+                        </div>
+                        @{
+                            string authors = "";
+                            foreach (var author in Model.AuthorBook)
+                            {
+                                authors += author.Author.Name + ", ";
+                            }
+                            authors = authors.Substring(0, authors.Length - 2);
+                        }
+                        <div class="special-author text-dark">Author: @authors</div>
+                        <h2>@Model.CurrentPrice.ToString("##,###") VND</h2>
+                        <div class="detail__describe">
+                            @Html.Raw(Model.Summary)
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="quantity buttons_added d-flex flex-row mar-top-2">
+                                    <input type="button" value="-" class="minus quantity__button">
+                                    <input type="text" step="1" min="1" max="" name="quantity" value="1" title="Qty"
+                                           class="input-text qty text h-100" size="4" pattern="" inputmode="">
+                                    <input type="button" value="+" class="plus quantity__button">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <a href="#" class="btn btn-fw btn--rounded btn--blue" id="btnAddCart">Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="detail__link">
+                            <a href="#">add to wishlish</a>
+                            <a href="#">add to compare</a>
+                        </div>
+                        <div class="detail__social">
+                            <a href="#" class="detail__social-icon detail__social-icon-twitter">
+                                <i class="fab fa-twitter"></i>
+                                twitter
+                            </a>
+                            <a href="#" class="detail__social-icon detail__social-icon-fb">
+                                <i class="fab fa-facebook-f"></i>
+                                facebook
+                            </a>
+                            <a href="#" class="detail__social-icon detail__social-icon-gg">
+                                <i class="fab fa-google-plus-g"></i>
+                                google +
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="subcribe-form" style="background-image: url(/images/mailing_bg.webp)" ;>
+        <div class="blur-layer-text">
+            <h2>Subcribe to our new letters</h2>
+            <div class="d-flex justify-content-center align-items-center">
+                <input type="text" class="input__subcribe" placeholder="Enter your e-mail address">
+                <a href="#" class="btn btn--rounded btn-fit btn--blue">Subcribe</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="container mar-top-lg">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="images/footer_logo.webp" alt="">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_2.webp')"></span>
+                    Our main office
+                </h4>
+                <p>San Francisco, California, US P.O. BOX: 553204 Phone: (+1) 998 3384 Mail: admin@bookshop.com</p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    keep in touch with us
+                </h4>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    information
+                </h4>
+                <ul class="footer__infor">
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Term & Condition</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">My account</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+</footer>
+
 
 <script src="/js/jquery-3.3.1.slim.min.js"></script>
 <script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/popper.js"></script>
+<script src="/mdbootstrap/js/mdb.min.js"></script>
+<script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
+<script src="/js/all.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="/js/jquery.zoom.min.js"></script>
+<script src="/js/main.js"></script>
 <script>
-    $("#btnAddCart").click(function(e) {
+    $("#btnAddCart").click(function (e) {
+        e.preventDefault();
         $.post("/AddToCart",
             {
                 id: "@SecureHelper.GetSecureOutput(Model.Id)"

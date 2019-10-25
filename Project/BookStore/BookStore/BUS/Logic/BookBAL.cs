@@ -71,8 +71,10 @@ namespace BookStore.BUS.Logic
         {
             try
             {
-                var book = await context.Book.Include(x => x.AuthorBook).Include(x => x.BookCategory)
-                    .Include(x => x.Comment).Include(x => x.FormBook).Include(x => x.ImageBook)
+                var book = await context.Book.Include(x => x.AuthorBook).ThenInclude(x => x.Author)
+                    .Include(x => x.ImageBook).Include(x => x.PublisherBook).ThenInclude(x => x.Publisher)
+                    .Include(x => x.FormBook).ThenInclude(x => x.Form)
+                    .Include(x => x.SupplierBook).ThenInclude(x => x.Supplier)
                     .Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
                 if (book is null)
                 {
@@ -89,12 +91,36 @@ namespace BookStore.BUS.Logic
             }
         }
 
-        public async Task<Response> GetBookOnly(string id)
+        public async Task<Response> GetBookWithSecureID(string id)
         {
             try
             {
                 var book = await context.Book.Include(x => x.AuthorBook).ThenInclude(x => x.Author)
-                    .Include(x => x.ImageBook).Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+                    .Include(x => x.ImageBook).Include(x => x.PublisherBook).ThenInclude(x => x.Publisher)
+                    .Include(x => x.FormBook).ThenInclude(x => x.Form)
+                    .Include(x => x.SupplierBook).ThenInclude(x => x.Supplier)
+                    .Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+                if (book is null)
+                {
+                    return new Response("Cannot find this book", false, 0, null);
+                }
+                else
+                {
+                    book.Id = SecureHelper.GetSecureOutput(book.Id);
+                    return new Response("Success", true, 1, book);
+                }
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetBookOnly(string id)
+        {
+            try
+            {
+                var book = await context.Book.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
                 if (book is null)
                 {
                     return new Response("Cannot find this book", false, 0, null);
