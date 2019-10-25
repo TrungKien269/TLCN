@@ -24,23 +24,23 @@
         </div>
         <div class="nav__social-icon d-flex justify-content-center">
             @*<a href="#" data-toggle="tooltip" data-placement="bottom" title="Wish list">
-                <i class="far fa-heart"></i>
-            </a>*@
+                    <i class="far fa-heart"></i>
+                </a>*@
             @*<div class="dropdown">
-                <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
                 </div>
-            </div>
 
 
-            <a href="/Login">
-                <i class="far fa-user"></i>
-            </a>*@
+                <a href="/Login">
+                    <i class="far fa-user"></i>
+                </a>*@
 
             <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
 
@@ -63,7 +63,7 @@
 
         </div>
     </div>
-   
+
 
 </nav>
 
@@ -270,39 +270,39 @@
                             <div class="carousel-inner" role="listbox">
                                 <!--First slide-->
                                 @*<div class="carousel-item active cursor-zoom" data-image="~/images/data/book11.webp"
-                                     data-toggle="zoom">
-                                    <div class="card">
-                                        <img src="~/images/data/book11.webp" class="card-img-top img-cover"
-                                             alt="...">
-                                    </div>
-                                </div>*@
+                                         data-toggle="zoom">
+                                        <div class="card">
+                                            <img src="~/images/data/book11.webp" class="card-img-top img-cover"
+                                                 alt="...">
+                                        </div>
+                                    </div>*@
                                 <!--/First slide-->
                                 <!--Second slide-->
                                 @*<div class="carousel-item cursor-zoom" data-image="~/images/data/book12.webp"
-                                     data-toggle="zoom">
-                                    <div class="card">
-                                        <img src="~/images/data/book12.webp"
-                                             class="card-img-top img-cover" alt="...">
-                                    </div>
-                                </div>*@
+                                         data-toggle="zoom">
+                                        <div class="card">
+                                            <img src="~/images/data/book12.webp"
+                                                 class="card-img-top img-cover" alt="...">
+                                        </div>
+                                    </div>*@
                                 <!--/Second slide-->
                                 <!--Third slide-->
                                 @*<div class="carousel-item cursor-zoom" data-image="~/images/data/book13.webp"
-                                     data-toggle="zoom">
-                                    <div class="card">
-                                        <img src="~/images/data/book13.webp"
-                                             class="card-img-top img-cover" alt="...">
-                                    </div>
-                                </div>*@
+                                         data-toggle="zoom">
+                                        <div class="card">
+                                            <img src="~/images/data/book13.webp"
+                                                 class="card-img-top img-cover" alt="...">
+                                        </div>
+                                    </div>*@
                                 <!--/Third slide-->
                                 <!--Fourth slide-->
                                 @*<div class="carousel-item cursor-zoom" data-image="~/images/data/book14.webp"
-                                     data-toggle="zoom">
-                                    <div class="card">
-                                        <img src="~/images/data/book14.webp"
-                                             class="card-img-top img-cover" alt="...">
-                                    </div>
-                                </div>*@
+                                         data-toggle="zoom">
+                                        <div class="card">
+                                            <img src="~/images/data/book14.webp"
+                                                 class="card-img-top img-cover" alt="...">
+                                        </div>
+                                    </div>*@
                                 <!--/Fourth slide-->
 
                             </div>
@@ -380,15 +380,15 @@
                             <p class="card__book-price" style="text-align: center">
                                 @book.CurrentPrice.ToString("##,###") VND
                             </p>
-                            <a href="@SecureHelper.GetSecureOutput(book.Id)" 
+                            <a href="@SecureHelper.GetSecureOutput(book.Id)"
                                class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
                         </div>
                         <div class="badge badge__utilities item-display">
                             <a href="#" class="badge__utilities-blue">
                                 <i class="fas fa-heart"></i>
                             </a>
-                            <a href="#" class="badge__utilities-blue" 
-                               data-toggle="modal" data-target="#modalQuickview" 
+                            <a href="#" class="badge__utilities-blue"
+                               data-toggle="modal" data-target="#modalQuickview"
                                data-object="@SecureHelper.GetSecureOutput(book.Id)">
                                 <i class="fas fa-search"></i>
                             </a>
@@ -405,137 +405,144 @@
 </section>
 
 <section class="section__publisher">
-    <ul class="nav nav-tabs">
-        @for (int i = 0; i < @FamousPublisherList.Count; i++)
-        {
-            <li class="nav-item nav-item__tab">
-                <a class="nav-link" data-toggle="tab" href="#menu" id="menu_@FamousPublisherList[i].Id">
-                    <img src="@FamousPublisherList[i].Image"
-                         class="img-cover" alt="">
-                </a>
-            </li>
-        }
-    </ul>
+    <div class="container">
+        <div class="title-wrapper">
+            <h3>Publishers</h3>
+        </div>
+
+        <ul class="nav nav-tabs">
+            @for (int i = 0; i < @FamousPublisherList.Count; i++)
+            {
+                <li class="nav-item nav-item__tab">
+                    <a class="nav-link" data-toggle="tab" href="#menu" id="menu_@FamousPublisherList[i].Id">
+                        <img src="@FamousPublisherList[i].Image"
+                             class="img-cover" alt="">
+                    </a>
+                </li>
+            }
+        </ul>
 
 
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div class="tab-pane active container-fluid" id="menu">
-            <div class="row">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active container-fluid" id="menu">
+                <div class="row">
 
-                <div class="col-md-2">
-                    <div class="card display-on-hover">
-                        <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" class="linkBook">
-                            <img class="card-img-top  img-cover" src="@ListSalesBook[0].Image" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card__book-title">@ListSalesBook[0].Name</h5>
-                                <p class="card__book-price" style="text-align: center">
-                                    @ListSalesBook[0].CurrentPrice.ToString("##,###") VND
-                                </p>
-                                <a href="@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" 
-                                   class="btn btn-fw btn--blue btn--rounded">Add to cart</a>
-                            </div>
-                            <div class="badge badge__utilities item-display">
-                                <a href="#" class="badge__utilities-blue">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                                <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" 
-                                   class="badge__utilities-blue">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </div>
-                        </a>
+                    <div class="col-md-3">
+                        <div class="card display-on-hover">
+                            <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" class="linkBook">
+                                <img class="card-img-top img-contain" src="@ListSalesBook[0].Image" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">@ListSalesBook[0].Name</h5>
+                                    <p class="card__book-price" style="text-align: center">
+                                        @ListSalesBook[0].CurrentPrice.ToString("##,###") VND
+                                    </p>
+                                    <a href="@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)"
+                                       class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)"
+                                       class="badge__utilities-blue">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card display-on-hover">
-                        <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" class="linkBook">
-                            <img class="card-img-top img-cover" src="@ListSalesBook[1].Image" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card__book-title">@ListSalesBook[1].Name</h5>
-                                <p class="card__book-price" style="text-align: center">
-                                    @ListSalesBook[1].CurrentPrice.ToString("##,###") VND
-                                </p>
-                                <a href="@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" 
-                                   class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
-                            </div>
-                            <div class="badge badge__utilities">
-                                <a href="#" class="badge__utilities-blue">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                                <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" 
-                                   class="badge__utilities-blue">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </div>
-                        </a>
+                    <div class="col-md-3">
+                        <div class="card display-on-hover">
+                            <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" class="linkBook">
+                                <img class="card-img-top img-contain" src="@ListSalesBook[1].Image" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">@ListSalesBook[1].Name</h5>
+                                    <p class="card__book-price" style="text-align: center">
+                                        @ListSalesBook[1].CurrentPrice.ToString("##,###") VND
+                                    </p>
+                                    <a href="@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)"
+                                       class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                                </div>
+                                <div class="badge badge__utilities">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)"
+                                       class="badge__utilities-blue">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card display-on-hover">
-                        <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" class="linkBook">
-                            <img class="card-img-top img-cover" src="@ListSalesBook[2].Image" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card__book-title">@ListSalesBook[2].Name</h5>
-                                <p class="card__book-price" style="text-align: center">
-                                    @ListSalesBook[2].CurrentPrice.ToString("##,###") VND
-                                </p>
-                                <a href="@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" 
-                                   class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
-                            </div>
-                            <div class="badge badge__utilities item-display">
-                                <a href="#" class="badge__utilities-blue">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                                <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" 
-                                   class="badge__utilities-blue">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </div>
-                        </a>
+                    <div class="col-md-3">
+                        <div class="card display-on-hover">
+                            <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" class="linkBook">
+                                <img class="card-img-top img-contain" src="@ListSalesBook[2].Image" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">@ListSalesBook[2].Name</h5>
+                                    <p class="card__book-price" style="text-align: center">
+                                        @ListSalesBook[2].CurrentPrice.ToString("##,###") VND
+                                    </p>
+                                    <a href="@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)"
+                                       class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)"
+                                       class="badge__utilities-blue">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card display-on-hover">
-                        <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" class="linkBook">
-                            <img class="card-img-top img-cover" src="@ListSalesBook[3].Image" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card__book-title">@ListSalesBook[3].Name</h5>
-                                <p class="card__book-price" style="text-align: center">
-                                    @ListSalesBook[3].CurrentPrice.ToString("##,###") VND
-                                </p>
-                                <a href="@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" 
-                                   class="btn btn--rounded btn-fw btn--blue">Add to cart</a>
-                            </div>
-                            <div class="badge badge__utilities item-display">
-                                <a href="#" class="badge__utilities-blue">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                                <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" 
-                                   class="badge__utilities-blue">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                    <div class="col-md-3">
+                        <div class="card display-on-hover">
+                            <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" class="linkBook">
+                                <img class="card-img-top img-contain" src="@ListSalesBook[3].Image" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">@ListSalesBook[3].Name</h5>
+                                    <p class="card__book-price" style="text-align: center">
+                                        @ListSalesBook[3].CurrentPrice.ToString("##,###") VND
+                                    </p>
+                                    <a href="@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)"
+                                       class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)"
+                                       class="badge__utilities-blue">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>                  
 
+                </div>
             </div>
         </div>
     </div>
+    
 </section>
 
 <section class="section__feature">
     <div class="owl-carousel owl-theme owl-feature">
         <div class="special-item">
-            <div class="special-wrapper" style="background: url('images/orange-bg.webp')">
+            <div class="special-wrapper" style="background: url('/images/orange-bg.webp')">
                 <div class="row">
-                    <div class="col-md-3">
-                        <img src="~/images/special-book-2.webp" class="img-cover" alt="">
+                    <div class="col-sm-3 special-img">
+                        <img src="/images/special-book-2.webp" class="img-contain" alt="">
                     </div>
                     <div class="col">
                         <div class="special-text">
-                            <div class="special-title">Children of the god - Uprising</div>
+                            <div class="special-title cut-text cut-text-1-line">Children of the god - Uprising</div>
                             <div class="special-price">$120.00</div>
                             <div class="special-author">Author: Jessica therrien</div>
                             <a href="#" class="btn btn--rounded btn-fit btn--white">view detail</a>
@@ -547,12 +554,12 @@
         <div class="special-item">
             <div class="special-wrapper" style="background: url('images/pink-bg.webp')">
                 <div class="row">
-                    <div class="col-md-3">
-                        <img src="~/images/special-book-3.webp" class="img-cover" alt="">
+                    <div class="col-sm-3 special-img">
+                        <img src="/images/special-book-3.webp" class="img-contain" alt="">
                     </div>
                     <div class="col">
                         <div class="special-text">
-                            <div class="special-title">Lean in</div>
+                            <div class="special-title cut-text cut-text-1-line">Lean in</div>
                             <div class="special-price">$80.00</div>
                             <div class="special-author">Author: Sheryl sandberg</div>
                             <a href="#" class="btn btn--rounded btn-fit btn--white">view detail</a>
@@ -564,12 +571,12 @@
         <div class="special-item">
             <div class="special-wrapper" style="background: url('images/blue-bg.webp')">
                 <div class="row">
-                    <div class="col-md-3">
-                        <img src="~/images/special-book-1.webp" class="img-cover" alt="">
+                    <div class="col-sm-3 special-img">
+                        <img src="/images/special-book-1.webp" class="img-contain" alt="">
                     </div>
                     <div class="col">
                         <div class="special-text">
-                            <div class="special-title">The trial of apollo</div>
+                            <div class="special-title cut-text cut-text-1-line">The trial of apollo</div>
                             <div class="special-price">$90.00</div>
                             <div class="special-author">Author: rick riordan</div>
                             <a href="#" class="btn btn--rounded btn-fit btn--white">view detail</a>
@@ -694,7 +701,7 @@
                                 </div>
                                 1 review
                             </div>
-                            <a href="#" class="btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
                         </div>
                         <div class="badge badge__utilities item-display">
                             <a href="#" class="badge__utilities-blue">
@@ -884,7 +891,7 @@
 </section>
 
 <footer class="footer">
-    <div class="subcribe-form"  style="background-image: url(/images/mailing_bg.webp)";>
+    <div class="subcribe-form" style="background-image: url(/images/mailing_bg.webp)" ;>
         <div class="blur-layer-text">
             <h2>Subcribe to our new letters</h2>
             <div class="d-flex justify-content-center align-items-center">
