@@ -40,7 +40,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost("AddToCart")]
-        public async Task<Response> AddBookToCart(string id)
+        public async Task<Response> AddBookToCart(string id, string quantity)
         {
             var userID = HttpContext.Session.GetInt32("UserID");
             if (userID is null)
@@ -53,16 +53,16 @@ namespace BookStore.Controllers
                     var index = listCartBook.FindIndex(x => x.BookId.Equals(originalID));
                     if (index >= 0)
                     {
-                        listCartBook[index].Quantity += 1;
-                        listCartBook[index].SubTotal += book.CurrentPrice;
+                        listCartBook[index].Quantity += int.Parse(quantity);
+                        listCartBook[index].SubTotal += book.CurrentPrice * int.Parse(quantity);
                     }
                     else
                     {
                         listCartBook.Add(new CartBook
                         {
-                            BookId = book.Id,
-                            Quantity = 1,
-                            SubTotal = 1 * book.CurrentPrice,
+                            BookId = originalID,
+                            Quantity = int.Parse(quantity),
+                            SubTotal = int.Parse(quantity) * book.CurrentPrice,
                             PickedDate = DateTime.Now,
                             Book = book
                         });
@@ -85,14 +85,14 @@ namespace BookStore.Controllers
                     Cart newCart = newCart_Response.Obj as Cart;
                     var originalID = SecureHelper.GetOriginalInput(id);
                     var book = (await bookInfoBal.GetBook(originalID)).Obj as Book;
-                    await bookInfoBal.AddToCart(newCart, book);
+                    await bookInfoBal.AddToCart(newCart, book, int.Parse(quantity));
                     return new Response("Success", true, 1, newCart.CartBook);
                 }
                 else
                 {
                     var originalID = SecureHelper.GetOriginalInput(id);
                     var book = (await bookInfoBal.GetBook(originalID)).Obj as Book;
-                    await bookInfoBal.AddToCart(cart, book);
+                    await bookInfoBal.AddToCart(cart, book, int.Parse(quantity));
                     return new Response("Success", true, 1, cart.CartBook);
                 }
             }

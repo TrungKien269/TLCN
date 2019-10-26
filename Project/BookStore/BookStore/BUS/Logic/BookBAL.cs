@@ -75,6 +75,7 @@ namespace BookStore.BUS.Logic
                     .Include(x => x.ImageBook).Include(x => x.PublisherBook).ThenInclude(x => x.Publisher)
                     .Include(x => x.FormBook).ThenInclude(x => x.Form)
                     .Include(x => x.SupplierBook).ThenInclude(x => x.Supplier)
+                    .Include(x => x.BookCategory).ThenInclude(x => x.Cate)
                     .Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
                 if (book is null)
                 {

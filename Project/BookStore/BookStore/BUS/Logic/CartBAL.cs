@@ -62,7 +62,7 @@ namespace BookStore.BUS.Logic
             }
         }
 
-        public async Task<Response> InsertToCart(Cart cart, Book book)
+        public async Task<Response> InsertToCart(Cart cart, Book book, int quantity)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace BookStore.BUS.Logic
                         BookId = book.Id,
                         CartId = cart.Id,
                         PickedDate = DateTime.Now,
-                        Quantity = 1,
+                        Quantity = quantity,
                         SubTotal = book.CurrentPrice
                     };
                     context.CartBook.Add(cartBook);
@@ -84,8 +84,8 @@ namespace BookStore.BUS.Logic
                 }
                 else
                 {
-                    checkCartBook.Quantity += 1;
-                    checkCartBook.SubTotal += book.CurrentPrice;
+                    checkCartBook.Quantity += quantity;
+                    checkCartBook.SubTotal += book.CurrentPrice * quantity;
                     context.CartBook.Update(checkCartBook);
                     await context.SaveChangesAsync();
                     return new Response("Success", true, 1, checkCartBook);

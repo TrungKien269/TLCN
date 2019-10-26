@@ -363,6 +363,54 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="product-table" style="font-size: 18px">
+                        <table>
+                            <tbody>
+                                <tr class="title">
+                                    <td class="first">Book Title</td>
+                                    <td>@Model.Name</td>
+                                </tr>
+
+                                <tr class="author">
+                                    <td class="first">Author</td>
+                                    <td>@authors</td>
+                                </tr>
+
+                                <tr class="type">
+                                    <td class="first">Category</td>
+                                    <td>@Model.BookCategory[0].Cate.Name</td>
+                                </tr>
+
+                                <tr class="title">
+                                    <td class="first">Year published</td>
+                                    <td>@Model.ReleaseYear</td>
+                                </tr>
+
+                                <tr class="provider">
+                                    <td class="first">Supplier</td>
+                                    <td>@Model.SupplierBook[0].Supplier.Name</td>
+                                </tr>
+
+                                <tr class="publisher">
+                                    <td class="first">Publisher</td>
+                                    <td>@Model.PublisherBook[0].Publisher.Name</td>
+                                </tr>
+
+                                <tr class="weight">
+                                    <td class="first">Weight</td>
+                                    <td>@Model.Weight</td>
+                                </tr>
+
+                                <tr class="Pages">
+                                    <td class="first">Number of pages</td>
+                                    <td>@Model.NumOfPage</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -444,10 +492,24 @@
         e.preventDefault();
         $.post("/AddToCart",
             {
-                id: "@SecureHelper.GetSecureOutput(Model.Id)"
+                id: "@SecureHelper.GetSecureOutput(Model.Id)",
+                quantity: $("input.qty").val()
             },
             function(data) {
                 console.log(data);
             });
     });
+
+    $("input.plus").click(function(e) {
+        var quantity = $("input.qty").val();
+        $("input.qty").val((parseInt(quantity) + 1));
+    });
+
+    $("input.minus").click(function (e) {
+        var quantity = $("input.qty").val();
+        if ((parseInt(quantity) - 1) > 0) {
+            $("input.qty").val((parseInt(quantity) - 1));
+        }
+    });
+
 </script>

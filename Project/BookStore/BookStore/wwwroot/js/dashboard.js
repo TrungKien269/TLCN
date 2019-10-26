@@ -76,7 +76,8 @@
         e.preventDefault();
         $.post("/AddToCart",
             {
-                id: $(this).attr("href")
+                id: $(this).attr("href"),
+                quantity: 1
             },
             function (data) {
                 console.log(data);
