@@ -41,7 +41,8 @@ namespace BookStore.Controllers
                     CryptographyHelper.GenerateHash(account.Username + DateTime.Now.ToString(),
                         (response.Obj as Account).Salt));
                 SessionHelper.SetWebsiteSession(this.HttpContext.Session, hash);
-                SessionHelper.SetUserSession(this.HttpContext.Session, (response.Obj as Account).Id);
+                SessionHelper.SetUserSession(this.HttpContext.Session, (response.Obj as Account).Id,
+                    (response.Obj as Account).IdNavigation.FullName);
                 CookieHelper.SetWebsiteCookie(this.Response, hash);
 
                 await loginBal.SetCartAfterLogin(this.HttpContext.Session, (response.Obj as Account).Id);
@@ -66,7 +67,8 @@ namespace BookStore.Controllers
                     CryptographyHelper.GenerateHash(user.Account.Username + DateTime.Now.ToString(),
                         (response.Obj as User).Account.Salt));
                 SessionHelper.SetWebsiteSession(this.HttpContext.Session, hash);
-                SessionHelper.SetUserSession(this.HttpContext.Session, (response.Obj as User).Id);
+                SessionHelper.SetUserSession(this.HttpContext.Session, (response.Obj as User).Id,
+                    (response.Obj as Account).IdNavigation.FullName);
                 CookieHelper.SetWebsiteCookie(this.Response, hash);
                 await loginBal.SetCookieForAccount(hash, (response.Obj as User).Account);
                 ViewBag.Session = HttpContext.Session.GetString("BookStore");

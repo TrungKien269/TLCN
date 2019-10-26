@@ -25,6 +25,7 @@ namespace BookStore.Controllers
         [HttpGet("Book/{id}")]
         public async Task<IActionResult> Index(string id)
         {
+            ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
             ViewBag.ListCategory = (await bookInfoBal.GetListCategory()).Obj as List<Category>;
             var originalID = SecureHelper.GetOriginalInput(id);
             var response = await bookInfoBal.GetBook(originalID);

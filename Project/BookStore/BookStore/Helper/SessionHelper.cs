@@ -32,9 +32,10 @@ namespace BookStore.Helper
             session.SetString("BookStore", hash);
         }
 
-        public static void SetUserSession(ISession session, int userID)
+        public static void SetUserSession(ISession session, int userID, string fullname)
         {
             session.SetInt32("UserID", userID);
+            session.SetString("UserFullName", fullname);
         }
 
         public static void CreateCartSession(ISession session)
@@ -58,7 +59,13 @@ namespace BookStore.Helper
             SetObjectAsJson(session, "Cart", cart);
         }
 
-        public static void ClearSession(ISession session)
+        public static void ClearSessionLogout(ISession session)
+        {
+            session.Remove("UserID");
+            session.Remove("UserFullName");
+        }
+
+        public static void ClearAllSession(ISession session)
         {
             session.Clear();
         }

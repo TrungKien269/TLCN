@@ -26,6 +26,7 @@ namespace BookStore.Controllers
         [HttpGet("Cart")]
         public async Task<IActionResult> Index()
         {
+            ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
             HttpContext.Session.SetString("PreviousState", "Cart");
             var session = HttpContext.Session.GetString("BookStore");
             var response = await userCartBal.GetCart(session);

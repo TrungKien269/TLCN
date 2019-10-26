@@ -39,7 +39,8 @@ namespace BookStore.Controllers
                     if (account.Status is true)
                     {
                         SessionHelper.SetWebsiteSession(HttpContext.Session, cookie);
-                        SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id);
+                        SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id,
+                            (account.Obj as Account).IdNavigation.FullName);
                         SessionHelper.CreateCartSession(HttpContext.Session);
                         ViewBag.Session = cookie;
                         ViewBag.UserID = (account.Obj as Account).Id;
@@ -60,7 +61,8 @@ namespace BookStore.Controllers
                 var account = await dashboardBal.GetAccountByCookie(session);
                 if (account.Status is true)
                 {
-                    SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id);
+                    SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id,
+                        (account.Obj as Account).IdNavigation.FullName);
                 }
                 //SessionHelper.CreateCartSession(HttpContext.Session);
                 ViewBag.FullName = account.Obj as Account is null
@@ -97,14 +99,14 @@ namespace BookStore.Controllers
             if (cookie is null)
             {
                 var session = HttpContext.Session.GetString("BookStore");
-                //HttpContext.Session.Remove("BookStore");
+                SessionHelper.ClearSessionLogout(this.HttpContext.Session);
                 await dashboardBal.Logout(session);
                 return RedirectToAction("Index", "Dashboard");
             }
             else
             {
                 Response.Cookies.Delete("BookStore");
-                //HttpContext.Session.Remove("BookStore");
+                SessionHelper.ClearSessionLogout(this.HttpContext.Session);
                 await dashboardBal.Logout(cookie);
                 return RedirectToAction("Index", "Dashboard");
             }
