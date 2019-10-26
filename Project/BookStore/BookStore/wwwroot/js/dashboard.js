@@ -54,11 +54,11 @@
                 $(".tab-content div.card:eq(" + (parseInt(i)) + ") p.card__book-price")
                     .text((parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND");
                 $(".tab-content div.card p.card__book-price").css("text-align", "center");
-                $(".tab-content div.col-md-3:eq(" + (parseInt(i)) + ") a.linkBook")
+                $(".tab-content div.col-md-2:eq(" + (parseInt(i)) + ") a.linkBook")
                     .attr("href", "/Book/" + data.obj[i].id);
-                $(".tab-content div.col-md-3:eq(" + (parseInt(i)) + ") a.btn--rounded")
+                $(".tab-content div.col-md-2:eq(" + (parseInt(i)) + ") a.btn--rounded")
                     .attr("href", data.obj[i].id);
-                $(".tab-content div.col-md-3:eq(" + (parseInt(i)) + ") a.badge__utilities-blue:eq(1)")
+                $(".tab-content div.col-md-2:eq(" + (parseInt(i)) + ") a.badge__utilities-blue:eq(1)")
                     .attr("href", "/Book/" + data.obj[i].id);
             }
         });

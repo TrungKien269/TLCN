@@ -1,0 +1,922 @@
+﻿@using BookStore.Models.Objects;
+@using System.Net
+@using BookStore.Models.Objects;
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http.Extensions;
+@using Microsoft.AspNetCore.WebUtilities
+@using BookStore.Helper;
+@{
+    Layout = "ListBook_Layout";
+    List<Category> CategoryList = (List<Category>)ViewBag.ListCategory;
+}
+
+<nav class="navbar navbar-shadow justify-content-between">
+    <div class="container">
+        <a href="/" class="navbar-sm-brand">
+            <img src="/images/logo.webp" alt="">
+        </a>
+        <div class="input__search-bar">
+            <input type="text" placeholder="Search">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="nav__social-icon d-flex justify-content-center">
+
+            <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
+
+            @if (@ViewBag.FullName is null)
+            {
+                <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
+            }
+            else
+            {
+                <div class="dropdown">
+                    <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" id="linkProfile">Profile</a>
+                        <a class="dropdown-item" href="/Logout">Logout</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+
+</nav>
+
+<nav class="navbar navbar-pad-sm navbar-expand-lg bg-light" style="z-index: 15">
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
+            aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent2">
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+
+            <!-- Categories -->
+            <li class="nav-item dropdown mega-dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Categories
+                    <i class="fa fa-angle-down hidden-xs"></i>
+                </a>
+                <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdownMenuLink3">
+                    <div class="row">
+                        @for (int i = 0; i < 4; i++)
+                        {
+                            <div class="col-md-3">
+                                <h3>@CategoryList[i].Name</h3>
+                                <ul class="list-unstyled">
+                                    @for (int j = 0; j < 4; j++)
+                                    {
+                                        <li><a href="#" class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        @for (int i = 4; i < 8; i++)
+                        {
+                            <div class="col-md-3">
+                                <h3>@CategoryList[i].Name</h3>
+                                <ul class="list-unstyled">
+                                    @for (int j = 0; j < 4; j++)
+                                    {
+                                        <li><a href="#" class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <!-- Dictionaries -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Dictionaries</a></li>
+
+            <!-- Audio book -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Audio books</a></li>
+
+            <!-- Recommended -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Recommended</a></li>
+
+            <!-- Sale -->
+            <li class="nav-item mega-dropdown">
+                <a href="#" class="nav-link dropdown-toggle">Sale</a>
+
+            </li>
+            <!--Pages-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink4" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Pages
+                    <i class="fa fa-angle-down hidden-xs"></i>
+                </a>
+                <div class="dropdown-menu mega-menu v-2 z-depth-1 py-5 px-3"
+                     aria-labelledby="navbarDropdownMenuLink4">
+                    <div class="row">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Reference</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Terms of use</a></li>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">About us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+        <!-- Links -->
+
+    </div>
+    <!-- Collapsible content -->
+
+</nav>
+
+<section class="section__product-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 hidden-md-elements">
+                <div class="sidebar-block">
+                    <h2>Categories</h2>
+                    <ul class="list-unstyled sidebar-list">
+                        <li><a href="#" class="pad-0-0">Art &amp; Photography</a></li>
+                        <li><a href="#" class="pad-0-0">Biographies & Memoirs</a></li>
+                        <li><a href="#" class="pad-0-0">Children's Books</a></li>
+                        <li><a href="#" class="pad-0-0">Cookbook. Food & Wine</a></li>
+                        <li><a href="#" class="pad-0-0">History</a></li>
+                        <li><a href="#" class="pad-0-0">Literature & Fiction</a></li>
+                        <li><a href="#" class="pad-0-0">Mystery & Suspense</a></li>
+                        <li><a href="#" class="pad-0-0">Romance</a></li>
+                        <li><a href="#" class="pad-0-0">Sci-Fi & Fantasy</a></li>
+                        <li><a href="#" class="pad-0-0">Teen & Young Adult</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-block">
+                    <h2>Price Range</h2>
+                    <div class="d-flex align-items-center">
+                        <h4>Range:</h4>
+                        <input type="text" class="js-input-from input-min-price" value="0" />
+                        <h3>-</h3>
+                        <input type="text" class="js-input-to input-max-price" value="0" />
+                    </div>
+
+                    <div class="wrapper">
+                        <div class="range-slider">
+                            <input type="text" class="js-range-slider" value="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-block">
+                    <h2>Brand</h2>
+                    <ul class="list-unstyled sidebar-list">
+                        <li>
+                            <input type="checkbox" id="check1" class="check__box">
+                            <label for="check1" class="checkmark"></label>
+                            <label for="check1">accesi</label>
+
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="check2" class="check__box">
+                            <label for="check2" class="checkmark"></label>
+                            <label for="check2">bikis</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check3" class="check__box">
+                            <label for="check3" class="checkmark"></label>
+                            <label for="check3">elle</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check4" class="check__box">
+                            <label for="check4" class="checkmark"></label>
+                            <label for="check4">gondo</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check5" class="check__box">
+                            <label for="check5" class="checkmark"></label>
+                            <label for="check5">jeana</label>
+
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check6" class="check__box">
+                            <label for="check6" class="checkmark"></label>
+                            <label for="check6">ladora</label>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar-block">
+                    <h2>Colors</h2>
+                    <div class="d-flex flex-wrap">
+                        <a href="#" class="color-box" id="black"></a>
+                        <a href="#" class="color-box" id="blue"></a>
+                        <a href="#" class="color-box" id="pink"></a>
+                        <a href="#" class="color-box" id="blue"></a>
+                    </div>
+                </div>
+
+                <div class="sidebar-block">
+                    <h2>Price</h2>
+                    <ul class="list-unstyled sidebar-list">
+                        <li>
+                            <input type="checkbox" id="price1" class="check__box">
+                            <label for="price1" class="checkmark"></label>
+                            <label for="price1">$100-$300</label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="price2" class="check__box">
+                            <label for="price2" class="checkmark"></label>
+                            <label for="price2">Above $300</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="price3" class="check__box">
+                            <label for="price3" class="checkmark"></label>
+                            <label for="price3">Under $100</label>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="sidebar-block">
+                    <h2>Size</h2>
+                    <div class="d-flex">
+                        <a href="#" class="size-picker">L</a>
+                        <a href="#" class="size-picker">XL</a>
+                        <a href="#" class="size-picker">M</a>
+                        <a href="#" class="size-picker">S</a>
+                    </div>
+                </div>
+                <div class="sidebar-block">
+                    <h2>Sponsor</h2>
+                    <img src="/images/data/book1.webp" class="img-cover" alt="">
+                </div>
+            </div>
+            <div class="col-md">
+                <h1>Products</h1>
+                <div class="row">
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book1.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book2.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book3.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book4.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book1.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book5.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book6.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book7.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book8.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book9.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book10.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="card display-on-hover">
+                            <a href="#">
+                                <img class="card-img-top" src="/images/data/book10.webp" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">
+                                        Product example #1
+                                    </h5>
+                                    <p class="card__book-price">
+                                        $120.00
+                                    </p>
+                                    <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                                        <div class="star__rating" id="rating" data-value-star="4">
+                                            <input type="radio" name="rating" value="5">
+                                            <label class="full" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" name="rating" value="4">
+                                            <label class="full" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" name="rating" value="3">
+                                            <label class="full" title="Meh - 3 stars"></label>
+
+                                            <input type="radio" name="rating" value="2">
+                                            <label class="full" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" name="rating" value="1">
+                                            <label class="full" title="Sucks big time - 1 star"></label>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        Add to
+                                        cart
+                                    </a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="badge__utilities-blue" data-toggle="modal"
+                                       data-target="#modalQuickview">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <nav aria-label="..." class="pagination-block">
+                    <ul class="pagination">
+                        <li class="page-item disabled page-control">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item page-control">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="subcribe-form" style="background-image: url(/images/mailing_bg.webp)" ;>
+        <div class="blur-layer-text">
+            <h2>Subcribe to our new letters</h2>
+            <div class="d-flex justify-content-center align-items-center">
+                <input type="text" class="input__subcribe" placeholder="Enter your e-mail address">
+                <a href="#" class="btn btn--rounded btn-fit btn--blue">Subcribe</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="container mar-top-lg">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="images/footer_logo.webp" alt="">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_2.webp')"></span>
+                    Our main office
+                </h4>
+                <p>San Francisco, California, US P.O. BOX: 553204 Phone: (+1) 998 3384 Mail: admin@bookshop.com</p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    keep in touch with us
+                </h4>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    information
+                </h4>
+                <ul class="footer__infor">
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Term & Condition</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">My account</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+</footer>
