@@ -2377,12 +2377,12 @@ $(function () {
   var $range = $(".js-range-slider"),
     $inputFrom = $(".js-input-from"),
     $inputTo = $(".js-input-to"),
-    instance, 
+    instance,
     min = 0,
-    max = 1000,   
+    max = 1000,
     from = 0,
     to = 0;
-    
+
   $range.ionRangeSlider({
     type: "double",
     min: min,
@@ -2443,6 +2443,11 @@ $(function () {
 
 });
 
+$("#active-exp li a").click(function() {
+  $(this).parent().addClass('active').siblings().removeClass('active');
+
+  });
+
 
 jQuery(document).ready(function ($) {
   jQuery(".owl-carousel-product").length && jQuery('.owl-carousel-product').owlCarousel({
@@ -2464,7 +2469,7 @@ jQuery(document).ready(function ($) {
         items: 4
       }
       , 1200: {
-        items: 6
+        items: 5
       }
     }
     , navElement: 'div',
