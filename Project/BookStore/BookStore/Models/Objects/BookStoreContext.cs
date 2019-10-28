@@ -310,6 +310,8 @@ namespace BookStore.Models.Objects
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
+                entity.Property(e => e.FullName).IsRequired();
+
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(20);

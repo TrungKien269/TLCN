@@ -8,15 +8,17 @@ using BookStore.Models.Objects;
 
 namespace BookStore.BUS.Control
 {
-    public class UserCartBAL
+    public class UserOrderBAL
     {
         private CartBAL cartBal;
         private AccountBAL accountBal;
+        private OrderBAL orderBal;
 
-        public UserCartBAL()
+        public UserOrderBAL()
         {
             this.cartBal = new CartBAL();
             this.accountBal = new AccountBAL();
+            this.orderBal = new OrderBAL();
         }
 
         public async Task<Response> GetCart(string cookie)
@@ -32,19 +34,19 @@ namespace BookStore.BUS.Control
             }
         }
 
-        public async Task<Response> RemoveFromCart(int cartID, string bookID)
-        {
-            return await cartBal.RemoveFromCart(cartID, bookID);
-        }
-
-        public async Task<Response> EditQuantityInCart(int cartID, string bookID, int quantity)
-        {
-            return await cartBal.UpdateQuantity(cartID, bookID, quantity);
-        }
-
         public async Task<Response> ResetCart(int cartID)
         {
             return await cartBal.ResetCart(cartID);
+        }
+
+        public async Task<Response> CountOrder()
+        {
+            return await orderBal.CountOrder();
+        }
+
+        public async Task<Response> CreateOrder(Order order)
+        {
+            return await orderBal.CreateOrder(order);
         }
     }
 }

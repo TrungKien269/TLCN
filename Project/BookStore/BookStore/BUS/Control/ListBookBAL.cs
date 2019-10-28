@@ -10,15 +10,22 @@ namespace BookStore.BUS.Control
     public class ListBookBAL
     {
         private CategoryBAL categoryBal;
+        private PublisherBAL publisherBal;
 
         public ListBookBAL()
         {
             categoryBal = new CategoryBAL();
+            publisherBal = new PublisherBAL();
         }
 
         public async Task<Response> GetListCategory()
         {
             return await categoryBal.GetList();
+        }
+
+        public async Task<Response> GetListPublisher()
+        {
+            return await publisherBal.GetFamousList();
         }
     }
 }

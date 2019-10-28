@@ -24,6 +24,10 @@
             });
     });
 
+    $("button#btnOrder").click(function(e) {
+        window.location.href = "/Order";
+    });
+
     function formatPrice(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     }

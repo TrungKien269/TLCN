@@ -8,6 +8,7 @@
 @{
     Layout = "ListBook_Layout";
     List<Category> CategoryList = (List<Category>)ViewBag.ListCategory;
+    List<FamousPublisher> PublisherList = (List<FamousPublisher>)ViewBag.ListPubliser;
 }
 
 <nav class="navbar navbar-shadow justify-content-between">
@@ -149,25 +150,19 @@
                 <div class="sidebar-block">
                     <h2>Categories</h2>
                     <ul class="list-unstyled sidebar-list">
-                        <li><a href="#" class="pad-0-0">Art &amp; Photography</a></li>
-                        <li><a href="#" class="pad-0-0">Biographies & Memoirs</a></li>
-                        <li><a href="#" class="pad-0-0">Children's Books</a></li>
-                        <li><a href="#" class="pad-0-0">Cookbook. Food & Wine</a></li>
-                        <li><a href="#" class="pad-0-0">History</a></li>
-                        <li><a href="#" class="pad-0-0">Literature & Fiction</a></li>
-                        <li><a href="#" class="pad-0-0">Mystery & Suspense</a></li>
-                        <li><a href="#" class="pad-0-0">Romance</a></li>
-                        <li><a href="#" class="pad-0-0">Sci-Fi & Fantasy</a></li>
-                        <li><a href="#" class="pad-0-0">Teen & Young Adult</a></li>
+                        @foreach (var cate in CategoryList)
+                        {
+                            <li><a href="#" class="pad-0-0">@cate.Name</a></li>
+                        }
                     </ul>
                 </div>
                 <div class="sidebar-block">
                     <h2>Price Range</h2>
                     <div class="d-flex align-items-center">
                         <h4>Range:</h4>
-                        <input type="text" class="js-input-from input-min-price" value="0" />
+                        <input type="text" class="js-input-from input-min-price" value="20000" />
                         <h3>-</h3>
-                        <input type="text" class="js-input-to input-max-price" value="0" />
+                        <input type="text" class="js-input-to input-max-price" value="500000" />
                     </div>
 
                     <div class="wrapper">
@@ -178,85 +173,22 @@
                 </div>
 
                 <div class="sidebar-block">
-                    <h2>Brand</h2>
+                    <h2>Publisher</h2>
                     <ul class="list-unstyled sidebar-list">
-                        <li>
-                            <input type="checkbox" id="check1" class="check__box">
-                            <label for="check1" class="checkmark"></label>
-                            <label for="check1">accesi</label>
 
-                        </li>
+                        @for (int i = 0; i < PublisherList.Count; i++)
+                        {
+                            var indexStr = "check" + (i + 1).ToString();
+                            <li>
+                                <input type="checkbox" id="@indexStr" class="check__box">
+                                <label for="@indexStr" class="checkmark"></label>
+                                <label for="@indexStr">@PublisherList[i].Name</label>
+                            </li>
+                        }
 
-                        <li>
-                            <input type="checkbox" id="check2" class="check__box">
-                            <label for="check2" class="checkmark"></label>
-                            <label for="check2">bikis</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="check3" class="check__box">
-                            <label for="check3" class="checkmark"></label>
-                            <label for="check3">elle</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="check4" class="check__box">
-                            <label for="check4" class="checkmark"></label>
-                            <label for="check4">gondo</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="check5" class="check__box">
-                            <label for="check5" class="checkmark"></label>
-                            <label for="check5">jeana</label>
-
-                        </li>
-                        <li>
-                            <input type="checkbox" id="check6" class="check__box">
-                            <label for="check6" class="checkmark"></label>
-                            <label for="check6">ladora</label>
-
-                        </li>
                     </ul>
                 </div>
-                <div class="sidebar-block">
-                    <h2>Colors</h2>
-                    <div class="d-flex flex-wrap">
-                        <a href="#" class="color-box" id="black"></a>
-                        <a href="#" class="color-box" id="blue"></a>
-                        <a href="#" class="color-box" id="pink"></a>
-                        <a href="#" class="color-box" id="blue"></a>
-                    </div>
-                </div>
 
-                <div class="sidebar-block">
-                    <h2>Price</h2>
-                    <ul class="list-unstyled sidebar-list">
-                        <li>
-                            <input type="checkbox" id="price1" class="check__box">
-                            <label for="price1" class="checkmark"></label>
-                            <label for="price1">$100-$300</label>
-                        </li>
-
-                        <li>
-                            <input type="checkbox" id="price2" class="check__box">
-                            <label for="price2" class="checkmark"></label>
-                            <label for="price2">Above $300</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="price3" class="check__box">
-                            <label for="price3" class="checkmark"></label>
-                            <label for="price3">Under $100</label>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="sidebar-block">
-                    <h2>Size</h2>
-                    <div class="d-flex">
-                        <a href="#" class="size-picker">L</a>
-                        <a href="#" class="size-picker">XL</a>
-                        <a href="#" class="size-picker">M</a>
-                        <a href="#" class="size-picker">S</a>
-                    </div>
-                </div>
                 <div class="sidebar-block">
                     <h2>Sponsor</h2>
                     <img src="/images/data/book1.webp" class="img-cover" alt="">
@@ -847,11 +779,32 @@
                         <li class="page-item disabled page-control">
                             <a class="page-link" href="#" tabindex="-1">Previous</a>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                        @if (ViewBag.IndexPage is null)
+                        {
+                            <li class="page-item active"><a class="page-link" href="/ListBook">1</a></li>
+                            for (int i = 2; i <= 5; i++)
+                            {
+                                var linkPage = "/ListBook/page" + i.ToString();
+                                <li class="page-item"><a class="page-link" href="@linkPage">@i</a></li>
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= 5; i++)
+                            {
+                                var linkPage = "/ListBook/page" + i.ToString();
+                                if (ViewBag.IndexPage.Equals(i.ToString()))
+                                {
+                                    <li class="page-item active"><a class="page-link" href="@linkPage">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link" href="@linkPage">@i</a></li>
+                                }
+                            }
+                        }
+
                         <li class="page-item page-control">
                             <a class="page-link" href="#">Next</a>
                         </li>

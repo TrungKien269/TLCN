@@ -25,7 +25,18 @@ namespace BookStore.Controllers
         {
             ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
             ViewBag.ListCategory = (await listBookBal.GetListCategory()).Obj as List<Category>;
+            ViewBag.ListPubliser = (await listBookBal.GetListPublisher()).Obj as List<FamousPublisher>;
             return View();
+        }
+
+        [HttpGet("ListBook/page{index}")]
+        public async Task<IActionResult> Page(string index)
+        {
+            ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
+            ViewBag.ListCategory = (await listBookBal.GetListCategory()).Obj as List<Category>;
+            ViewBag.ListPubliser = (await listBookBal.GetListPublisher()).Obj as List<FamousPublisher>;
+            ViewBag.IndexPage = index;
+            return View("Index");
         }
     }
 }

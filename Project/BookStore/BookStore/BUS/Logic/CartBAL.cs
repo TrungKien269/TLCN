@@ -165,5 +165,20 @@ namespace BookStore.BUS.Logic
                 return Response.CatchError(e.Message);
             }
         }
+
+        public async Task<Response> ResetCart(int cartID)
+        {
+            try
+            {
+                var cartBooks = await context.CartBook.Where(x => x.CartId.Equals(cartID)).ToListAsync();
+                context.CartBook.RemoveRange(cartBooks);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, cartBooks);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
     }
 }

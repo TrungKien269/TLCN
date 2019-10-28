@@ -137,5 +137,7 @@ namespace BookStore.BUS.Logic
                 return Response.CatchError(e.Message);
             }
         }
+
+        //public 
     }
 }

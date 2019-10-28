@@ -29,6 +29,7 @@ namespace BookStore.Controllers
             ViewBag.ListCategory = (await bookInfoBal.GetListCategory()).Obj as List<Category>;
             var originalID = SecureHelper.GetOriginalInput(id);
             var response = await bookInfoBal.GetBook(originalID);
+            HttpContext.Session.SetString("PreviousState", "Book/" + id);
             return View(response.Obj as Book);
         }
 
