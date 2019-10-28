@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 html {
   font-size: 62.5%; }
@@ -852,6 +852,51 @@ body {
       .nav-tabs-table li.active a {
         cursor: default; }
 
+.cart-table {
+  margin-bottom: 5rem;
+  width: 100%;
+  overflow-x: auto; }
+  .cart-table table {
+    width: 100%; }
+    .cart-table table thead th {
+      padding: 15px 20px;
+      text-align: center;
+      text-transform: uppercase;
+      border-bottom: 1px solid #b8b8b8;
+      font-size: 17px;
+      color: #000;
+      font-weight: 500;
+      letter-spacing: 2px; }
+    .cart-table table td {
+      position: relative;
+      padding: 15px 20px;
+      border-bottom: 1px solid #b8b8b8; }
+      .cart-table table td.item-name {
+        text-align: left;
+        display: table;
+        width: 100%; }
+      .cart-table table td.item-img {
+        width: 100px;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0 30px 0 0; }
+      .cart-table table td.item-title {
+        text-align: left;
+        display: table-cell;
+        vertical-align: middle; }
+        .cart-table table td.item-title a {
+          font-size: 2rem;
+          font-weight: 400; }
+          .cart-table table td.item-title a:hover {
+            color: #1b8bcc; }
+        .cart-table table td.item-title p {
+          font-size: 1.8rem;
+          font-weight: 300; }
+      .cart-table table td.item-price, .cart-table table td.item-total {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 400; }
+
 .mega-dropdown {
   position: static !important; }
 
@@ -1132,6 +1177,9 @@ h1 {
   flex-direction: column; }
   .rounded-avatar:hover {
     opacity: 1; }
+  .rounded-avatar.active {
+    opacity: 1;
+    filter: brightness(1.1); }
 
 .img-avatar {
   height: 10rem;
@@ -1698,3 +1746,33 @@ h1 {
         background-color: #3b5998; }
       .section__detail .detail__social-icon-gg {
         background-color: #e04a39; }
+
+.cart-title {
+  height: 18.5rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url(/img/cart_title.webp);
+  position: relative;
+  margin: 0 auto 5rem; }
+  .cart-title h2 {
+    text-transform: uppercase;
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: #fff;
+    top: 50%;
+    transform: translate(0, -50%); }
+  .cart-title::before {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(27, 139, 204, 0.9);
+    zoom: 1; }
