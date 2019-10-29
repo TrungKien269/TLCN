@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStore.Helper;
 using BookStore.Models;
 using BookStore.Models.Objects;
 using Microsoft.EntityFrameworkCore;
@@ -66,13 +67,15 @@ namespace BookStore.BUS.Logic
         {
             try
             {
-                var checkCartBook = await context.CartBook.Where(x => x.BookId.Equals(book.Id) && x.CartId.Equals(cart.Id))
+                var originalID = book.Id.Length < 18 ? book.Id : SecureHelper.GetOriginalInput(book.Id);
+                var checkCartBook = await context.CartBook
+                    .Where(x => x.BookId.Equals(originalID) && x.CartId.Equals(cart.Id))
                     .FirstOrDefaultAsync();
                 if (checkCartBook is null)
                 {
                     var cartBook = new CartBook
                     {
-                        BookId = book.Id,
+                        BookId = book.Id.Length < 18 ? book.Id : SecureHelper.GetOriginalInput(book.Id),
                         CartId = cart.Id,
                         PickedDate = DateTime.Now,
                         Quantity = quantity,
@@ -101,13 +104,14 @@ namespace BookStore.BUS.Logic
         {
             try
             {
-                var checkCartBook = await context.CartBook.Where(x => x.BookId.Equals(book.Id) && x.CartId.Equals(cart.Id))
+                var originalID = book.Id.Length < 18 ? book.Id : SecureHelper.GetOriginalInput(book.Id);
+                var checkCartBook = await context.CartBook.Where(x => x.BookId.Equals(originalID) && x.CartId.Equals(cart.Id))
                     .FirstOrDefaultAsync();
                 if (checkCartBook is null)
                 {
                     var cartBook = new CartBook
                     {
-                        BookId = book.Id,
+                        BookId = originalID,
                         CartId = cart.Id,
                         PickedDate = DateTime.Now,
                         Quantity = quantity,

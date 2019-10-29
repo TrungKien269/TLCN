@@ -12,11 +12,18 @@ namespace BookStore.BUS.Control
     {
         private CartBAL cartBal;
         private AccountBAL accountBal;
+        private CategoryBAL categoryBal;
 
         public UserCartBAL()
         {
             this.cartBal = new CartBAL();
             this.accountBal = new AccountBAL();
+            this.categoryBal = new CategoryBAL();
+        }
+
+        public async Task<Response> GetListCategory()
+        {
+            return await categoryBal.GetList();
         }
 
         public async Task<Response> GetCart(string cookie)

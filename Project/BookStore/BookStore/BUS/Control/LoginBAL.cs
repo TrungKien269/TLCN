@@ -77,7 +77,15 @@ namespace BookStore.BUS.Control
             }
             else
             {
-                return cart;
+                var newCart_Response = await cartBal.CreateCart(int.Parse(userID.ToString()));
+                Cart newCart = newCart_Response.Obj as Cart;
+                foreach (var cartbook in ListCartBook)
+                {
+                    await cartBal.InsertToCartFromSession(newCart, cartbook.Book, cartbook.Quantity,
+                        cartbook.SubTotal);
+                }
+                SessionHelper.ResetCartSession(session, ListCartBook);
+                return newCart_Response;
             }
         }
     }

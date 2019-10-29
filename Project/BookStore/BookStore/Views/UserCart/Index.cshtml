@@ -2,38 +2,331 @@
 @using BookStore.Helper
 @{
     Layout = "Cart_Layout";
+    List<Category> CategoryList = (List<Category>)ViewBag.ListCategory;
 }
 @model List<CartBook>
-
-<h1>List of Product</h1>
-@if (Model is null || Model.Count.Equals(0))
-{
-    <p>Not book to show!</p>
-}
-else
-{
-    <div class="container">
-        <table class="table">
-            <tr>
-                <th>Book</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>SubTotal</th>
-            </tr>
-            @foreach (var book in Model)
-            {
+@*<h1>List of Product</h1>
+    @if (Model is null || Model.Count.Equals(0))
+    {
+        <p>Not book to show!</p>
+    }
+    else
+    {
+        <div class="container">
+            <table class="table">
                 <tr>
-                    <td style="display: none">@SecureHelper.GetSecureOutput(book.BookId)</td>
-                    <td>@book.Book.Name</td>
-                    <td>@book.Book.CurrentPrice.ToString("##,###")</td>
-                    <td><input class="form-control" type="number" value="@book.Quantity" min="1" /></td>
-                    <td>@book.SubTotal.ToString("##,###") VND</td>
-                    <td><button class="btn btn-danger">Remove</button></td>
+                    <th>Book</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>SubTotal</th>
                 </tr>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td style="display: none">@SecureHelper.GetSecureOutput(book.BookId)</td>
+                        <td>@book.Book.Name</td>
+                        <td>@book.Book.CurrentPrice.ToString("##,###")</td>
+                        <td><input class="form-control" type="number" value="@book.Quantity" min="1" /></td>
+                        <td>@book.SubTotal.ToString("##,###") VND</td>
+                        <td><button class="btn btn-danger">Remove</button></td>
+                    </tr>
+                }
+            </table>
+            <div class="col-sm-6">
+                <button class="btn btn-success" id="btnOrder">Proceed Order</button>
+            </div>
+        </div>
+    }*@
+
+<nav class="navbar navbar-shadow justify-content-between">
+    <div class="container">
+        <a href="/" class="navbar-sm-brand">
+            <img src="/images/logo.webp" alt="">
+        </a>
+        <div class="input__search-bar">
+            <input type="text" placeholder="Search">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="nav__social-icon d-flex justify-content-center">
+
+            <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
+
+            @if (@ViewBag.FullName is null)
+            {
+                <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
             }
-        </table>
-        <div class="col-sm-6">
-            <button class="btn btn-success" id="btnOrder">Proceed Order</button>
+            else
+            {
+                <div class="dropdown">
+                    <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" id="linkProfile">Profile</a>
+                        <a class="dropdown-item" href="/Logout">Logout</a>
+                    </div>
+                </div>
+            }
+
         </div>
     </div>
-}
+
+
+</nav>
+
+<nav class="navbar navbar-pad-sm navbar-expand-lg bg-light" style="z-index: 15">
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
+            aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent2">
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+
+            <!-- Categories -->
+            <li class="nav-item dropdown mega-dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Categories
+                    <i class="fa fa-angle-down hidden-xs"></i>
+                </a>
+                <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdownMenuLink3">
+                    <div class="row">
+                        @for (int i = 0; i < 4; i++)
+                        {
+                            <div class="col-md-3">
+                                <h3>@CategoryList[i].Name</h3>
+                                <ul class="list-unstyled">
+                                    @for (int j = 0; j < 4; j++)
+                                    {
+                                        <li><a href="#" class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        @for (int i = 4; i < 8; i++)
+                        {
+                            <div class="col-md-3">
+                                <h3>@CategoryList[i].Name</h3>
+                                <ul class="list-unstyled">
+                                    @for (int j = 0; j < 4; j++)
+                                    {
+                                        <li><a href="#" class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <!-- Dictionaries -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Dictionaries</a></li>
+
+            <!-- Audio book -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Audio books</a></li>
+
+            <!-- Recommended -->
+            <li class="nav-item mega-dropdown"><a href="#" class="nav-link dropdown-toggle">Recommended</a></li>
+
+            <!-- Sale -->
+            <li class="nav-item mega-dropdown">
+                <a href="#" class="nav-link dropdown-toggle">Sale</a>
+
+            </li>
+            <!--Pages-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink4" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Pages
+                    <i class="fa fa-angle-down hidden-xs"></i>
+                </a>
+                <div class="dropdown-menu mega-menu v-2 z-depth-1 py-5 px-3"
+                     aria-labelledby="navbarDropdownMenuLink4">
+                    <div class="row">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Reference</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Terms of use</a></li>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">About us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+        <!-- Links -->
+
+    </div>
+    <!-- Collapsible content -->
+
+</nav>
+
+<div class="cart-title">
+    <h2>shopping cart</h2>
+</div>
+
+<div class="container">
+    <div class="cart-table">
+        <table>
+
+            <thead>
+                <tr>
+                    <th class="item">Book</th>
+                    <th class="qty">Quantity</th>
+                    <th class="price">Price</th>
+                    <th class="total-price">Total</th>
+                    <th class="remove">&nbsp;</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td style="display: none">@SecureHelper.GetSecureOutput(book.BookId)</td>
+                        <td class="item-name">
+                            <div class="item-img">
+                                <a href="/Book/@SecureHelper.GetSecureOutput(book.BookId)">
+                                    <img src="@book.Book.Image" class="img-contain img-cover-10" alt="">
+                                </a>
+                            </div>
+                            <div class="item-title">
+                                <a href="/Book/@SecureHelper.GetSecureOutput(book.BookId)">
+                                    @book.Book.Name
+                                </a>
+                                @*<p>Actors: </p>*@
+                            </div>
+                        </td>
+
+                        <td class="item-qty">
+                            <div class="quantity buttons_added d-flex justify-content-center">
+                                <input type="button" value="-" class="minus quantity__button">
+                                <input type="text" step="1" min="1" max="" name="quantity" value="@book.Quantity"
+                                       title="Qty" class="input-text qty text h-100" size="4" pattern="" inputmode="">
+                                <input type="button" value="+" class="plus quantity__button">
+                            </div>
+                        </td>
+
+                        <td class="item-price">
+                            <p>@book.Book.CurrentPrice.ToString("##,###") VND</p>
+                        </td>
+                        <td class="item-total">
+                            <p>@book.SubTotal.ToString("##,###") VND</p>
+                        </td>
+                        <td class="action">
+                            <button class="btn btn--blue btn--rounded btn-fit" id="btnRemove">remove</button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6 col-xs-12 cart-left">
+
+            <div class="cart-order-note">
+                <h3>Add a note to your order</h3>
+                <div class="cart-note">
+                    <textarea name="note" id="CartSpecialInstructions"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-6 col-xs-12 cart-right">
+            <div class="cart-right-table">
+                <div class="total-price">
+                    Total <span rv-html="cart.total_price | money">
+                        <span class="money"
+                              data-currency-usd="$20.00" data-currency="USD">$20.00</span>
+                    </span>
+                </div>
+                <div class="note-tax">
+                    <span class="nt-title">Shipping</span> <span>
+                        Shipping, taxes and discounts
+                        will be calculated at checkout.
+                    </span>
+                </div>
+            </div>
+
+            <div class="cart-action">
+                <a href="/ListBook" class="btn btn-primary">Continue Shopping</a>
+                <button class="btn btn-default" type="button" name="checkout" id="btnOrder">Proceed to Checkout</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="subcribe-form" style="background-image: url(/images/mailing_bg.webp)" ;>
+        <div class="blur-layer-text">
+            <h2>Subcribe to our new letters</h2>
+            <div class="d-flex justify-content-center align-items-center">
+                <input type="text" class="input__subcribe" placeholder="Enter your e-mail address">
+                <a href="#" class="btn btn--rounded btn-fit btn--blue">Subcribe</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="container mar-top-lg">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="images/footer_logo.webp" alt="">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_2.webp')"></span>
+                    Our main office
+                </h4>
+                <p>San Francisco, California, US P.O. BOX: 553204 Phone: (+1) 998 3384 Mail: admin@bookshop.com</p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    keep in touch with us
+                </h4>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    information
+                </h4>
+                <ul class="footer__infor">
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Term & Condition</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">My account</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+</footer>
