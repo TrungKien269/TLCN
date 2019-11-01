@@ -65,11 +65,11 @@
     });
 
     $("a#linkProfile").click(function (e) {
-        e.preventDefault();
-        $.post("/Profile",
-            function (data) {
-                console.log(data);
-            });
+        //e.preventDefault();
+        //$.post("/Profile",
+        //    function (data) {
+        //        console.log(data);
+        //    });
     });
 
     $("a.btn--rounded").click(function (e) {

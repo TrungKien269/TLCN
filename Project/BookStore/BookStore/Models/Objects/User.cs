@@ -30,7 +30,7 @@ namespace BookStore.Models.Objects
 
         [Required(ErrorMessage = "Phone Number must not be blank!")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"[0-9]{10,13}",
+        [RegularExpression(@"[0-9 ]{10,15}",
             ErrorMessage = "Invalid Characters")]
         public string PhoneNumber { get; set; }
 
