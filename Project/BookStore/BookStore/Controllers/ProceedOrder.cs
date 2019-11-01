@@ -13,13 +13,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
-    public class UserOrderController : Controller
+    public class ProceedOrder : Controller
     {
-        private UserOrderBAL userOrderBal;
+        private ProceedOrderBAL userOrderBal;
 
-        public UserOrderController()
+        public ProceedOrder()
         {
-            this.userOrderBal = new UserOrderBAL();
+            this.userOrderBal = new ProceedOrderBAL();
         }
 
         [HttpGet("Order")]
@@ -47,7 +47,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost("ProceedOrder")]
-        public async Task<Response> ProceedOrder([FromForm] Order order)
+        public async Task<Response> SaveOrder([FromForm] Order order)
         {
             var session = HttpContext.Session.GetString("BookStore");
             var response = await userOrderBal.GetCart(session);

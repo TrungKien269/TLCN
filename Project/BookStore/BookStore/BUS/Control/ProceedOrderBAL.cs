@@ -8,13 +8,13 @@ using BookStore.Models.Objects;
 
 namespace BookStore.BUS.Control
 {
-    public class UserOrderBAL
+    public class ProceedOrderBAL
     {
         private CartBAL cartBal;
         private AccountBAL accountBal;
         private OrderBAL orderBal;
 
-        public UserOrderBAL()
+        public ProceedOrderBAL()
         {
             this.cartBal = new CartBAL();
             this.accountBal = new AccountBAL();

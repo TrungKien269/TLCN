@@ -1,0 +1,215 @@
+﻿@using BookStore.Models.Objects
+@using BookStore.Helper
+@{
+    Layout = "Order_Layout";
+    List<CartBook> ListCartBook = (List<CartBook>) ViewBag.ListCartBook;
+}
+@model Order
+
+@*<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <form asp-action="ProceedOrder" class="form-control">
+                <div class="form-group">
+                    <label asp-for="FullName"></label>
+                    <input type="text" asp-for="FullName" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber"></label>
+                    <input type="text" asp-for="PhoneNumber" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address"></label>
+                    <input type="text" asp-for="Address" />
+                </div>
+                <input type="submit" value="Order" class="btn btn-primary" />
+            </form>
+        </div>
+        <div class="col-sm-4">
+            @foreach (var cartBook in ListCartBook)
+            {
+            <div class="item_book">
+                <p>@cartBook.Book.Name</p>
+                <p>@cartBook.Book.CurrentPrice</p>
+                <p>@cartBook.Quantity</p>
+                <p>@cartBook.SubTotal</p>
+            </div>
+            }
+        </div>
+    </div>
+</div>*@
+
+<nav class="navbar navbar-shadow justify-content-between">
+    <div class="container">
+        <a href="/" class="navbar-sm-brand">
+            <img src="images/logo.webp" alt="">
+        </a>
+        <div class="input__search-bar">
+            <input type="text" placeholder="Search">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="nav__social-icon d-flex justify-content-center">
+
+            <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
+
+            @if (@ViewBag.FullName is null)
+            {
+                <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
+            }
+            else
+            {
+                <div class="dropdown">
+                    <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/Profile" id="linkProfile">Profile</a>
+                        <a class="dropdown-item" href="#" id="linkOrders">Orders</a>
+                        <a class="dropdown-item" href="/Logout">Logout</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+
+</nav>
+
+<section class="section__checkout">
+    <div class="cart-title">
+        <h2>check out</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="title-wrapper">
+                    <h2>Please provide complete information</h2>
+                    <a href="/Login">Login</a>
+                </div>
+
+                <form asp-action="SaveOrder" asp-controller="ProceedOrder" class="form-checkout">
+                    <input type="text" placeholder="Your name..." id="name" asp-for="FullName">
+                    <input type="text" placeholder="Phone number..." id="number" asp-for="PhoneNumber">
+                    <input type="text" id="address" placeholder="Your address..." asp-for="Address">
+                    <button class="btn btn--rounded btn-fit btn--blue" type="submit">Confirm your information</button>
+                </form>
+
+            </div>
+            <div class="col-md">
+                <div class="order">
+                    <div class="title-wrapper">
+                        <h2>Your order</h2>
+                    </div>
+                </div>
+                <div class="product-block">
+                    @foreach (var cartBook in ListCartBook)
+                    {
+                        <div class="row">
+                            <div class="col-3 pad-0-0">
+                                <img src="@cartBook.Book.Image" class="img-cover" alt="">
+                            </div>
+                            <div class="col">
+                                <div class="product-name">
+                                    @cartBook.Book.Name
+                                </div>
+                                <div class="product-price">
+                                    @cartBook.Book.CurrentPrice.ToString("##,###") VND
+                                </div>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td class="first">Delivery type</td>
+                                        <td class="second">Shipping</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Book code</td>
+                                        <td class="second">@cartBook.BookId</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Quantity</td>
+                                        <td class="second">@cartBook.Quantity</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">Subtotal</td>
+                                        <td class="second">@cartBook.SubTotal.ToString("##,###") VND</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+                <div class="title-wrapper">
+                    <h2>Total</h2>
+                    <div class="product-price">
+                        @ListCartBook.Sum(x => x.SubTotal).ToString("##,###") VND
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="subcribe-form" style="background-image: url(/images/mailing_bg.webp)" ;>
+        <div class="blur-layer-text">
+            <h2>Subcribe to our new letters</h2>
+            <div class="d-flex justify-content-center align-items-center">
+                <input type="text" class="input__subcribe" placeholder="Enter your e-mail address">
+                <a href="#" class="btn btn--rounded btn-fit btn--blue">Subcribe</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="container mar-top-lg">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="images/footer_logo.webp" alt="">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_2.webp')"></span>
+                    Our main office
+                </h4>
+                <p>San Francisco, California, US P.O. BOX: 553204 Phone: (+1) 998 3384 Mail: admin@bookshop.com</p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    keep in touch with us
+                </h4>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    information
+                </h4>
+                <ul class="footer__infor">
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Term & Condition</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">My account</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+</footer>
