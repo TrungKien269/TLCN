@@ -64,7 +64,7 @@ namespace BookStore.BUS.Logic
             try
             {
                 await context.User.AddAsync(user);
-                var check = await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return new Response("Success", true, 1, user);
             }
             catch (Exception e)

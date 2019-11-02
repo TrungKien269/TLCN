@@ -17,10 +17,10 @@
                 success: function (data) {
                     if (data.status === true) {
                         if (data.previousState === null) {
-                            window.location = "/";
+                            window.location.href = "/";
                         }
                         else {
-                            window.location = "/" + data.previousState;
+                            window.location.href = "/" + data.previousState;
                         }
                     }
                     else {
@@ -46,8 +46,12 @@
                 form.serialize(),
                 function (data) {
                     if (data.status === true) {
-                        alert("Success");
-                        window.location = "/";
+                        if (data.previousState === null) {
+                            window.location.href = "/";
+                        }
+                        else {
+                            window.location.href = "/" + data.previousState;
+                        }
                     }
                     else {
                         alert(data.message);

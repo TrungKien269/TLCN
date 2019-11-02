@@ -26,6 +26,41 @@
         
     });
 
+    $("#changeForm").submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var url = form.attr('action');
+        
+        $.ajax({
+            type: "POST",
+            url: "/CheckPassword",
+            data: form.serialize(),
+            success: function (data) {
+                if (data.status === true) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: form.serialize(),
+                        success: function (data) {
+                            console.log(data);
+                        },
+                        error: function (err) {
+                            alert("Error");
+                            console.log(err);
+                        }
+                    });
+                }
+                else {
+                    alert(data.message);
+                }
+            },
+            error: function (err) {
+                alert("Error");
+                console.log(err);
+            }
+        });
+    });
+
     function checkFormValidateOrNot(form) {
         console.log(form.attr("id"));
         if ($("#" + form.attr("id") + " .field-validation-error").length > 0) {

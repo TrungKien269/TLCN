@@ -35,5 +35,21 @@ namespace BookStore.Controllers
             user.Id = HttpContext.Session.GetInt32("UserID").Value;
             return await profileBal.UpdateUser(user);
         }
+
+        [HttpPost("CheckPassword")]
+        public async Task<Response> CheckPassword([FromForm] string current_password)
+        {
+            var session = HttpContext.Session.GetString("BookStore");
+            var account = await profileBal.GetAccountInfo(session);
+            return await profileBal.CheckCurrentPassword(account.Obj as Account, current_password);
+        }
+
+        [HttpPost("ChangePassword")]
+        public async Task<Response> ChangePassword(string new_password)
+        {
+            var session = HttpContext.Session.GetString("BookStore");
+            var account = await profileBal.GetAccountInfo(session);
+            return await profileBal.ChangePassword(account.Obj as Account, new_password);
+        }
     }
 }

@@ -125,5 +125,34 @@ namespace BookStore.BUS.Logic
                 return new Response("Can not create this account", false, 0, null);
             }
         }
+
+        public async Task<Response> CheckCurrentPassword(Account account, string password)
+        {
+            var check = await Task.FromResult<bool>(CryptographyHelper.AreEqual(password, account.Password,
+                account.Salt));
+            if (check)
+            {
+                return new Response("Success", true, 1, account.Password);
+            }
+            else
+            {
+                return new Response("This password was wrong!", false, 0, null);
+            }
+        }
+
+        public async Task<Response> ChangePassword(Account account, string password)
+        {
+            try
+            {
+                account.Password = CryptographyHelper.GenerateHash(password, account.Salt);
+                context.Account.Update(account);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, account.Password);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
     }
 }

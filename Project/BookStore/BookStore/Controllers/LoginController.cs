@@ -63,12 +63,13 @@ namespace BookStore.Controllers
             var response = await loginBal.Signup(user);
             if (response.Status is true)
             {
+                response.previousState = HttpContext.Session.GetString("PreviousState");
                 var hash = await Task.FromResult<string>(
                     CryptographyHelper.GenerateHash(user.Account.Username + DateTime.Now.ToString(),
                         (response.Obj as User).Account.Salt));
                 SessionHelper.SetWebsiteSession(this.HttpContext.Session, hash);
                 SessionHelper.SetUserSession(this.HttpContext.Session, (response.Obj as User).Id,
-                    (response.Obj as Account).IdNavigation.FullName);
+                    (response.Obj as User).FullName);
                 CookieHelper.SetWebsiteCookie(this.Response, hash);
                 await loginBal.SetCookieForAccount(hash, (response.Obj as User).Account);
                 ViewBag.Session = HttpContext.Session.GetString("BookStore");
