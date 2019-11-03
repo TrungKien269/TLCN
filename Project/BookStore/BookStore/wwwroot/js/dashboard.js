@@ -103,6 +103,8 @@
                     $("a.f-3").text(data.obj.name);
                     $("a.f-3").attr("href", "/Book/" + data.obj.id);
 
+                    $("input.qty").val("1");
+
                     $("div.modal div.carousel-inner").append(
                         '<div class="carousel-item active cursor-zoom" data-image="' +
                         data.obj.image +
@@ -119,5 +121,22 @@
 
     $("#modalQuickview").on('hide.bs.modal', function () {
         $("div.modal div.carousel-inner").find("div.carousel-item").remove();
+    });
+
+    $("#modalQuickview a.btn--rounded").click(function (e) {
+        e.preventDefault();
+        
+        var id = $("a.f-3").attr("href");
+        id = id.substring(6);
+        var quantity = $("#modalQuickview input.qty").val();
+
+        $.post("/AddToCart",
+            {
+                id: id,
+                quantity: quantity
+            },
+            function (data) {
+                window.location.href = "/Order";
+            });
     });
 });
