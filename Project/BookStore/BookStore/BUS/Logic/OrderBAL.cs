@@ -43,5 +43,50 @@ namespace BookStore.BUS.Logic
                 return Response.CatchError(e.Message);
             }
         }
+
+        public async Task<Response> GetListUserProcessingOrders(int userID)
+        {
+            try
+            {
+                var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.UserId.Equals(userID) && x.Status.Equals("Processing"))
+                    .OrderByDescending(x => x.CreatedDate).ToListAsync();
+                return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetListUserDeliveryOrders(int userID)
+        {
+            try
+            {
+                var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.UserId.Equals(userID) && x.Status.Equals("Delivery"))
+                    .OrderByDescending(x => x.CreatedDate).ToListAsync();
+                return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetListUserDeliveredOrders(int userID)
+        {
+            try
+            {
+                var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.UserId.Equals(userID) && x.Status.Equals("Delivered"))
+                    .OrderByDescending(x => x.CreatedDate).ToListAsync();
+                return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
     }
 }

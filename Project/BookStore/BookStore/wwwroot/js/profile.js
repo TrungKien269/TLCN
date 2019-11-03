@@ -30,35 +30,44 @@
         e.preventDefault();
         var form = $(this);
         var url = form.attr('action');
+
+        if ($("input#new").val().length < 8) {
+            alert("Password must have at least 8 characters!");
+        }
+
+        else if ($("input#new").val() === $("input#confirm").val()) {
+            $.ajax({
+                type: "POST",
+                url: "/CheckPassword",
+                data: form.serialize(),
+                success: function(data) {
+                    if (data.status === true) {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: form.serialize(),
+                            success: function(data) {
+                                alert(data.message);
+                            },
+                            error: function(err) {
+                                alert("Error");
+                                console.log(err);
+                            }
+                        });
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function(err) {
+                    alert("Error");
+                    console.log(err);
+                }
+            });
+        }
+        else {
+            alert("Password has to be confirm right!");
+        }
         
-        $.ajax({
-            type: "POST",
-            url: "/CheckPassword",
-            data: form.serialize(),
-            success: function (data) {
-                if (data.status === true) {
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: form.serialize(),
-                        success: function (data) {
-                            console.log(data);
-                        },
-                        error: function (err) {
-                            alert("Error");
-                            console.log(err);
-                        }
-                    });
-                }
-                else {
-                    alert(data.message);
-                }
-            },
-            error: function (err) {
-                alert("Error");
-                console.log(err);
-            }
-        });
     });
 
     function checkFormValidateOrNot(form) {

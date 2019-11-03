@@ -63,7 +63,7 @@
     });
 
     $("button#btnOrder").click(function(e) {
-        window.location.href = "/Order";
+        window.location.href = "/ProceedOrder";
     });
 
     function formatPrice(num) {

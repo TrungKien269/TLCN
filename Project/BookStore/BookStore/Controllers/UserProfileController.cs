@@ -24,6 +24,7 @@ namespace BookStore.Controllers
         [HttpGet("Profile")]
         public async Task<IActionResult> Index()
         {
+            ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
             var userID = HttpContext.Session.GetInt32("UserID").Value;
             var response = await profileBal.GetUserInfo(userID);
             return View(response.Obj as User);

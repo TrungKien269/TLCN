@@ -136,7 +136,7 @@
                 quantity: quantity
             },
             function (data) {
-                window.location.href = "/Order";
+                window.location.href = "/ProceedOrder";
             });
     });
 });

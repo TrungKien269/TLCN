@@ -22,11 +22,11 @@ namespace BookStore.Controllers
             this.userOrderBal = new ProceedOrderBAL();
         }
 
-        [HttpGet("Order")]
+        [HttpGet("ProceedOrder")]
         public async Task<IActionResult> Index()
         {
             ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
-            HttpContext.Session.SetString("PreviousState", "Order");
+            HttpContext.Session.SetString("PreviousState", "ProceedOrder");
             var session = HttpContext.Session.GetString("BookStore");
             var response = await userOrderBal.GetCart(session);
             if (response.Status is false)
