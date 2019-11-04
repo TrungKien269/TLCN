@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 html {
   font-size: 62.5%; }
@@ -1660,7 +1660,7 @@ h1 {
 
 .sidebar-list li {
   font-size: 1.6rem;
-  font-size: 200;
+  font-weight: 400;
   margin: 1.6rem 0;
   display: flex;
   align-items: center; }
