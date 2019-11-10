@@ -2,104 +2,407 @@
 @using BookStore.Helper
 @{
     Layout = "Orders_Layout";
-    List<Order> ListDelivery = (List<Order>) ViewBag.ListDelivery;
-    List<Order> ListDelivered = (List<Order>) ViewBag.ListDelivered;
+    List<Order> ListDelivery = (List<Order>)ViewBag.ListDelivery;
+    List<Order> ListDelivered = (List<Order>)ViewBag.ListDelivered;
 }
 @model List<Order>
+@*<div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-inline">
+                    <button class="btn btn-warning">Processing</button>
+                    <button class="btn btn-primary">Delivery</button>
+                    <button class="btn btn-success">Delivered</button>
+                </div>
+            </div>
+        </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-inline">
-                <button class="btn btn-warning">Processing</button>
-                <button class="btn btn-primary">Delivery</button>
-                <button class="btn btn-success">Delivered</button>
+        <div class="listOrders" id="Processing">
+            @foreach (var order in Model)
+            {
+                <div class="inline">
+                    <p>@order.Id</p>
+                    <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
+                    <table class="table">
+                        <tr>
+                            <th>Book</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>SubTotal</th>
+                        </tr>
+                        @foreach (var detail in order.OrderDetail)
+                        {
+                            <td>@detail.Book.Name</td>
+                            <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
+                            <td>@detail.Quantity</td>
+                            var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
+                            <td>@subtotal</td>
+                        }
+                    </table>
+                    <p>@order.Total</p>
+                </div>
+
+            }
+        </div>
+
+        <div class="listOrders" id="Delivery" style="display: none">
+            @foreach (var order in ListDelivery)
+            {
+                <div class="inline">
+                    <p>@order.Id</p>
+                    <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
+                    <table class="table">
+                        <tr>
+                            <th>Book</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>SubTotal</th>
+                        </tr>
+                        @foreach (var detail in order.OrderDetail)
+                        {
+                            <td>@detail.Book.Name</td>
+                            <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
+                            <td>@detail.Quantity</td>
+                            var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
+                            <td>@subtotal</td>
+                        }
+                    </table>
+                    <p>@order.Total</p>
+                </div>
+
+            }
+        </div>
+
+        <div class="listOrders" id="Delivered" style="display: none">
+            @foreach (var order in ListDelivered)
+            {
+                <div class="inline">
+                    <p>@order.Id</p>
+                    <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
+                    <table class="table">
+                        <tr>
+                            <th>Book</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>SubTotal</th>
+                        </tr>
+                        @foreach (var detail in order.OrderDetail)
+                        {
+                            <td>@detail.Book.Name</td>
+                            <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
+                            <td>@detail.Quantity</td>
+                            var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
+                            <td>@subtotal</td>
+                        }
+                    </table>
+                    <p>@order.Total</p>
+                </div>
+
+            }
+        </div>
+
+    </div>*@
+
+<nav class="navbar navbar-shadow justify-content-between">
+    <div class="container">
+        <a href="/" class="navbar-sm-brand">
+            <img src="/images/logo.webp" alt="">
+        </a>
+        <div class="input__search-bar">
+            <input type="text" placeholder="Search">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="nav__social-icon d-flex justify-content-center">
+
+            <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
+
+            @if (@ViewBag.FullName is null)
+            {
+                <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
+            }
+            else
+            {
+                <div class="dropdown">
+                    <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/Profile" id="linkProfile">Profile</a>
+                        <a class="dropdown-item" href="/Orders" id="linkOrders">Orders</a>
+                        <a class="dropdown-item" href="/Logout">Logout</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</nav>
+
+<div class="cart-title">
+    <h2>Order status</h2>
+</div>
+
+<section class="section__order-status">
+    <div class="container">
+        <ul class="nav nav-tabs nav-order" id="active-exp">
+            <li class="active"><a data-toggle="tab" href="#processing">Processing</a></li>
+            <li><a data-toggle="tab" href="#delivering">Delivering</a></li>
+            <li><a data-toggle="tab" href="#delivered">Delivered</a></li>
+        </ul>
+
+        <div class="tab-content tab-content-order">
+            <div id="processing" class="tab-pane fade in active show">
+                @foreach (var order in Model)
+                {
+                <div class="order-block">
+                    <div class="title-wrapper">
+                        <h2>Date: @order.CreatedDate</h2>
+                        <h2>Total: @order.Total.ToString("##,###") VND</h2>
+                    </div>
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="item">Items</th>
+                                <th class="qty">Qty</th>
+                                <th class="price">Price</th>
+                                <th class="total-price">SubTotal</th>
+                                <th class="remove">&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var detail in order.OrderDetail)
+                            {
+                                <tr>
+                                    <td class="item-name">
+                                        <div class="item-img">
+                                            <a href="#">
+                                                <img src="@detail.Book.Image" class="img-contain img-cover-10" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="item-title">
+                                            <a href="#">@detail.Book.Name</a>
+                                            @*<p>Authors: M / Brown</p>*@
+                                        </div>
+                                    </td>
+
+                                    <td class="item-qty">
+                                        <div class="quantity buttons_added d-flex justify-content-center">
+                                            <input type="text" step="1" min="1" max="" name="quantity" 
+                                                   value="@detail.Quantity"
+                                                   title="Qty" class="input-text qty text h-100" size="4" pattern=""
+                                                   inputmode="" disabled>
+                                        </div>
+                                    </td>
+
+                                    <td class="item-price">
+                                        <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
+                                    </td>
+                                    <td class="item-total">
+                                        @{
+                                            var subtotal = detail.Quantity * detail.Book.CurrentPrice;
+                                        }
+                                        <p>@subtotal.ToString("##,###") VND</p>
+                                    </td>
+                                    <td class="action"></td>
+                                </tr>
+                            }
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+                }
+
+            </div>
+            <div id="delivering" class="tab-pane fade">
+                @foreach (var order in ListDelivery)
+                {
+                    <div class="order-block">
+                        <div class="title-wrapper">
+                            <h2>Date: @order.CreatedDate</h2>
+                            <h2>Total: @order.Total.ToString("##,###") VND</h2>
+                        </div>
+                        <div class="cart-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="item">Items</th>
+                                        <th class="qty">Qty</th>
+                                        <th class="price">Price</th>
+                                        <th class="total-price">SubTotal</th>
+                                        <th class="remove">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in order.OrderDetail)
+                                    {
+                                        <tr>
+                                            <td class="item-name">
+                                                <div class="item-img">
+                                                    <a href="#">
+                                                        <img src="@detail.Book.Image" class="img-contain img-cover-10" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="#">@detail.Book.Name</a>
+                                                    @*<p>Authors: M / Brown</p>*@
+                                                </div>
+                                            </td>
+
+                                            <td class="item-qty">
+                                                <div class="quantity buttons_added d-flex justify-content-center">
+                                                    <input type="text" step="1" min="1" max="" name="quantity"
+                                                           value="@detail.Quantity"
+                                                           title="Qty" class="input-text qty text h-100" size="4" pattern=""
+                                                           inputmode="" disabled>
+                                                </div>
+                                            </td>
+
+                                            <td class="item-price">
+                                                <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
+                                            </td>
+                                            <td class="item-total">
+                                                @{
+                                                    var subtotal = detail.Quantity * detail.Book.CurrentPrice;
+                                                }
+                                                <p>@subtotal.ToString("##,###") VND</p>
+                                            </td>
+                                            <td class="action"></td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                }
+            </div>
+            <div id="delivered" class="tab-pane fade">
+                @foreach (var order in ListDelivered)
+                {
+                    <div class="order-block">
+                        <div class="title-wrapper">
+                            <h2>Date: @order.CreatedDate</h2>
+                            <h2>Total: @order.Total.ToString("##,###") VND</h2>
+                        </div>
+                        <div class="cart-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="item">Items</th>
+                                        <th class="qty">Qty</th>
+                                        <th class="price">Price</th>
+                                        <th class="total-price">SubTotal</th>
+                                        <th class="remove">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in order.OrderDetail)
+                                    {
+                                        <tr>
+                                            <td class="item-name">
+                                                <div class="item-img">
+                                                    <a href="#">
+                                                        <img src="@detail.Book.Image" class="img-contain img-cover-10" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="#">@detail.Book.Name</a>
+                                                    @*<p>Authors: M / Brown</p>*@
+                                                </div>
+                                            </td>
+
+                                            <td class="item-qty">
+                                                <div class="quantity buttons_added d-flex justify-content-center">
+                                                    <input type="text" step="1" min="1" max="" name="quantity"
+                                                           value="@detail.Quantity"
+                                                           title="Qty" class="input-text qty text h-100" size="4" pattern=""
+                                                           inputmode="" disabled>
+                                                </div>
+                                            </td>
+
+                                            <td class="item-price">
+                                                <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
+                                            </td>
+                                            <td class="item-total">
+                                                @{
+                                                    var subtotal = detail.Quantity * detail.Book.CurrentPrice;
+                                                }
+                                                <p>@subtotal.ToString("##,###") VND</p>
+                                            </td>
+                                            <td class="action"></td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                }
             </div>
         </div>
     </div>
+</section>
 
-    <div class="listOrders" id="Processing">
-        @foreach (var order in Model)
-        {
-            <div class="inline">
-                <p>@order.Id</p>
-                <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
-                <table class="table">
-                    <tr>
-                        <th>Book</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>SubTotal</th>
-                    </tr>
-                    @foreach (var detail in order.OrderDetail)
-                    {
-                        <td>@detail.Book.Name</td>
-                        <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
-                        <td>@detail.Quantity</td>
-                        var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
-                        <td>@subtotal</td>
-                    }
-                </table>
-                <p>@order.Total</p>
+<footer class="footer">
+    <div class="subcribe-form" style="background-image: url(/images/mailing_bg.webp)" ;>
+        <div class="blur-layer-text">
+            <h2>Subcribe to our new letters</h2>
+            <div class="d-flex justify-content-center align-items-center">
+                <input type="text" class="input__subcribe" placeholder="Enter your e-mail address">
+                <a href="#" class="btn btn--rounded btn-fit btn--blue">Subcribe</a>
             </div>
 
-        }
+        </div>
     </div>
-
-    <div class="listOrders" id="Delivery" style="display: none">
-        @foreach (var order in ListDelivery)
-        {
-            <div class="inline">
-                <p>@order.Id</p>
-                <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
-                <table class="table">
-                    <tr>
-                        <th>Book</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>SubTotal</th>
-                    </tr>
-                    @foreach (var detail in order.OrderDetail)
-                    {
-                        <td>@detail.Book.Name</td>
-                        <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
-                        <td>@detail.Quantity</td>
-                        var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
-                        <td>@subtotal</td>
-                    }
-                </table>
-                <p>@order.Total</p>
+    <div class="container mar-top-lg">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="images/footer_logo.webp" alt="">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
             </div>
-
-        }
-    </div>
-
-    <div class="listOrders" id="Delivered" style="display: none">
-        @foreach (var order in ListDelivered)
-        {
-            <div class="inline">
-                <p>@order.Id</p>
-                <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
-                <table class="table">
-                    <tr>
-                        <th>Book</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>SubTotal</th>
-                    </tr>
-                    @foreach (var detail in order.OrderDetail)
-                    {
-                        <td>@detail.Book.Name</td>
-                        <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
-                        <td>@detail.Quantity</td>
-                        var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
-                        <td>@subtotal</td>
-                    }
-                </table>
-                <p>@order.Total</p>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_2.webp')"></span>
+                    Our main office
+                </h4>
+                <p>San Francisco, California, US P.O. BOX: 553204 Phone: (+1) 998 3384 Mail: admin@bookshop.com</p>
             </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    keep in touch with us
+                </h4>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
+                    ipsam, aperiam veritatis nulla alias?
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>
+                    <span class="icon" style="background-image:url('images/footer_icon_3.webp')"></span>
+                    information
+                </h4>
+                <ul class="footer__infor">
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Term & Condition</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">My account</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
 
-        }
+            </div>
+        </div>
+
     </div>
-
-</div>
+</footer>

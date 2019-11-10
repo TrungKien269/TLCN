@@ -23,6 +23,8 @@ namespace BookStore.Controllers
         [HttpGet("Orders")]
         public async Task<IActionResult> Index()
         {
+            ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
+            HttpContext.Session.SetString("PreviousState", "Orders");
             int userID = HttpContext.Session.GetInt32("UserID").Value;
             ViewBag.ListDelivery = (await userOrderBal.GetListDelivery(userID)).Obj as List<Order>;
             ViewBag.ListDelivered = (await userOrderBal.GetListDelivered(userID)).Obj as List<Order>;
