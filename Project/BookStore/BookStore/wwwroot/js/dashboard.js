@@ -64,6 +64,8 @@
                     .attr("href", data.obj[i].id);
                 $(".tab-content div.col-md-2:eq(" + (parseInt(i)) + ") a.badge__utilities-blue:eq(1)")
                     .attr("href", "/Book/" + data.obj[i].id);
+                $(".tab-content div.col-md-2:eq(" + (parseInt(i)) + ") a.badge__utilities-blue:eq(1)")
+                    .attr("data-object", data.obj[i].id);
             }
         });
     });
