@@ -310,7 +310,7 @@
                                             </div>
 
                                         </div>
-                                        <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">
+                                        <a href="@book.Id" class="btn btn--rounded btn-fw btn--blue item-display">
                                             Add to cart
                                         </a>
                                     </div>
@@ -510,6 +510,18 @@
                 else {
                     console.log(data);
                 }
+            });
+    });
+
+    $("a.btn--rounded").click(function (e) {
+        e.preventDefault();
+        $.post("/AddToCart",
+            {
+                id: $(this).attr("href"),
+                quantity: 1
+            },
+            function (data) {
+                console.log(data);
             });
     });
 
