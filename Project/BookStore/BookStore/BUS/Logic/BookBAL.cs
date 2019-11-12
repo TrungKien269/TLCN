@@ -138,6 +138,44 @@ namespace BookStore.BUS.Logic
             }
         }
 
-        //public 
+        public async Task<Response> GetBookByCategory(string category, int skipNumber)
+        {
+            try
+            {
+                var books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                    .ThenInclude(x => x.Cate)
+                    .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)))
+                    .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                foreach (var book in books)
+                {
+                    book.Id = SecureHelper.GetSecureOutput(book.Id);
+                }
+                return new Response("Success", true, 1, books);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetBookBySubCategory(string subcategory, int skipNumber)
+        {
+            try
+            {
+                var books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                    .ThenInclude(x => x.Cate)
+                    .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)))
+                    .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                foreach (var book in books)
+                {
+                    book.Id = SecureHelper.GetSecureOutput(book.Id);
+                }
+                return new Response("Success", true, 1, books);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
     }
 }

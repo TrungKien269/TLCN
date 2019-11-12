@@ -77,8 +77,10 @@
                                 <ul class="list-unstyled">
                                     @for (int j = 0; j < 4; j++)
                                     {
-                                        <li><a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name" 
-                                               class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    <li>
+                                        <a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name"
+                                           class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a>
+                                    </li>
                                     }
                                 </ul>
                             </div>
@@ -93,8 +95,10 @@
                                 <ul class="list-unstyled">
                                     @for (int j = 0; j < 4; j++)
                                     {
-                                        <li><a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name" 
-                                               class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    <li>
+                                        <a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name"
+                                           class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a>
+                                    </li>
                                     }
                                 </ul>
                             </div>
@@ -340,15 +344,15 @@
 <script src="/js/main.js"></script>
 
 <script>
-    
+
     $("button#btnViewMore").click(function(e) {
         var skipNumber = parseInt($("div.card").length);
-        var category = "@Model[0].BookCategory[0].Cate.Cate.Name";
+        var subcategory = "@Model[0].BookCategory[0].Cate.Name";
         $.ajax({
             type: "POST",
-            url: "/GetMoreBook/",
+            url: "/GetMoreBook/Subcategory/",
             data: {
-                category: category,
+                subcategory: subcategory,
                 skipNumber: skipNumber
             },
             success: function (data) {
@@ -401,64 +405,5 @@
     $("h3.lb_category").click(function (e) {
         window.location.href = "/ListBook/" + $(this).text();
     });
-
-    @*$(window).scroll(function() {
-        if($(window).scrollTop() == $(document).height() - $(window).height() - 300) {
-            var skipNumber = parseInt($("div.card").length);
-        var category = "@Model[0].BookCategory[0].Cate.Cate.Name";
-        $.ajax({
-            type: "POST",
-            url: "/GetMoreBook/",
-            data: {
-                category: category,
-                skipNumber: skipNumber
-            },
-            success: function (data) {
-                console.log(data);
-                for (var i = 0; i < data.obj.length; i++) {
-                    $("div#listBook").append(
-                        '<div class="col-sm-3 col-6">' +
-                        '<div class="card display-on-hover">' +
-                        '<a href="/Book/"' + data.obj[i].id + '>' +
-                        '<img class="card-img-top" src="' + data.obj[i].image + '" alt="Card image cap">' +
-                        '<div class="card-body">' +
-                        '<h5 class="card__book-title">' + data.obj[i].name + '</h5>' +
-                        '<p class="card__book-price">' + (parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND" +
-                        '</p>' +
-                        '<div id="rating" class="rating__section mar-0-0 w-100 align-items-center">' +
-                        '<div class="star__rating" id="rating" data-value-star="4">' +
-                        '<input type="radio" name="rating" value="5">' +
-                        '<label class="full" title="Awesome - 5 stars"></label>' +
-                        '<input type="radio" name="rating" value="4">' +
-                        '<label class="full" title="Pretty good - 4 stars"></label>' +
-                        '<input type="radio" name="rating" value="3">' +
-                        '<label class="full" title="Meh - 3 stars"></label>' +
-                        '<input type="radio" name="rating" value="2">' +
-                        '<label class="full" title="Kinda bad - 2 stars"></label>' +
-                        '<input type="radio" name="rating" value="1">' +
-                        '<label class="full" title="Sucks big time - 1 star"></label>' +
-                        '</div>' +
-                        '</div>' +
-                        '<a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>' +
-                        '</div>' +
-                        '<div class="badge badge__utilities item-display">' +
-                        '<a href="#" class="badge__utilities-blue"><i class="fas fa-heart"></i></a>' +
-                        '<a href="#" class="badge__utilities-blue" data-toggle="modal"data-target="#modalQuickview">' +
-                        '<i class="fas fa-search"></i>' +
-                        '</a>' +
-                        '</div>' +
-                        '</a>' +
-                        '</div>' +
-                        '</div>'
-                    );
-                }
-            },
-            error: function (err) {
-                alert("Error");
-                console.log(err);
-            }
-        });
-        }
-    });*@
 
 </script>

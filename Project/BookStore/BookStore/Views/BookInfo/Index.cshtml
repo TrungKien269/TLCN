@@ -74,11 +74,14 @@
                         @for (int i = 0; i < 4; i++)
                         {
                             <div class="col-md-3">
-                                <h3>@CategoryList[i].Name</h3>
+                                <h3 class="lb_category">@CategoryList[i].Name</h3>
                                 <ul class="list-unstyled">
                                     @for (int j = 0; j < 4; j++)
                                     {
-                                        <li><a href="#" class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    <li>
+                                        <a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name"
+                                           class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a>
+                                    </li>
                                     }
                                 </ul>
                             </div>
@@ -93,7 +96,10 @@
                                 <ul class="list-unstyled">
                                     @for (int j = 0; j < 4; j++)
                                     {
-                                        <li><a href="#" class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                    <li>
+                                        <a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name"
+                                           class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a>
+                                    </li>
                                     }
                                 </ul>
                             </div>
@@ -511,6 +517,10 @@
         if ((parseInt(quantity) - 1) > 0) {
             $("input.qty").val((parseInt(quantity) - 1));
         }
+    });
+
+    $("h3.lb_category").click(function (e) {
+        window.location.href = "/ListBook/" + $(this).text();
     });
 
 </script>

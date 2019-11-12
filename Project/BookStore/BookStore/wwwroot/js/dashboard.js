@@ -4,6 +4,10 @@
         $("ol").remove();
     });
 
+    $("h3.lb_category").click(function(e) {
+        window.location.href = "/ListBook/" + $(this).text();
+    });
+
     $(".Category").click(function (e) {
         e.stopPropagation();
         if ($("ol").length === 0) {
