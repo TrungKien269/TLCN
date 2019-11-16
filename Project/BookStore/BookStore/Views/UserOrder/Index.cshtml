@@ -2,8 +2,9 @@
 @using BookStore.Helper
 @{
     Layout = "Orders_Layout";
-    List<Order> ListDelivery = (List<Order>) ViewBag.ListDelivery;
-    List<Order> ListDelivered = (List<Order>) ViewBag.ListDelivered;
+    List<Order> ListDelivery = (List<Order>)ViewBag.ListDelivery;
+    List<Order> ListDelivered = (List<Order>)ViewBag.ListDelivered;
+    List<Order> ListCanceled = (List<Order>) ViewBag.ListCanceled;
 }
 @model List<Order>
 
@@ -52,74 +53,85 @@
             <li class="active"><a data-toggle="tab" href="#processing">Processing</a></li>
             <li><a data-toggle="tab" href="#delivering">Delivering</a></li>
             <li><a data-toggle="tab" href="#delivered">Delivered</a></li>
+            <li><a data-toggle="tab" href="#canceled">Canceled</a></li>
         </ul>
 
         <div class="tab-content tab-content-order">
             <div id="processing" class="tab-pane fade in active show">
                 @foreach (var order in Model)
                 {
-                <div class="order-block">
-                    <div class="title-wrapper">
-                        <h2>Date: @order.CreatedDate</h2>
-                        <h2>Total: @order.Total.ToString("##,###") VND</h2>
+                    <div class="order-block">
+                        <div class="title-wrapper">
+                            <h2>Date: @order.CreatedDate</h2>
+                            <h2>Total: @order.Total.ToString("##,###") VND</h2>
+                        </div>
+                        <div class="cart-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="item">Items</th>
+                                        <th class="qty">Qty</th>
+                                        <th class="price">Price</th>
+                                        <th class="total-price">SubTotal</th>
+                                        <th class="remove">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in order.OrderDetail)
+                                    {
+                                        <tr>
+                                            <td class="item-name">
+                                                <div class="item-img">
+                                                    <a href="#">
+                                                        <img src="@detail.Book.Image" class="img-contain img-cover-10" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="#">@detail.Book.Name</a>
+                                                    @*<p>Authors: M / Brown</p>*@
+                                                </div>
+                                            </td>
+
+                                            <td class="item-qty">
+                                                <div class="quantity buttons_added d-flex justify-content-center">
+                                                    <input type="text" step="1" min="1" max="" name="quantity"
+                                                           value="@detail.Quantity"
+                                                           title="Qty" class="input-text qty text h-100" size="4" pattern=""
+                                                           inputmode="" disabled>
+                                                </div>
+                                            </td>
+
+                                            <td class="item-price">
+                                                <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
+                                            </td>
+                                            <td class="item-total">
+                                                @{
+                                                    var subtotal = detail.Quantity * detail.Book.CurrentPrice;
+                                                }
+                                                <p>@subtotal.ToString("##,###") VND</p>
+                                            </td>
+                                            <td class="action"></td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button class="btn btn--rounded btn-danger btn-fw item-display waves-effect waves-light"
+                                                    id="@SecureHelper.GetSecureOutput(order.Id)">Cancel</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
                     </div>
-                    <div class="cart-table">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th class="item">Items</th>
-                                <th class="qty">Qty</th>
-                                <th class="price">Price</th>
-                                <th class="total-price">SubTotal</th>
-                                <th class="remove">&nbsp;</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach (var detail in order.OrderDetail)
-                            {
-                                <tr>
-                                    <td class="item-name">
-                                        <div class="item-img">
-                                            <a href="#">
-                                                <img src="@detail.Book.Image" class="img-contain img-cover-10" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="item-title">
-                                            <a href="#">@detail.Book.Name</a>
-                                            @*<p>Authors: M / Brown</p>*@
-                                        </div>
-                                    </td>
-
-                                    <td class="item-qty">
-                                        <div class="quantity buttons_added d-flex justify-content-center">
-                                            <input type="text" step="1" min="1" max="" name="quantity" 
-                                                   value="@detail.Quantity"
-                                                   title="Qty" class="input-text qty text h-100" size="4" pattern=""
-                                                   inputmode="" disabled>
-                                        </div>
-                                    </td>
-
-                                    <td class="item-price">
-                                        <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
-                                    </td>
-                                    <td class="item-total">
-                                        @{
-                                            var subtotal = detail.Quantity * detail.Book.CurrentPrice;
-                                        }
-                                        <p>@subtotal.ToString("##,###") VND</p>
-                                    </td>
-                                    <td class="action"></td>
-                                </tr>
-                            }
-                            </tbody>
-
-                        </table>
-                    </div>
-
-                </div>
                 }
 
             </div>
+
             <div id="delivering" class="tab-pane fade">
                 @foreach (var order in ListDelivery)
                 {
@@ -184,8 +196,74 @@
                     </div>
                 }
             </div>
+
             <div id="delivered" class="tab-pane fade">
                 @foreach (var order in ListDelivered)
+                {
+                    <div class="order-block">
+                        <div class="title-wrapper">
+                            <h2>Date: @order.CreatedDate</h2>
+                            <h2>Total: @order.Total.ToString("##,###") VND</h2>
+                        </div>
+                        <div class="cart-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="item">Items</th>
+                                        <th class="qty">Qty</th>
+                                        <th class="price">Price</th>
+                                        <th class="total-price">SubTotal</th>
+                                        <th class="remove">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in order.OrderDetail)
+                                    {
+                                        <tr>
+                                            <td class="item-name">
+                                                <div class="item-img">
+                                                    <a href="#">
+                                                        <img src="@detail.Book.Image" class="img-contain img-cover-10" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="#">@detail.Book.Name</a>
+                                                    @*<p>Authors: M / Brown</p>*@
+                                                </div>
+                                            </td>
+
+                                            <td class="item-qty">
+                                                <div class="quantity buttons_added d-flex justify-content-center">
+                                                    <input type="text" step="1" min="1" max="" name="quantity"
+                                                           value="@detail.Quantity"
+                                                           title="Qty" class="input-text qty text h-100" size="4" pattern=""
+                                                           inputmode="" disabled>
+                                                </div>
+                                            </td>
+
+                                            <td class="item-price">
+                                                <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
+                                            </td>
+                                            <td class="item-total">
+                                                @{
+                                                    var subtotal = detail.Quantity * detail.Book.CurrentPrice;
+                                                }
+                                                <p>@subtotal.ToString("##,###") VND</p>
+                                            </td>
+                                            <td class="action"></td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+            <div id="canceled" class="tab-pane fade">
+                @foreach (var order in ListCanceled)
                 {
                     <div class="order-block">
                         <div class="title-wrapper">

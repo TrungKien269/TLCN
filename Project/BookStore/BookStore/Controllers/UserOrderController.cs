@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStore.BUS.Control;
+using BookStore.Models;
 using BookStore.Models.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,16 @@ namespace BookStore.Controllers
             int userID = HttpContext.Session.GetInt32("UserID").Value;
             ViewBag.ListDelivery = (await userOrderBal.GetListDelivery(userID)).Obj as List<Order>;
             ViewBag.ListDelivered = (await userOrderBal.GetListDelivered(userID)).Obj as List<Order>;
+            ViewBag.ListCanceled = (await userOrderBal.GetListCanceled(userID)).Obj as List<Order>;
             return View((await userOrderBal.GetListProcessing(userID)).Obj as List<Order>);
+        }
+
+        [HttpPost("CancelOrder")]
+        public async Task<Response> CancelOrder(string id)
+        {
+            var order = (await userOrderBal.GetOrder(id)).Obj as Order;
+            var newOrder = await userOrderBal.UpdateStatus(order, "Canceled");
+            return new Response("Sucess", true, 1, newOrder.Obj as Order);
         }
     }
 }

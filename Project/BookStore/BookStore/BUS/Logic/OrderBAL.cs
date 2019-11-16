@@ -64,7 +64,7 @@ namespace BookStore.BUS.Logic
             try
             {
                 var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
-                    .Where(x => x.UserId.Equals(userID) && x.Status.Equals("Delivery"))
+                    .Where(x => x.UserId.Equals(userID) && x.Status.Equals("Delivering"))
                     .OrderByDescending(x => x.CreatedDate).ToListAsync();
                 return new Response("Success", true, 1, listOrders);
             }
@@ -82,6 +82,50 @@ namespace BookStore.BUS.Logic
                     .Where(x => x.UserId.Equals(userID) && x.Status.Equals("Delivered"))
                     .OrderByDescending(x => x.CreatedDate).ToListAsync();
                 return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetListUserCanceledOrders(int userID)
+        {
+            try
+            {
+                var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.UserId.Equals(userID) && x.Status.Equals("Canceled"))
+                    .OrderByDescending(x => x.CreatedDate).ToListAsync();
+                return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> UpdateStatusOrder(Order order, string status)
+        {
+            try
+            {
+                order.Status = status;
+                context.Order.Update(order);
+                context.SaveChangesAsync();
+                return new Response("Success", true, 1, order);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetOrder(string id)
+        {
+            try
+            {
+                var order = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+                return new Response("Success", true, 1, order);
             }
             catch (Exception e)
             {
