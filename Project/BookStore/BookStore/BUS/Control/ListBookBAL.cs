@@ -39,5 +39,10 @@ namespace BookStore.BUS.Control
         {
             return await bookBal.GetBookBySubCategory(subcategory, skipNumber);
         }
+
+        public async Task<Response> SearchBook(string value, int skipNumber)
+        {
+            return await bookBal.SearchBook(value, skipNumber);
+        }
     }
 }

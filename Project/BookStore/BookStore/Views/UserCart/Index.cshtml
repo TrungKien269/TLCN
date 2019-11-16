@@ -2,41 +2,9 @@
 @using BookStore.Helper
 @{
     Layout = "Cart_Layout";
-    List<Category> CategoryList = (List<Category>)ViewBag.ListCategory;
+    List<Category> CategoryList = (List<Category>) ViewBag.ListCategory;
 }
 @model List<CartBook>
-@*<h1>List of Product</h1>
-    @if (Model is null || Model.Count.Equals(0))
-    {
-        <p>Not book to show!</p>
-    }
-    else
-    {
-        <div class="container">
-            <table class="table">
-                <tr>
-                    <th>Book</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>SubTotal</th>
-                </tr>
-                @foreach (var book in Model)
-                {
-                    <tr>
-                        <td style="display: none">@SecureHelper.GetSecureOutput(book.BookId)</td>
-                        <td>@book.Book.Name</td>
-                        <td>@book.Book.CurrentPrice.ToString("##,###")</td>
-                        <td><input class="form-control" type="number" value="@book.Quantity" min="1" /></td>
-                        <td>@book.SubTotal.ToString("##,###") VND</td>
-                        <td><button class="btn btn-danger">Remove</button></td>
-                    </tr>
-                }
-            </table>
-            <div class="col-sm-6">
-                <button class="btn btn-success" id="btnOrder">Proceed Order</button>
-            </div>
-        </div>
-    }*@
 
 <nav class="navbar navbar-shadow justify-content-between">
     <div class="container">
@@ -44,7 +12,7 @@
             <img src="/images/logo.webp" alt="">
         </a>
         <div class="input__search-bar">
-            <input type="text" placeholder="Search">
+            <input type="text" id="txtSearch" placeholder="Search" autocomplete="off">
             <i class="fas fa-search"></i>
         </div>
         <div class="nav__social-icon d-flex justify-content-center">

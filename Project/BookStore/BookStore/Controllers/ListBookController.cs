@@ -62,5 +62,23 @@ namespace BookStore.Controllers
         {
             return await listBookBal.GetListBookBySubCategory(subcategory, skipNumber);
         }
+
+        [HttpGet("Search/value={value}")]
+        public async Task<IActionResult> Search(string value)
+        {
+            ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
+            ViewBag.LoadNumber = 1;
+            ViewBag.ListCategory = (await listBookBal.GetListCategory()).Obj as List<Category>;
+            ViewBag.ListPubliser = (await listBookBal.GetListPublisher()).Obj as List<FamousPublisher>;
+            ViewBag.searchStr = value;
+            var books = await listBookBal.SearchBook(value, 0);
+            return View(books.Obj as List<Book>);
+        }
+
+        [HttpPost("GetMoreBook/Search")]
+        public async Task<Response> GetMoreBookSearch(string value, int skipNumber)
+        {
+            return await listBookBal.SearchBook(value, skipNumber);
+        }
     }
 }

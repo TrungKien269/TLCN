@@ -170,7 +170,28 @@ namespace BookStore.BUS.Logic
                 {
                     book.Id = SecureHelper.GetSecureOutput(book.Id);
                 }
-                return new Response("Success", true, 1, books);
+                return new Response("Success", true, books.Count, books);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> SearchBook(string value, int skipNumber)
+        {
+            try
+            {
+                var books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                    .ThenInclude(x => x.Cate).Where(x =>
+                        x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                        x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber).Take(12)
+                    .ToListAsync();
+                foreach (var book in books)
+                {
+                    book.Id = SecureHelper.GetSecureOutput(book.Id);
+                }
+                return new Response("Success", true, books.Count, books);
             }
             catch (Exception e)
             {

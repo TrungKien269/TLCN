@@ -70,6 +70,12 @@
         
     });
 
+    $("#txtSearch").keypress(function (e) {
+        if (e.which === 13) {
+            window.location.href = "/Search/value=" + $(this).val();
+        }
+    });
+
     function checkFormValidateOrNot(form) {
         console.log(form.attr("id"));
         if ($("#" + form.attr("id") + " .field-validation-error").length > 0) {

@@ -145,4 +145,10 @@
                 window.location.href = "/ProceedOrder";
             });
     });
+
+    $("#txtSearch").keypress(function(e) {
+        if (e.which === 13) {
+            window.location.href = "/Search/value=" + $(this).val();
+        }
+    });
 });

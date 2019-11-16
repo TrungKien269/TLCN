@@ -12,6 +12,10 @@
 }
 @model List<Book>
 
+@{
+    var searchStr = ViewBag.searchStr;
+}
+
 <nav class="navbar navbar-shadow justify-content-between">
     <div class="container">
         <a href="/" class="navbar-sm-brand">
@@ -77,8 +81,10 @@
                                 <ul class="list-unstyled">
                                     @for (int j = 0; j < 4; j++)
                                     {
-                                        <li><a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name" 
-                                               class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                        <li>
+                                            <a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name"
+                                               class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a>
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -93,8 +99,10 @@
                                 <ul class="list-unstyled">
                                     @for (int j = 0; j < 4; j++)
                                     {
-                                        <li><a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name" 
-                                               class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a></li>
+                                        <li>
+                                            <a href="/ListBook/Subcategory/@CategoryList[i].SubCategory[j].Name"
+                                               class="pad-0-0">@CategoryList[i].SubCategory[j].Name</a>
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -416,15 +424,14 @@
 <script src="/js/counting.js"></script>
 
 <script>
-    
+
     $("button#btnViewMore").click(function(e) {
         var skipNumber = parseInt($("div.card").length);
-        var category = "@Model[0].BookCategory[0].Cate.Cate.Name";
         $.ajax({
             type: "POST",
-            url: "/GetMoreBook/",
+            url: "/GetMoreBook/Search",
             data: {
-                category: category,
+                value: "@searchStr",
                 skipNumber: skipNumber
             },
             success: function (data) {

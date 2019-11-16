@@ -66,6 +66,12 @@
         window.location.href = "/ProceedOrder";
     });
 
+    $("#txtSearch").keypress(function (e) {
+        if (e.which === 13) {
+            window.location.href = "/Search/value=" + $(this).val();
+        }
+    });
+
     function formatPrice(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     }

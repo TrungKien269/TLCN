@@ -9,87 +9,6 @@
     Layout = "Profile_Layout";
 }
 @model User
-@*<div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                @Html.AntiForgeryToken()
-                <h2 style="text-align: center">Profile</h2>
-                <form asp-action="UpdateUser" asp-controller="UserProfile" id="updateForm" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="FullName" class="control-label"></label>
-                        <input asp-for="FullName" class="form-control" value="@Model.FullName" />
-                        <span asp-validation-for="FullName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        @if (Model.Gender.Equals("Male"))
-                        {
-                            <label asp-for="Gender" class="checkbox-inline">
-                                <input asp-for="Gender" type="radio" value="Male" checked id="lbMale" />Male
-                            </label>
-                            <label asp-for="Gender" class="checkbox-inline">
-                                <input asp-for="Gender" type="radio" value="Female" id="lbFemale" />Female
-                            </label>
-                            <span asp-validation-for="Gender" class="text-danger"></span>
-                        }
-                        else
-                        {
-                            <label asp-for="Gender" class="checkbox-inline">
-                                <input asp-for="Gender" type="radio" value="Male" id="lbMale" />Male
-                            </label>
-                            <label asp-for="Gender" class="checkbox-inline">
-                                <input asp-for="Gender" type="radio" value="Female" checked id="lbFemale" />Female
-                            </label>
-                            <span asp-validation-for="Gender" class="text-danger"></span>
-                        }
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Birthday" class="control-label"></label>
-                        <input asp-for="Birthday" type="date" class="form-control" />
-                        <span asp-validation-for="Birthday" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="PhoneNumber" class="control-label"></label>
-                        <input asp-for="PhoneNumber" class="form-control" value="@Model.PhoneNumber" />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Address" class="control-label"></label>
-                        <input asp-for="Address" class="form-control" value="@Model.Address" />
-                        <span asp-validation-for="Address" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-info" />
-                    </div>
-                </form>
-            </div>
-
-            <div class="col-sm-6">
-                @Html.AntiForgeryToken()
-                <h2 style="text-align: center">Change password</h2>
-                <form asp-controller="UserProfile" asp-action="ChangePassword" id="changeForm" method="post">
-                    <div class="form-group">
-                        <label class="control-label">Current password</label>
-                        <input class="form-control" name="current_password" type="password" />
-                        <span asp-validation-for="Account.Password" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">New password</label>
-                        <input class="form-control" name="new_password" type="password" />
-                        <span asp-validation-for="Account.Password" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Confirm password</label>
-                        <input class="form-control" name="confirm_password" type="password" />
-                        <span asp-validation-for="Account.Password" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Change" class="btn btn-info" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>*@
 
 
 <nav class="navbar navbar-shadow justify-content-between">
@@ -98,7 +17,7 @@
             <img src="/images/logo.webp" alt="">
         </a>
         <div class="input__search-bar">
-            <input type="text" placeholder="Search">
+            <input type="text" id="txtSearch" placeholder="Search" autocomplete="off">
             <i class="fas fa-search"></i>
         </div>
         <div class="nav__social-icon d-flex justify-content-center">
@@ -133,6 +52,7 @@
 <div class="cart-title">
     <h2>Profile</h2>
 </div>
+
 <section class="section__profile">
 
     <div class="container">

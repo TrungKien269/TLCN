@@ -2,106 +2,10 @@
 @using BookStore.Helper
 @{
     Layout = "Orders_Layout";
-    List<Order> ListDelivery = (List<Order>)ViewBag.ListDelivery;
-    List<Order> ListDelivered = (List<Order>)ViewBag.ListDelivered;
+    List<Order> ListDelivery = (List<Order>) ViewBag.ListDelivery;
+    List<Order> ListDelivered = (List<Order>) ViewBag.ListDelivered;
 }
 @model List<Order>
-@*<div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-inline">
-                    <button class="btn btn-warning">Processing</button>
-                    <button class="btn btn-primary">Delivery</button>
-                    <button class="btn btn-success">Delivered</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="listOrders" id="Processing">
-            @foreach (var order in Model)
-            {
-                <div class="inline">
-                    <p>@order.Id</p>
-                    <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
-                    <table class="table">
-                        <tr>
-                            <th>Book</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>SubTotal</th>
-                        </tr>
-                        @foreach (var detail in order.OrderDetail)
-                        {
-                            <td>@detail.Book.Name</td>
-                            <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
-                            <td>@detail.Quantity</td>
-                            var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
-                            <td>@subtotal</td>
-                        }
-                    </table>
-                    <p>@order.Total</p>
-                </div>
-
-            }
-        </div>
-
-        <div class="listOrders" id="Delivery" style="display: none">
-            @foreach (var order in ListDelivery)
-            {
-                <div class="inline">
-                    <p>@order.Id</p>
-                    <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
-                    <table class="table">
-                        <tr>
-                            <th>Book</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>SubTotal</th>
-                        </tr>
-                        @foreach (var detail in order.OrderDetail)
-                        {
-                            <td>@detail.Book.Name</td>
-                            <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
-                            <td>@detail.Quantity</td>
-                            var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
-                            <td>@subtotal</td>
-                        }
-                    </table>
-                    <p>@order.Total</p>
-                </div>
-
-            }
-        </div>
-
-        <div class="listOrders" id="Delivered" style="display: none">
-            @foreach (var order in ListDelivered)
-            {
-                <div class="inline">
-                    <p>@order.Id</p>
-                    <p>@order.CreatedDate.ToString("dd-MM-yyyy hh:mm:ss")</p>
-                    <table class="table">
-                        <tr>
-                            <th>Book</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>SubTotal</th>
-                        </tr>
-                        @foreach (var detail in order.OrderDetail)
-                        {
-                            <td>@detail.Book.Name</td>
-                            <td>@detail.Book.CurrentPrice.ToString("##,###") VND</td>
-                            <td>@detail.Quantity</td>
-                            var subtotal = (detail.Quantity * detail.Book.CurrentPrice).ToString("##,###") + " VND";
-                            <td>@subtotal</td>
-                        }
-                    </table>
-                    <p>@order.Total</p>
-                </div>
-
-            }
-        </div>
-
-    </div>*@
 
 <nav class="navbar navbar-shadow justify-content-between">
     <div class="container">
@@ -109,7 +13,7 @@
             <img src="/images/logo.webp" alt="">
         </a>
         <div class="input__search-bar">
-            <input type="text" placeholder="Search">
+            <input type="text" id="txtSearch" placeholder="Search" autocomplete="off">
             <i class="fas fa-search"></i>
         </div>
         <div class="nav__social-icon d-flex justify-content-center">
