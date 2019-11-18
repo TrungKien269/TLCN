@@ -11,24 +11,35 @@
         if (checkFormValidateOrNot(form) === true) {
             $.ajax({
                 type: "POST",
-                //url: "/Login/",
                 url: url,
                 data: form.serialize(),
                 success: function (data) {
                     if (data.status === true) {
                         if (data.previousState === null) {
-                            window.location.href = "/";
+                            Swal.fire({
+                                title: "Success",
+                                text: "Login completely",
+                                icon: 'success'
+                            }).then(function () {
+                                window.location.href = "/";
+                            });
                         }
                         else {
-                            window.location.href = "/" + data.previousState;
+                            Swal.fire({
+                                title: "Success",
+                                text: "Login completely",
+                                icon: 'success'
+                            }).then(function () {
+                                window.location.href = "/" + data.previousState;
+                            });
                         }
                     }
                     else {
-                        alert(data.message);
+                        popupFail("Fail", data.message);
                     }
                 },
                 error: function (err) {
-                    alert("Error");
+                    popupFail("Error", err);
                     console.log(err);
                 }
             });

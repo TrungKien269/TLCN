@@ -1,19 +1,19 @@
 
-function popupSuccess() {
+function popupSuccess(title, text) {
     Swal.fire({
-        title: 'Success',
-        text: 'Do you want to continue',
-        icon: 'success',      
-      })
+        title: title,
+        text: text,
+        icon: 'success'
+    });
 }
 
-function popupFail() {
+function popupFail(title, text) {
     Swal.fire({
         icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href>Why do I have this issue?</a>'
-    })
+        title: title,
+        text: text
+        //footer: '<a href>Why do I have this issue?</a>'
+    });
 }
 
 function popupConfirm() {
@@ -31,7 +31,7 @@ function popupConfirm() {
                 'Deleted!',
                 'Your file has been deleted.',
                 'success'
-            )
+            );
         }
-    })
+    });
 }

@@ -42,6 +42,7 @@ namespace BookStore.Controllers
                         SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id,
                             (account.Obj as Account).IdNavigation.FullName);
                         SessionHelper.CreateCartSession(HttpContext.Session);
+                        SessionHelper.CreateOrdersSession(HttpContext.Session);
                         ViewBag.Session = cookie;
                         ViewBag.UserID = (account.Obj as Account).Id;
                         ViewBag.FullName = account.Obj as Account is null
@@ -53,6 +54,7 @@ namespace BookStore.Controllers
                 {
                     SessionHelper.SetAnonymousWebsiteSession(HttpContext.Session);
                     SessionHelper.CreateCartSession(HttpContext.Session);
+                    SessionHelper.CreateOrdersSession(HttpContext.Session);
                 }
             }
             else
@@ -64,7 +66,6 @@ namespace BookStore.Controllers
                     SessionHelper.SetUserSession(HttpContext.Session, (account.Obj as Account).Id,
                         (account.Obj as Account).IdNavigation.FullName);
                 }
-                //SessionHelper.CreateCartSession(HttpContext.Session);
                 ViewBag.FullName = account.Obj as Account is null
                     ? null
                     : (account.Obj as Account).IdNavigation.FullName;

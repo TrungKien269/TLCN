@@ -1,13 +1,42 @@
 ﻿$(document).ready(function () {
-    $("button#btnRemove").click(function(e) {
+    $("button#btnRemove").click(function (e) {
         var index = $("button").index(this);
         var id = $("table tr:eq(" + (parseInt(index) + 1).toString() + ") td:eq(0)").text();
-        $.post('/RemoveBookCart',
-            { id: id },
-            function(data) {
-                console.log(data);
-            });
-        $("table tr:eq(" + (parseInt(index) + 1).toString() + ")").remove();
+
+        Swal.fire({
+            title: 'Confirm',
+            text: "Do you want to remove this book?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.value) {
+                $.post('/RemoveBookCart',
+                    { id: id },
+                    function (data) {
+                        if (data.status === true) {
+                            Swal.fire({
+                                title: 'Complete',
+                                text: "Remove successfully",
+                                icon: 'success'
+                            }).then(function() {
+                                $("table tr:eq(" + (parseInt(index) + 1).toString() + ")").remove();
+                            });
+                        } else {
+                            popupFail("Fail", data.message);
+                        }
+                    });
+
+            }
+        });
+        //$.post('/RemoveBookCart',
+        //    { id: id },
+        //    function (data) {
+        //        console.log(data);
+        //    });
+        //$("table tr:eq(" + (parseInt(index) + 1).toString() + ")").remove();
     });
 
     $("input.qty").on("change", function (e) {
@@ -62,7 +91,7 @@
         }
     });
 
-    $("button#btnOrder").click(function(e) {
+    $("button#btnOrder").click(function (e) {
         window.location.href = "/ProceedOrder";
     });
 

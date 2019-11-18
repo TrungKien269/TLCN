@@ -110,7 +110,7 @@ namespace BookStore.BUS.Logic
             {
                 order.Status = status;
                 context.Order.Update(order);
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return new Response("Success", true, 1, order);
             }
             catch (Exception e)

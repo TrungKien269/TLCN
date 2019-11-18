@@ -59,6 +59,27 @@ namespace BookStore.Helper
             SetObjectAsJson(session, "Cart", cart);
         }
 
+        public static void CreateOrdersSession(ISession session)
+        {
+            SetObjectAsJson(session, "Orders", new List<Order>());
+        }
+
+        public static void SetOrdersSession(ISession session, List<Order> orders)
+        {
+            SetObjectAsJson(session, "Orders", orders);
+        }
+
+        public static List<Order> GetOrdersSession(ISession session)
+        {
+            return GetObjectFromJson<List<Order>>(session, "Orders");
+        }
+
+        public static void ResetCartSession(ISession session, List<Order> orders)
+        {
+            orders.Clear();
+            SetObjectAsJson(session, "Orders", orders);
+        }
+
         public static void ClearSessionLogout(ISession session)
         {
             session.Remove("UserID");

@@ -80,13 +80,29 @@
 
     $("a.btn--rounded").click(function (e) {
         e.preventDefault();
+        //$.post("/AddToCart",
+        //    {
+        //        id: $(this).attr("href"),
+        //        quantity: 1
+        //    },
+        //    function (data) {
+        //        console.log(data);
+        //    });
         $.post("/AddToCart",
             {
                 id: $(this).attr("href"),
                 quantity: 1
             },
             function (data) {
-                console.log(data);
+                if (data.status === true) {
+                    Swal.fire({
+                        title: 'Complete',
+                        text: "Add book to cart successfully",
+                        icon: 'success'
+                    });
+                } else {
+                    popupFail("Fail", data.message);
+                }
             });
     });
 

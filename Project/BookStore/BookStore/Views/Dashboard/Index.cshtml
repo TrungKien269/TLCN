@@ -24,28 +24,29 @@
         </div>
         <div class="nav__social-icon d-flex justify-content-center">
             @*<a href="#" data-toggle="tooltip" data-placement="bottom" title="Wish list">
-                    <i class="far fa-heart"></i>
-                </a>*@
+            <i class="far fa-heart"></i>
+        </a>*@
             @*<div class="dropdown">
-                    <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-shopping-cart"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
+            <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>
 
 
-                <a href="/Login">
-                    <i class="far fa-user"></i>
-                </a>*@
+        <a href="/Login">
+            <i class="far fa-user"></i>
+        </a>*@
 
             <a href="/Cart"><i class="fas fa-shopping-cart"></i></a>
 
             @if (@ViewBag.FullName is null)
             {
+                <a href="/AnonymousOrder"><i class="fas fa-clipboard"></i></a>
                 <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
             }
             else

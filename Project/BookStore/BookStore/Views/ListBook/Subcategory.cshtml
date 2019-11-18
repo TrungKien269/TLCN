@@ -27,6 +27,7 @@
 
             @if (@ViewBag.FullName is null)
             {
+                <a href="/AnonymousOrder"><i class="fas fa-clipboard"></i></a>
                 <a href="/Login"><i class="fas fa-sign-in-alt"></i></a>
             }
             else
@@ -418,6 +419,8 @@
 <script src="/js/jquery.zoom.min.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/counting.js"></script>
+<script src="/js/sweetalert2.js"></script>
+<script src="/js/sweetalert.js"></script>
 
 <script>
 
@@ -525,7 +528,15 @@
                 quantity: 1
             },
             function (data) {
-                console.log(data);
+                if (data.status === true) {
+                    Swal.fire({
+                        title: 'Complete',
+                        text: "Add book to cart successfully",
+                        icon: 'success'
+                    });
+                } else {
+                    popupFail("Fail", data.message);
+                }
             });
     });
 

@@ -13,12 +13,14 @@ namespace BookStore.BUS.Control
         private CartBAL cartBal;
         private AccountBAL accountBal;
         private OrderBAL orderBal;
+        private BookBAL bookBal;
 
         public ProceedOrderBAL()
         {
             this.cartBal = new CartBAL();
             this.accountBal = new AccountBAL();
             this.orderBal = new OrderBAL();
+            this.bookBal = new BookBAL();
         }
 
         public async Task<Response> GetCart(string cookie)
@@ -47,6 +49,11 @@ namespace BookStore.BUS.Control
         public async Task<Response> CreateOrder(Order order)
         {
             return await orderBal.CreateOrder(order);
+        }
+
+        public async Task<Response> GetBook(string bookID)
+        {
+            return await bookBal.GetBookOnly(bookID);
         }
     }
 }

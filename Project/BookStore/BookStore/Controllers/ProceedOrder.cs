@@ -54,6 +54,7 @@ namespace BookStore.Controllers
             if (response.Status is false)
             {
                 List<CartBook> listCart = SessionHelper.GetCartSession(HttpContext.Session);
+                List<Order> orderList = SessionHelper.GetOrdersSession(HttpContext.Session);
                 var task_Count = await userOrderBal.CountOrder();
                 var orderID = "Order" + ((task_Count.Obj as int?) + 1);
                 order.Id = orderID;
@@ -62,18 +63,41 @@ namespace BookStore.Controllers
                 order.CreatedDate = DateTime.Now;
                 order.Status = "Processing";
 
-                foreach (var book in listCart)
+                var order_session = new Order()
                 {
+                    Id = orderID,
+                    FullName = order.FullName,
+                    Address = order.Address,
+                    PhoneNumber = order.PhoneNumber,
+                    CreatedDate = order.CreatedDate,
+                    Status = "Processing",
+                    Total = order.Total,
+                    UserId = 0
+                };
+
+                foreach (var cartbook in listCart)
+                {
+                    cartbook.Book.Id = SecureHelper.GetOriginalInput(cartbook.Book.Id);
                     OrderDetail orderDetail = new OrderDetail
                     {
                         OrderId = orderID,
-                        BookId = book.BookId,
-                        Quantity = book.Quantity
+                        BookId = cartbook.BookId,
+                        Quantity = cartbook.Quantity,
                     };
                     order.OrderDetail.Add(orderDetail);
-                }
-                SessionHelper.ResetCartSession(this.HttpContext.Session, listCart);
 
+                    var orderDetail_session = new OrderDetail
+                    {
+                        OrderId = orderID,
+                        BookId = cartbook.BookId,
+                        Quantity = cartbook.Quantity,
+                        Book = cartbook.Book
+                    };
+                    order_session.OrderDetail.Add(orderDetail_session);
+                }
+                orderList.Add(order_session);
+                SessionHelper.SetOrdersSession(HttpContext.Session, orderList);
+                SessionHelper.ResetCartSession(this.HttpContext.Session, listCart);
                 return await userOrderBal.CreateOrder(order);
             }
             else
@@ -87,18 +111,17 @@ namespace BookStore.Controllers
                 order.CreatedDate = DateTime.Now;
                 order.Status = "Processing";
 
-                foreach (var book in listCart)
+                foreach (var cartbook in listCart)
                 {
                     OrderDetail orderDetail = new OrderDetail
                     {
                         OrderId = orderID,
-                        BookId = book.BookId,
-                        Quantity = book.Quantity
+                        BookId = cartbook.BookId,
+                        Quantity = cartbook.Quantity
                     };
                     order.OrderDetail.Add(orderDetail);
                 }
                 await userOrderBal.ResetCart(HttpContext.Session.GetInt32("UserID").Value);
-
                 return await userOrderBal.CreateOrder(order);
             }
         }
