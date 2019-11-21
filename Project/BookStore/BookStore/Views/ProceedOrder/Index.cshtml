@@ -79,11 +79,15 @@
                     {
                         <div class="row">
                             <div class="col-3 pad-0-0">
-                                <img src="@cartBook.Book.Image" class="img-cover" alt="">
+                                <a href="/Book/@SecureHelper.GetSecureOutput(cartBook.BookId)">
+                                    <img src="@cartBook.Book.Image" class="img-cover" alt="#">
+                                </a>
                             </div>
                             <div class="col">
                                 <div class="product-name">
-                                    @cartBook.Book.Name
+                                    <a href="/Book/@SecureHelper.GetSecureOutput(cartBook.BookId)">
+                                        @cartBook.Book.Name
+                                    </a>
                                 </div>
                                 <div class="product-price">
                                     @cartBook.Book.CurrentPrice.ToString("##,###") VND

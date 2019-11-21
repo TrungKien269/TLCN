@@ -78,12 +78,14 @@
                                     <tr>
                                         <td class="item-name">
                                             <div class="item-img">
-                                                <a href="#">
+                                                <a href="/Book/@SecureHelper.GetSecureOutput(detail.Book.Id)">
                                                     <img src="@detail.Book.Image" class="img-contain img-cover-10" alt="">
                                                 </a>
                                             </div>
                                             <div class="item-title">
-                                                <a href="#">@detail.Book.Name</a>
+                                                <a href="/Book/@SecureHelper.GetSecureOutput(detail.Book.Id)">
+                                                    @detail.Book.Name
+                                                </a>
                                                 @*<p>Authors: M / Brown</p>*@
                                             </div>
                                         </td>
