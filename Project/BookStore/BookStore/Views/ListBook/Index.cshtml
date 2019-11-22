@@ -165,11 +165,14 @@
 
                             <!--Slides-->
                             <div class="carousel-inner" role="listbox">
-
+                                <div class="card">
+                                <img src="https://cdn0.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/7/1/71unk1d12zl.jpg" 
+                                     class="card-img-top img-cover" alt="...">
+                                </div>
                             </div>
                             <!--/.Slides-->
                             <!--Indicators-->
-                            <ol class="carousel-indicators carousel-indicators-dark">
+                            @*<ol class="carousel-indicators carousel-indicators-dark">
                                 <li data-target="#carousel-example-1z" data-slide-to="0" class="active"
                                     style="background-image: url('~/images/data/book11.webp')">
                                 </li>
@@ -179,7 +182,7 @@
                                     style="background-image: url('~/images/data/book13.webp')"></li>
                                 <li data-target="#carousel-example-1z" data-slide-to="3"
                                     style="background-image: url('~/images/data/book14.webpp')"></li>
-                            </ol>
+                            </ol>*@
                             <!--/.Indicators-->
                         </div>
                         <!--/.Carousel Wrapper-->
@@ -414,7 +417,7 @@
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/jquery.zoom.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/counting.js"></script>
+@*<script src="/js/counting.js"></script>*@
 <script src="/js/sweetalert2.js"></script>
 <script src="/js/sweetalert.js"></script>
 
@@ -502,13 +505,7 @@
 
                     $("input.qty").val("1");
 
-                    $("div.modal div.carousel-inner").append(
-                        '<div class="carousel-item active cursor-zoom" data-image="' +
-                        data.obj.image +
-                        '" data-toggle="zoom"> ' +
-                        '<div class="card">' +
-                        '<img src="' + data.obj.image + '" class="card-img-top img-cover" alt="...">' +
-                        '</div></div>');
+                    $("div.modal div.carousel-inner div.card img").attr("src", data.obj.image);
                 }
                 else {
                     console.log(data);
