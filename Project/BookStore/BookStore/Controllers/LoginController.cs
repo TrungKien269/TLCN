@@ -37,21 +37,32 @@ namespace BookStore.Controllers
             response.previousState = HttpContext.Session.GetString("PreviousState");
             if (response.Status == true)
             {
-                var hash = await Task.FromResult<string>(
-                    CryptographyHelper.GenerateHash(account.Username + DateTime.Now.ToString(),
-                        (response.Obj as Account).Salt));
-                SessionHelper.SetWebsiteSession(this.HttpContext.Session, hash);
-                SessionHelper.SetUserSession(this.HttpContext.Session, (response.Obj as Account).Id,
-                    (response.Obj as Account).IdNavigation.FullName);
-                CookieHelper.SetWebsiteCookie(this.Response, hash);
+                if ((response.Obj as Account).Username.Equals("admin"))
+                {
+                    var hash = await Task.FromResult<string>(
+                        CryptographyHelper.GenerateHash(account.Username + DateTime.Now.ToString(),
+                            (response.Obj as Account).Salt));
+                    SessionHelper.SetAdminSession(this.HttpContext.Session, hash);
+                    return response;
+                }
+                else
+                {
+                    var hash = await Task.FromResult<string>(
+                        CryptographyHelper.GenerateHash(account.Username + DateTime.Now.ToString(),
+                            (response.Obj as Account).Salt));
+                    SessionHelper.SetWebsiteSession(this.HttpContext.Session, hash);
+                    SessionHelper.SetUserSession(this.HttpContext.Session, (response.Obj as Account).Id,
+                        (response.Obj as Account).IdNavigation.FullName);
+                    CookieHelper.SetWebsiteCookie(this.Response, hash);
 
-                await loginBal.SetCartAfterLogin(this.HttpContext.Session, (response.Obj as Account).Id);
-                await loginBal.SetCookieForAccount(hash, response.Obj as Account);
-                ViewBag.Session = HttpContext.Session.GetString("BookStore");
-                ViewBag.FullName = response.Obj as Account is null
-                    ? null
-                    : (response.Obj as Account).IdNavigation.FullName;
-                return response;
+                    await loginBal.SetCartAfterLogin(this.HttpContext.Session, (response.Obj as Account).Id);
+                    await loginBal.SetCookieForAccount(hash, response.Obj as Account);
+                    ViewBag.Session = HttpContext.Session.GetString("BookStore");
+                    ViewBag.FullName = response.Obj as Account is null
+                        ? null
+                        : (response.Obj as Account).IdNavigation.FullName;
+                    return response;
+                }
             }
             return response;
         }

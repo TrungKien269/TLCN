@@ -44,6 +44,66 @@ namespace BookStore.BUS.Logic
             }
         }
 
+        public async Task<Response> GetListProcessingOrders()
+        {
+            try
+            {
+                var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.Status.Equals("Processing"))
+                    .OrderByDescending(x => x.CreatedDate).ToListAsync();
+                return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetListDeliveryOrders()
+        {
+            try
+            {
+                var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.Status.Equals("Delivering"))
+                    .OrderByDescending(x => x.CreatedDate).ToListAsync();
+                return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetListDeliveredOrders()
+        {
+            try
+            {
+                var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.Status.Equals("Delivered"))
+                    .OrderByDescending(x => x.CreatedDate).ToListAsync();
+                return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetListCanceledOrders()
+        {
+            try
+            {
+                var listOrders = await context.Order.Include(x => x.OrderDetail).ThenInclude(x => x.Book)
+                    .Where(x => x.Status.Equals("Canceled"))
+                    .OrderByDescending(x => x.CreatedDate).ToListAsync();
+                return new Response("Success", true, 1, listOrders);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
         public async Task<Response> GetListUserProcessingOrders(int userID)
         {
             try

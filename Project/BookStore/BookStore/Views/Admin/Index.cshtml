@@ -1,0 +1,319 @@
+﻿@using BookStore.Models.Objects;
+@using System.Net
+@using BookStore.Models.Objects;
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http.Extensions;
+@using Microsoft.AspNetCore.WebUtilities
+@using BookStore.Helper;
+@{
+    Layout = "Admin_Layout";
+    List<Order> ListProcessing = (List<Order>)ViewBag.ListProcessing;
+    List<Order> ListDelivery = (List<Order>)ViewBag.ListDelivery;
+    List<Order> ListDelivered = (List<Order>)ViewBag.ListDelivered;
+    List<Order> ListCanceled = (List<Order>)ViewBag.ListCanceled;
+}
+
+@*<div class="processing">
+    <h1>List Processing</h1>
+    @foreach (var order in ListProcessing)
+    {
+        <p>@order.Id</p>
+        <button id="@SecureHelper.GetSecureOutput(order.Id)">Delivering</button>
+    }
+</div>
+
+<div class="delivering">
+    <h1>List Delivering</h1>
+    @foreach (var order in ListDelivery)
+    {
+        <p>@order.Id</p>
+        <button id="@SecureHelper.GetSecureOutput(order.Id)">Delivered</button>
+    }
+</div>
+
+<div class="delivered">
+    <h1>List Delivered</h1>
+    @foreach (var order in ListDelivered)
+    {
+        <p>@order.Id</p>
+    }
+</div>
+
+<div class="canceled">
+    <h1>List Canceled</h1>
+    @foreach (var order in ListCanceled)
+    {
+        <p>@order.Id</p>
+    }
+</div>*@
+
+<div class="cart-title">
+        <h2>admin page</h2>
+    </div>
+    <section class="section__order-status">
+        <div class="container-fluid d-flex flex-row">
+            <ul class="nav nav-tabs nav-order d-flex flex-column" id="active-exp">
+                <li class="active"><a data-toggle="tab" href="#order">Order management</a></li>
+                <li><a data-toggle="tab" href="#book">Book management</a></li>
+                <li><a data-toggle="tab" href="#account">Account management</a></li>
+                <li><a href="#">Statistics</a></li>
+            </ul>
+
+            <div class="tab-content tab-content-order">
+                <div id="order" class="tab-pane fade in active show">
+                    <div class="container">
+                        <ul class="nav nav-tabs nav-order" id="active-exp">
+                            <li class="active"><a data-toggle="tab" href="#processing">Processing</a></li>
+                            <li><a data-toggle="tab" href="#delivering">Delivering</a></li>
+                            <li><a data-toggle="tab" href="#delivered">Delivered</a></li>
+                        </ul>
+
+                        <div class="tab-content tab-content-order">
+                            <div id="processing" class="tab-pane fade in active show">
+                                @foreach (var order in ListProcessing)
+                                {
+                                <div class="order-block">
+                                    <div class="title-wrapper">
+                                        <h2>Date: @order.CreatedDate</h2>
+                                        <P>Amount: @order.OrderDetail.Count items</P>
+                                    </div>
+                                    <a href="@SecureHelper.GetSecureOutput(order.Id)" 
+                                       class="btn btn--blue btn-fit btn--rounded">Accept order</a>
+                                    <div class="cart-table">
+                                        <table>
+                                            <thead>
+                                            <td class="item-user border-0">
+                                                <h3>@order.FullName</h3>
+                                                <h4>
+                                                    Address: @order.Address
+                                                </h4>
+                                                <h4>
+                                                    Mobile: @order.PhoneNumber
+                                                </h4>
+                                            </td>
+                                            <tr>
+                                                <th class="item">Items</th>
+                                                <th class="qty">Qty</th>
+                                                <th class="price">Price</th>
+                                                <th class="total-price">Total</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                
+                                                @foreach (var detail in order.OrderDetail)
+                                                {
+                                                <tr>
+                                                    <td class="item-name">
+                                                        <div class="item-img">
+                                                            <a href="#">
+                                                                <img src="@detail.Book.Image"
+                                                                     class="img-contain img-cover-10" alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="item-title">
+                                                            <a href="#">@detail.Book.Name</a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="item-qty">
+                                                        <div class="quantity buttons_added d-flex justify-content-center">
+                                                            <input type="text" step="1" min="1" max="" name="quantity"
+                                                                   value="@detail.Quantity" title="Qty" 
+                                                                   class="input-text qty text h-100"
+                                                                   size="4" pattern="" inputmode="" disabled>
+                                                        </div>
+                                                    </td>
+                                                    <td class="item-price">
+                                                        <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
+                                                    </td>
+                                                    <td class="item-total">
+                                                        @{
+                                                            var subtotal = detail.Quantity * detail.Book.CurrentPrice;
+                                                        }
+                                                        <p>@subtotal.ToString("##,###") VND</p>
+                                                    </td>
+                                                </tr>
+                                                }
+
+                                                <tr class="order-total">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <h2>@order.Total.ToString("##,###") VND</h2>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                            <div id="delivering" class="tab-pane fade">
+                                @foreach (var order in ListDelivery)
+                                {
+                                    <div class="order-block">
+                                        <div class="title-wrapper">
+                                            <h2>Date: @order.CreatedDate</h2>
+                                            <P>Amount: @order.OrderDetail.Count items</P>
+                                        </div>
+                                        <a href="@SecureHelper.GetSecureOutput(order.Id)" 
+                                           class="btn btn--blue btn-fit btn--rounded">Confirm order</a>
+                                        <div class="cart-table">
+                                            <table>
+                                                <thead>
+                                                <td class="item-user border-0">
+                                                    <h3>@order.FullName</h3>
+                                                    <h4>
+                                                        Address: @order.Address
+                                                    </h4>
+                                                    <h4>
+                                                        Mobile: @order.PhoneNumber
+                                                    </h4>
+                                                </td>
+                                                <tr>
+                                                    <th class="item">Items</th>
+                                                    <th class="qty">Qty</th>
+                                                    <th class="price">Price</th>
+                                                    <th class="total-price">Total</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    @foreach (var detail in order.OrderDetail)
+                                                    {
+                                                        <tr>
+                                                            <td class="item-name">
+                                                                <div class="item-img">
+                                                                    <a href="#">
+                                                                        <img src="@detail.Book.Image"
+                                                                             class="img-contain img-cover-10" alt="">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="item-title">
+                                                                    <a href="#">@detail.Book.Name</a>
+                                                                </div>
+                                                            </td>
+                                                            <td class="item-qty">
+                                                                <div class="quantity buttons_added d-flex justify-content-center">
+                                                                    <input type="text" step="1" min="1" max="" name="quantity"
+                                                                           value="@detail.Quantity" title="Qty"
+                                                                           class="input-text qty text h-100"
+                                                                           size="4" pattern="" inputmode="" disabled>
+                                                                </div>
+                                                            </td>
+                                                            <td class="item-price">
+                                                                <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
+                                                            </td>
+                                                            <td class="item-total">
+                                                                @{
+                                                                    var subtotal = detail.Quantity * detail.Book.CurrentPrice;
+                                                                }
+                                                                <p>@subtotal.ToString("##,###") VND</p>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                    <tr class="order-total">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <h2>@order.Total.ToString("##,###") VND</h2>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div id="delivered" class="tab-pane fade">
+                                @foreach (var order in ListDelivered)
+                                {
+                                    <div class="order-block">
+                                        <div class="title-wrapper">
+                                            <h2>Date: @order.CreatedDate</h2>
+                                            <P>Amount: @order.OrderDetail.Count items</P>
+                                        </div>
+                                        <div class="cart-table">
+                                            <table>
+                                                <thead>
+                                                <td class="item-user border-0">
+                                                    <h3>@order.FullName</h3>
+                                                    <h4>
+                                                        Address: @order.Address
+                                                    </h4>
+                                                    <h4>
+                                                        Mobile: @order.PhoneNumber
+                                                    </h4>
+                                                </td>
+                                                <tr>
+                                                    <th class="item">Items</th>
+                                                    <th class="qty">Qty</th>
+                                                    <th class="price">Price</th>
+                                                    <th class="total-price">Total</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    @foreach (var detail in order.OrderDetail)
+                                                    {
+                                                        <tr>
+                                                            <td class="item-name">
+                                                                <div class="item-img">
+                                                                    <a href="#">
+                                                                        <img src="@detail.Book.Image"
+                                                                             class="img-contain img-cover-10" alt="">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="item-title">
+                                                                    <a href="#">@detail.Book.Name</a>
+                                                                </div>
+                                                            </td>
+                                                            <td class="item-qty">
+                                                                <div class="quantity buttons_added d-flex justify-content-center">
+                                                                    <input type="text" step="1" min="1" max="" name="quantity"
+                                                                           value="@detail.Quantity" title="Qty"
+                                                                           class="input-text qty text h-100"
+                                                                           size="4" pattern="" inputmode="" disabled>
+                                                                </div>
+                                                            </td>
+                                                            <td class="item-price">
+                                                                <p>@detail.Book.CurrentPrice.ToString("##,###") VND</p>
+                                                            </td>
+                                                            <td class="item-total">
+                                                                @{
+                                                                    var subtotal = detail.Quantity * detail.Book.CurrentPrice;
+                                                                }
+                                                                <p>@subtotal.ToString("##,###") VND</p>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                    <tr class="order-total">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <h2>@order.Total.ToString("##,###") VND</h2>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="book" class="tab-pane fade">
+                </div>
+                <div id="account" class="tab-pane fade">
+                </div>              
+            </div>
+        </div>
+    </section>

@@ -26,6 +26,11 @@ namespace BookStore.Helper
             session.SetString("BookStore", hash);
         }
 
+        public static void SetAdminSession(ISession session, string hash)
+        {
+            session.SetString("Admin", hash);
+        }
+
         public static void SetAnonymousWebsiteSession(ISession session)
         {
             var hash = CryptographyHelper.CreateSalt(32);

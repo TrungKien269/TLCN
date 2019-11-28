@@ -16,22 +16,44 @@
                 success: function (data) {
                     if (data.status === true) {
                         if (data.previousState === null) {
-                            Swal.fire({
-                                title: "Success",
-                                text: "Login completely",
-                                icon: 'success'
-                            }).then(function () {
-                                window.location.href = "/";
-                            });
+                            if (data.obj.username === "admin") {
+                                Swal.fire({
+                                    title: "Success",
+                                    text: "Login completely",
+                                    icon: 'success'
+                                }).then(function () {
+                                    window.location.href = "/Admin";
+                                });  
+                            }
+                            else {
+                                Swal.fire({
+                                    title: "Success",
+                                    text: "Login completely",
+                                    icon: 'success'
+                                }).then(function () {
+                                    window.location.href = "/";
+                                });    
+                            }
                         }
                         else {
-                            Swal.fire({
-                                title: "Success",
-                                text: "Login completely",
-                                icon: 'success'
-                            }).then(function () {
-                                window.location.href = "/" + data.previousState;
-                            });
+                            if (data.obj.username === "admin") {
+                                Swal.fire({
+                                    title: "Success",
+                                    text: "Login completely",
+                                    icon: 'success'
+                                }).then(function() {
+                                    window.location.href = "/Admin";
+                                });
+                            }
+                            else {
+                                Swal.fire({
+                                    title: "Success",
+                                    text: "Login completely",
+                                    icon: 'success'
+                                }).then(function () {
+                                    window.location.href = "/" + data.previousState;
+                                });    
+                            }
                         }
                     }
                     else {
