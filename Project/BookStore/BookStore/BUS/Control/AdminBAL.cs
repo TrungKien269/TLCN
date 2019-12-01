@@ -13,11 +13,17 @@ namespace BookStore.BUS.Control
     {
         private AccountBAL accountBal;
         private OrderBAL orderBal;
+        private BookBAL bookBal;
+        private AuthorBAL authorBal;
+        private CRUDBookBAL crudBookBal;
 
         public AdminBAL()
         {
             accountBal = new AccountBAL();
             orderBal = new OrderBAL();
+            bookBal = new BookBAL();
+            authorBal = new AuthorBAL();
+            crudBookBal = new CRUDBookBAL();
         }
 
         public async Task<Response> GetListProcessing()
@@ -48,6 +54,22 @@ namespace BookStore.BUS.Control
         public async Task<Response> UpdateStatus(Order order, string status)
         {
             return await orderBal.UpdateStatusOrder(order, status);
+        }
+
+        public async Task<Response> InsertBook(Book book)
+        {
+            return await bookBal.Insert(book);
+        }
+
+        public async Task<Response> InsertAuthor(Author author)
+        {
+            return await authorBal.InsertAuthor(author);
+        }
+
+        public async Task<Response> TestInsertBook(Book book, List<Author> authors, List<string> images, int cateID,
+            int formID, int supplierID, int publisherID)
+        {
+            return await crudBookBal.CreateBookProcess(book, authors, images, cateID, formID, supplierID, publisherID);
         }
     }
 }

@@ -52,9 +52,143 @@ namespace BookStore.BUS.Logic
             }
         }
 
-        public Task<Response> Insert(Book obj)
+        public async Task<Response> Insert(Book obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var res = await context.Book.Where(x => x.Id.Equals(obj.Id, StringComparison.CurrentCultureIgnoreCase))
+                    .FirstOrDefaultAsync();
+                if (res is null)
+                {
+                    obj.Status = "Available";
+                    await context.Book.AddAsync(obj);
+                    await context.SaveChangesAsync();
+                    return new Response("Success", true, 1, obj);
+                }
+                else
+                {
+                    return new Response("This book has been added to system!", false, 1, obj);
+                }
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> InsertAuthorsBook(string bookID, int authorID)
+        {
+            try
+            {
+                var authorBook = new AuthorBook
+                {
+                    BookId = bookID,
+                    AuthorId = authorID
+                };
+                await context.AuthorBook.AddAsync(authorBook);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, authorBook);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> InsertImagesBook(string bookID, int imageID, string path)
+        {
+            try
+            {
+                var imageBook = new ImageBook
+                {
+                    BookId = bookID,
+                    ImageId = imageID,
+                    Path = path
+                };
+                await context.ImageBook.AddAsync(imageBook);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, imageBook);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> InsertCategoryBook(string bookID, int cateID)
+        {
+            try
+            {
+                var bookCategory = new BookCategory
+                {
+                    BookId = bookID,
+                    CateId = cateID
+                };
+                await context.BookCategory.AddAsync(bookCategory);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, bookCategory);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> InsertFormBook(string bookID, int formID)
+        {
+            try
+            {
+                var formBook = new FormBook
+                {
+                    BookId = bookID,
+                    FormId = formID
+                };
+                await context.FormBook.AddAsync(formBook);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, formBook);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> InsertPublisherBook(string bookID, int publisherID)
+        {
+            try
+            {
+                var publisherBook = new PublisherBook
+                {
+                    BookId = bookID,
+                    PublisherId = publisherID
+                };
+                await context.PublisherBook.AddAsync(publisherBook);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, publisherBook);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> InsertSupplierrBook(string bookID, int supplierID)
+        {
+            try
+            {
+                var supplierBook = new SupplierBook
+                {
+                    BookId = bookID,
+                    SupplierId = supplierID
+                };
+                await context.SupplierBook.AddAsync(supplierBook);
+                await context.SaveChangesAsync();
+                return new Response("Success", true, 1, supplierBook);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
         }
 
         public Task<Response> Delete(Book obj)

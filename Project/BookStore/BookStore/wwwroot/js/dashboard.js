@@ -78,7 +78,7 @@
         //    });
     });
 
-    $("a.btn--rounded").click(function (e) {
+    $("div.card a.btn--rounded").click(function (e) {
         e.preventDefault();
         //$.post("/AddToCart",
         //    {
