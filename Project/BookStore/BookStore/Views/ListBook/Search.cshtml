@@ -463,11 +463,12 @@
                         '<label class="full" title="Sucks big time - 1 star"></label>' +
                         '</div>' +
                         '</div>' +
-                        '<a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>' +
+                        '<a href="' + data.obj[i].id + '" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>' +
                         '</div>' +
                         '<div class="badge badge__utilities item-display">' +
                         '<a href="#" class="badge__utilities-blue"><i class="fas fa-heart"></i></a>' +
-                        '<a href="#" class="badge__utilities-blue" data-toggle="modal"data-target="#modalQuickview">' +
+                        '<a href="#" class="badge__utilities-blue" data-toggle="modal"data-target="#modalQuickview" ' +
+                        'data-object="' + data.obj[i].id + '">' +
                         '<i class="fas fa-search"></i>' +
                         '</a>' +
                         '</div>' +
@@ -476,6 +477,72 @@
                         '</div>'
                     );
                 }
+
+                $("div.card div.badge a.badge__utilities-blue").click(function (e) {
+                    $.post("/Book",
+                        { id: $(this).attr("data-object") },
+                        function (data) {
+                            if (data.status === true) {
+                                $("a.articles__link").attr("href", "/Book/" + data.obj.id);
+                                $("p.product__price").text((parseInt(data.obj.currentPrice) / 1000).toFixed(3) + " VND");
+
+                                var authors = "";
+                                for (var i = 0; i < data.obj.authorBook.length; i++) {
+                                    authors += data.obj.authorBook[i].author.name;
+                                    authors += ", ";
+                                }
+                                authors = authors.substring(0, authors.length - 2);
+                                $("div.special-author").text("Authors: " + authors);
+
+                                $("a.f-3").text(data.obj.name);
+                                $("a.f-3").attr("href", "/Book/" + data.obj.id);
+
+                                $("input.qty").val("1");
+
+                                $("div.modal div.carousel-inner div.card img").attr("src", data.obj.image);
+                            }
+                            else {
+                                console.log(data);
+                            }
+                        });
+                });
+
+                $("div.card a.btn--rounded").click(function (e) {
+                    e.preventDefault();
+                    $.post("/AddToCart",
+                        {
+                            id: $(this).attr("href"),
+                            quantity: 1
+                        },
+                        function (data) {
+                            if (data.status === true) {
+                                Swal.fire({
+                                    title: 'Complete',
+                                    text: "Add book to cart successfully",
+                                    icon: 'success'
+                                });
+                            } else {
+                                popupFail("Fail", data.message);
+                            }
+                        });
+                });
+
+                $("#modalQuickview a.btn--rounded").click(function (e) {
+                    e.preventDefault();
+
+                    var id = $("a.f-3").attr("href");
+                    id = id.substring(6);
+                    var quantity = $("#modalQuickview input.qty").val();
+
+                    $.post("/AddToCart",
+                        {
+                            id: id,
+                            quantity: quantity
+                        },
+                        function (data) {
+                            window.location.href = "/ProceedOrder";
+                        });
+                });
             },
             error: function (err) {
                 alert("Error");
@@ -523,7 +590,7 @@
             });
     });
 
-    $("a.btn--rounded").click(function (e) {
+    $("div.card a.btn--rounded").click(function (e) {
         e.preventDefault();
         $.post("/AddToCart",
             {
@@ -540,6 +607,23 @@
                 } else {
                     popupFail("Fail", data.message);
                 }
+            });
+    });
+
+    $("#modalQuickview a.btn--rounded").click(function (e) {
+        e.preventDefault();
+
+        var id = $("a.f-3").attr("href");
+        id = id.substring(6);
+        var quantity = $("#modalQuickview input.qty").val();
+
+        $.post("/AddToCart",
+            {
+                id: id,
+                quantity: quantity
+            },
+            function (data) {
+                window.location.href = "/ProceedOrder";
             });
     });
 

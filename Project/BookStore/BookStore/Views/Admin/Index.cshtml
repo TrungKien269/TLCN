@@ -13,40 +13,6 @@
     List<Order> ListCanceled = (List<Order>)ViewBag.ListCanceled;
 }
 
-@*<div class="processing">
-    <h1>List Processing</h1>
-    @foreach (var order in ListProcessing)
-    {
-        <p>@order.Id</p>
-        <button id="@SecureHelper.GetSecureOutput(order.Id)">Delivering</button>
-    }
-</div>
-
-<div class="delivering">
-    <h1>List Delivering</h1>
-    @foreach (var order in ListDelivery)
-    {
-        <p>@order.Id</p>
-        <button id="@SecureHelper.GetSecureOutput(order.Id)">Delivered</button>
-    }
-</div>
-
-<div class="delivered">
-    <h1>List Delivered</h1>
-    @foreach (var order in ListDelivered)
-    {
-        <p>@order.Id</p>
-    }
-</div>
-
-<div class="canceled">
-    <h1>List Canceled</h1>
-    @foreach (var order in ListCanceled)
-    {
-        <p>@order.Id</p>
-    }
-</div>*@
-
 <div class="cart-title">
         <h2>admin page</h2>
     </div>
@@ -310,8 +276,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="book" class="tab-pane fade">
-                </div>
+            <div id="book" class="tab-pane fade">
+                <button id="btnTest">Insert AuthorBook</button>
+            </div>
                 <div id="account" class="tab-pane fade">
                 </div>              
             </div>

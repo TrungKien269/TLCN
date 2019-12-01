@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BookStore.BUS.Control;
 using BookStore.Models;
 using BookStore.Models.Objects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,6 +51,25 @@ namespace BookStore.Controllers
             var order = (await adminBal.GetOrder(id)).Obj as Order;
             var newOrder = await adminBal.UpdateStatus(order, status);
             return new Response("Sucess", true, 1, newOrder.Obj as Order);
+        }
+
+        [HttpPost("InsertBook")]
+        public async Task<Response> InsertBook(Book book)
+        {
+            return await adminBal.InsertBook(book);
+        }
+
+        [HttpPost("InsertAuthor")]
+        public async Task<Response> InsertAuthor(Author author)
+        {
+            return await adminBal.InsertAuthor(author);
+        }
+
+        [HttpPost("Test")]
+        public async Task<Response> Test(Book book, List<Author> authors, List<string> images, int cateID, int formID,
+            int supplierID, int publisherID)
+        {
+            return await adminBal.TestInsertBook(book, authors, images, cateID, formID, supplierID, publisherID);
         }
     }
 }
