@@ -29,5 +29,18 @@ namespace BookStore.BUS.Logic
                 return Response.CatchError(e.Message);
             }
         }
+
+        public async Task<Response> GetListPublishers()
+        {
+            try
+            {
+                var task = await context.Publisher.ToListAsync();
+                return new Response("Success", true, 1, task);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
     }
 }

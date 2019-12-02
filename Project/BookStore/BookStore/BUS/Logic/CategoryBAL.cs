@@ -42,5 +42,18 @@ namespace BookStore.BUS.Logic
                 return Response.CatchError(e.Message);
             }
         }
+
+        public async Task<Response> GetListSubCategory()
+        {
+            try
+            {
+                var list = await context.SubCategory.ToListAsync();
+                return new Response("Success", true, 0, list);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
     }
 }

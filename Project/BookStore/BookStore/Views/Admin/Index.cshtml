@@ -11,6 +11,11 @@
     List<Order> ListDelivery = (List<Order>)ViewBag.ListDelivery;
     List<Order> ListDelivered = (List<Order>)ViewBag.ListDelivered;
     List<Order> ListCanceled = (List<Order>)ViewBag.ListCanceled;
+
+    List<SubCategory> ListSubcategory = (List<SubCategory>) ViewBag.ListSubcategory;
+    List<Form> ListFormBook = (List<Form>) ViewBag.ListFormBook;
+    List<Supplier> ListSupplier = (List<Supplier>) ViewBag.ListSupplier;
+    List<Publisher> ListPublisher = (List<Publisher>) ViewBag.ListPublisher;
 }
 
 <div class="cart-title">
@@ -281,99 +286,13 @@
                         <div class="d-flex">
                             <div class="search-bar">
                                 <i class="fas fa-search"></i>
-                                <input type="text" id="search">
+                                <input type="text" id="search" placeholder="ID or Name of the book">
                             </div>
-                            <a class="btn btn--blue btn--lg btn-fit" id="button">Add Book</a>
+                            <button class="btn btn--blue btn--lg btn-fit" id="button">Add Book</button>
                         </div>
 
                         <div class="container mar-top-md" id="search-result">
                             <div class="row">
-                                <div class="col-md-2">
-                                    <div class="card display-on-hover">
-                                        <a href="#">
-                                            <img class="card-img-top" src="data/book1.webp" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card__book-title">
-                                                    Product example #1
-                                                </h5>
-                                                <p class="card__book-price">
-                                                    $120.00
-                                                </p>
-                                                <div id="rating"
-                                                     class="rating__section mar-0-0 w-100 align-items-center">
-                                                    <div class="star__rating" id="rating" data-value-star="4">
-                                                        <input type="radio" name="rating" value="5">
-                                                        <label class="full" title="Awesome - 5 stars"></label>
-
-                                                        <input type="radio" name="rating" value="4">
-                                                        <label class="full" title="Pretty good - 4 stars"></label>
-
-                                                        <input type="radio" name="rating" value="3">
-                                                        <label class="full" title="Meh - 3 stars"></label>
-
-                                                        <input type="radio" name="rating" value="2">
-                                                        <label class="full" title="Kinda bad - 2 stars"></label>
-
-                                                        <input type="radio" name="rating" value="1">
-                                                        <label class="full" title="Sucks big time - 1 star"></label>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="badge badge__utilities item-display">
-                                                <a href="#" class="badge__utilities-blue">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                                <a href="#" class="badge__utilities-blue">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="card display-on-hover">
-                                        <a href="#">
-                                            <img class="card-img-top" src="data/book1.webp" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card__book-title">
-                                                    Product example #1
-                                                </h5>
-                                                <p class="card__book-price">
-                                                    $120.00
-                                                </p>
-                                                <div id="rating"
-                                                     class="rating__section mar-0-0 w-100 align-items-center">
-                                                    <div class="star__rating" id="rating" data-value-star="4">
-                                                        <input type="radio" name="rating" value="5">
-                                                        <label class="full" title="Awesome - 5 stars"></label>
-
-                                                        <input type="radio" name="rating" value="4">
-                                                        <label class="full" title="Pretty good - 4 stars"></label>
-
-                                                        <input type="radio" name="rating" value="3">
-                                                        <label class="full" title="Meh - 3 stars"></label>
-
-                                                        <input type="radio" name="rating" value="2">
-                                                        <label class="full" title="Kinda bad - 2 stars"></label>
-
-                                                        <input type="radio" name="rating" value="1">
-                                                        <label class="full" title="Sucks big time - 1 star"></label>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="badge badge__utilities item-display">
-                                                <a href="#" class="badge__utilities-blue">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                                <a href="#" class="badge__utilities-blue">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
@@ -386,76 +305,76 @@
                                     <input type="text" id="id" placeholder="Enter Book's ID">
 
                                     <label for="book">Book's name</label>
-                                    <input type="text" id="book" placeholder="Enter Book's name">
+                                    <input type="text" id="name" placeholder="Enter Book's name">
 
                                     <label for="o-price">Original price</label>
-                                    <input type="number" id="o-price" placeholder="Enter price">
+                                    <input type="number" id="o-price" placeholder="Enter price" min="1000" value="1000">
 
+                                    <label for="c-price">Original price</label>
+                                    <input type="number" id="c-price" placeholder="Enter price" min="1000" value="1000">
 
-                                    <input type="number" id="c-price" placeholder="Enter price">
-
-                                    <label for="pub-year">Published year</label>
-                                    <input type="date" id="pub-year">
+                                    <label for="releaseyear">Released year</label>
+                                    <input type="number" id="releaseyear" max="2020" min="1990" value="2000">
 
                                     <label for="weight">Weight</label>
-                                    <input type="number" id="weight" placeholder="Enter Book's weight">
+                                    <input type="number" id="weight" placeholder="Enter Book's weight" min="1" value="1.0">
                                     <div class="container pad-0-0">
                                         <label for="authors">Authors</label>
                                         <div class="d-flex flex-row">
-                                            <select name="" id="authors" class="slt-1">
-                                                <option value="0">option 1</option>
-                                                <option value="0">option 2</option>
-                                                <option value="0">option 3</option>
-                                            </select>
-                                            <button class="btn btn--blue btn-fit btn-fw ">Add authors</button>
+                                            <input type="text" placeholder="Author" id="txtAuthor">
+                                            <button class="btn btn--blue btn-fit btn-fw" id="btnAuthors">Add authors</button>
                                         </div>
-                                        <textarea name="" id="" rows="4" class="w-100" placeholder="Authors"></textarea>
+                                        <textarea name="" id="authors" rows="4" class="w-100" placeholder="Authors"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="profile-wrapper">
                                     <label for="">Number of book's pages</label>
-                                    <input type="text" placeholder="Enter book's page">
+                                    <input type="number" id="numofpage" placeholder="Enter book's page" min="1" value="1">
 
                                     <label for="thumb">Thumbnail</label>
                                     <input type="text" id="thumb" placeholder="Link thumbnail">
 
                                     <label for="category">Category</label>
                                     <select name="" id="category" class="slt-1">
-                                        <option value="0">option 1</option>
-                                        <option value="0">option 2</option>
-                                        <option value="0">option 3</option>
+                                        @foreach (var subCate in ListSubcategory)
+                                        {
+                                            <option value="@subCate.Id">@subCate.Name</option>
+                                        }
                                     </select>
 
-                                    <label for="cover">Book's Cover</label>
-                                    <select name="" id="cover" class="slt-1">
-                                        <option value="0">option 1</option>
-                                        <option value="0">option 2</option>
-                                        <option value="0">option 3</option>
+                                    <label for="cover">Book's Form</label>
+                                    <select name="" id="form" class="slt-1">
+                                        @foreach (var form in ListFormBook)
+                                        {
+                                            <option value="@form.Id">@form.Name</option>
+                                        }
                                     </select>
 
                                     <label for="publisher">Publisher</label>
                                     <select name="" id="publisher" class="slt-1">
-                                        <option value="0">option 1</option>
-                                        <option value="0">option 2</option>
-                                        <option value="0">option 3</option>
+                                        @foreach (var publisher in ListPublisher)
+                                        {
+                                            <option value="@publisher.Id">@publisher.Name</option>
+                                        }
                                     </select>
 
                                     <label for="supplier">Supplier</label>
                                     <select name="" id="supplier" class="slt-1">
-                                        <option value="0">option 1</option>
-                                        <option value="0">option 2</option>
-                                        <option value="0">option 3</option>
+                                        @foreach (var supplier in ListSupplier)
+                                        {
+                                            <option value="@supplier.Id">@supplier.Name</option>
+                                        }
                                     </select>
 
                                     <div class="container pad-0-0">
-                                        <label for="authors">Image links</label>
+                                        <label for="images">Image links</label>
                                         <div class="d-flex flex-row">
-                                            <input type="text" placeholder="Image links">
-                                            <button class="btn btn--blue btn-fit btn-fw ">Add image links</button>
+                                            <input type="text" placeholder="Image links" id="txtImage">
+                                            <button class="btn btn--blue btn-fit btn-fw" id="btnImages">Add image links</button>
                                         </div>
-                                        <textarea name="" id="" rows="4" class="w-100" placeholder="Authors"></textarea>
+                                        <textarea name="" id="images" rows="4" class="w-100" placeholder="Authors"></textarea>
                                     </div>
 
                                     <label for="description">Description</label>
@@ -465,11 +384,11 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <a href="#" class="btn btn--blue btn-fit btn--lg">Update / Create</a>
+                            <input type="submit" class="btn btn--blue btn-fit btn--lg" value="Update / Create" />
                         </div>
 
                     </form>
-                    <button id="btnTest">Insert AuthorBook</button>
+                    @*<button id="btnTest">Insert AuthorBook</button>*@
                 </div>
                 <div id="account" class="tab-pane fade">
                 </div>              

@@ -32,6 +32,11 @@ namespace BookStore.Controllers
                 ViewBag.ListDelivery = (await adminBal.GetListDelivery()).Obj as List<Order>;
                 ViewBag.ListDelivered = (await adminBal.GetListDelivered()).Obj as List<Order>;
                 ViewBag.ListCanceled = (await adminBal.GetListCanceled()).Obj as List<Order>;
+
+                ViewBag.ListSubcategory = (await adminBal.GetListSubCategory()).Obj as List<SubCategory>;
+                ViewBag.ListFormBook = (await adminBal.GetListFormBook()).Obj as List<Form>;
+                ViewBag.ListSupplier = (await adminBal.GetListSupplier()).Obj as List<Supplier>;
+                ViewBag.ListPublisher = (await adminBal.GetListPublisher()).Obj as List<Publisher>;
                 return View();
                 //return RedirectToAction("Index", "Login");
             }
@@ -41,6 +46,11 @@ namespace BookStore.Controllers
                 ViewBag.ListDelivery = (await adminBal.GetListDelivery()).Obj as List<Order>;
                 ViewBag.ListDelivered = (await adminBal.GetListDelivered()).Obj as List<Order>;
                 ViewBag.ListCanceled = (await adminBal.GetListCanceled()).Obj as List<Order>;
+
+                ViewBag.ListSubcategory = (await adminBal.GetListSubCategory()).Obj as List<SubCategory>;
+                ViewBag.ListFormBook = (await adminBal.GetListFormBook()).Obj as List<Form>;
+                ViewBag.ListSupplier = (await adminBal.GetListSupplier()).Obj as List<Supplier>;
+                ViewBag.ListPublisher = (await adminBal.GetListPublisher()).Obj as List<Publisher>;
                 return View();
             }
         }
@@ -54,22 +64,22 @@ namespace BookStore.Controllers
         }
 
         [HttpPost("InsertBook")]
-        public async Task<Response> InsertBook(Book book)
-        {
-            return await adminBal.InsertBook(book);
-        }
-
-        [HttpPost("InsertAuthor")]
-        public async Task<Response> InsertAuthor(Author author)
-        {
-            return await adminBal.InsertAuthor(author);
-        }
-
-        [HttpPost("Test")]
         public async Task<Response> Test(Book book, List<Author> authors, List<string> images, int cateID, int formID,
             int supplierID, int publisherID)
         {
-            return await adminBal.TestInsertBook(book, authors, images, cateID, formID, supplierID, publisherID);
+            return await adminBal.InsertBook(book, authors, images, cateID, formID, supplierID, publisherID);
+        }
+
+        [HttpPost("SearchAdmin")]
+        public async Task<Response> SearchBook(string value)
+        {
+            return await adminBal.SearchBook(value);
+        }
+
+        [HttpPost("Remove")]
+        public async Task<Response> RemoveBook(string id)
+        {
+            return await adminBal.RemoveBook(id);
         }
     }
 }

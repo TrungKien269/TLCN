@@ -9,7 +9,7 @@ namespace BookStore.BUS.Logic
     {
         Task<Response> GetList();
         Task<Response> Insert(Obj obj);
-        Task<Response> Delete(Obj obj);
+        Task<Response> Delete(Key id);
         Task<Response> Update(Obj obj);
         Task<Response> GetObject(Key id);
     }
