@@ -38,8 +38,30 @@ namespace BookStore.BUS.Logic
             try
             {
                 var publisher = await context.FamousPublisher.Where(x => x.Id.Equals(int.Parse(id))).FirstOrDefaultAsync();
-                var listBook = await context.PublisherBook.Where(x => x.Publisher.Name.Contains(publisher.Name))
+                var listBook = await context.PublisherBook.Where(x =>
+                        x.Publisher.Name.Contains(publisher.Name, StringComparison.CurrentCultureIgnoreCase))
                     .Select(x => x.Book).Take(4).ToListAsync();
+                foreach (var book in listBook)
+                {
+                    book.Id = SecureHelper.GetSecureOutput(book.Id);
+                }
+                return new Response("Success", true, 1, listBook);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> FilterBooksFromListFamousPublisher(List<int> cateIDs, int skipNumber)
+        {
+            try
+            {
+                var publishers = await context.FamousPublisher.Where(x => cateIDs.Any(y => y.Equals(x.Id))).ToListAsync();
+                var listBook = await context.PublisherBook.Where(x =>
+                        publishers.Any(
+                            y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase)))
+                    .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
                 foreach (var book in listBook)
                 {
                     book.Id = SecureHelper.GetSecureOutput(book.Id);

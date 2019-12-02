@@ -80,5 +80,17 @@ namespace BookStore.Controllers
         {
             return await listBookBal.SearchBook(value, skipNumber);
         }
+
+        [HttpPost("Filter")]
+        public async Task<Response> FilterBook(List<int> cateIDs, int skipNumber)
+        {
+            return await listBookBal.FilterBook(cateIDs, skipNumber);
+        }
+
+        [HttpPost("GetMoreBook/Filter")]
+        public async Task<Response> GetMoreBookFilter(List<int> cateIDs, int skipNumber)
+        {
+            return await listBookBal.FilterBook(cateIDs, skipNumber);
+        }
     }
 }

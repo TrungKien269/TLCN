@@ -44,5 +44,10 @@ namespace BookStore.BUS.Control
         {
             return await bookBal.SearchBook(value, skipNumber);
         }
+
+        public async Task<Response> FilterBook(List<int> cateIDs, int skipNumber)
+        {
+            return await bookBal.FilterBooksFromListFamousPublisher(cateIDs, skipNumber);
+        }
     }
 }
