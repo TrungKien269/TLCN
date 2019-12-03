@@ -16,6 +16,10 @@ namespace BookStore.BUS.Control
         private BookBAL bookBal;
         private AuthorBAL authorBal;
         private CRUDBookBAL crudBookBal;
+        private CategoryBAL categoryBal;
+        private FormBookBAL formBookBal;
+        private SupplierBAL supplierBal;
+        private PublisherBAL publisherBal;
 
         public AdminBAL()
         {
@@ -24,6 +28,10 @@ namespace BookStore.BUS.Control
             bookBal = new BookBAL();
             authorBal = new AuthorBAL();
             crudBookBal = new CRUDBookBAL();
+            categoryBal = new CategoryBAL();
+            formBookBal = new FormBookBAL();
+            supplierBal = new SupplierBAL();
+            publisherBal = new PublisherBAL();
         }
 
         public async Task<Response> GetListProcessing()
@@ -46,6 +54,26 @@ namespace BookStore.BUS.Control
             return await orderBal.GetListCanceledOrders();
         }
 
+        public async Task<Response> GetListSubCategory()
+        {
+            return await categoryBal.GetListSubCategory();
+        }
+
+        public async Task<Response> GetListFormBook()
+        {
+            return await formBookBal.GetListFormBook();
+        }
+
+        public async Task<Response> GetListSupplier()
+        {
+            return await supplierBal.GetListSupplier();
+        }
+
+        public async Task<Response> GetListPublisher()
+        {
+            return await publisherBal.GetListPublishers();
+        }
+
         public async Task<Response> GetOrder(string secureID)
         {
             return await orderBal.GetOrder(SecureHelper.GetOriginalInput(secureID));
@@ -56,20 +84,20 @@ namespace BookStore.BUS.Control
             return await orderBal.UpdateStatusOrder(order, status);
         }
 
-        public async Task<Response> InsertBook(Book book)
-        {
-            return await bookBal.Insert(book);
-        }
-
-        public async Task<Response> InsertAuthor(Author author)
-        {
-            return await authorBal.InsertAuthor(author);
-        }
-
-        public async Task<Response> TestInsertBook(Book book, List<Author> authors, List<string> images, int cateID,
+        public async Task<Response> InsertBook(Book book, List<Author> authors, List<string> images, int cateID,
             int formID, int supplierID, int publisherID)
         {
             return await crudBookBal.CreateBookProcess(book, authors, images, cateID, formID, supplierID, publisherID);
+        }
+
+        public async Task<Response> SearchBook(string value)
+        {
+            return await bookBal.SearchBookForAdmin(value);
+        }
+
+        public async Task<Response> RemoveBook(string id)
+        {
+            return await bookBal.Delete(id);
         }
     }
 }

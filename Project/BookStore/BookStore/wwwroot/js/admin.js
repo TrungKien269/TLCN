@@ -140,4 +140,240 @@
                 console.log(data);
             });
     });
+
+    $("button#btnAuthors").click(function (e) {
+        e.stopPropagation();
+        var author = $("input#txtAuthor").val();
+        $("textarea#authors").val($("textarea#authors").val() + author + "\n");
+        return false;
+    });
+
+    $("button#btnImages").click(function (e) {
+        e.stopPropagation();
+        var image = $("input#txtImage").val();
+        $("textarea#images").val($("textarea#images").val() + image + "\n");
+        return false;
+    });
+
+    $("form#show").submit(function(e) {
+        e.preventDefault();
+
+        var book = {
+            //9781447225584
+            "id": $("input#id").val(),
+            "name": $("input#name").val(),
+            "originalPrice": parseInt($("input#o-price").val()),
+            "currentPrice": parseInt($("input#c-price").val()),
+            "releaseYear": parseInt($("input#releaseyear").val()),
+            "weight": parseFloat($("input#weight").val()),
+            "numOfPage": parseInt($("input#numofpage").val()),
+            "image": $("input#thumb").val(),
+            "summary": $("textarea#description").val()
+        };
+        var cateID = $("select#category").val();
+        var formID = $("select#form").val();
+        var publisherID = $("select#publisher").val();
+        var supplierID = $("select#supplier").val();
+        var authors = [];
+        var images = []; 
+
+        var authorArr = $("textarea#authors").val().split("\n");
+        $.each(authorArr, function (index, item) {
+            if (item !== undefined && item !== null && item.length > 0) {
+                var author = { "name": item };
+                authors.push(author);
+            }
+        });
+
+        var imageArr = $("textarea#images").val().split("\n");
+        $.each(imageArr, function (index, item) {
+            if (item !== undefined && item !== null && item.length > 0) {
+                images.push(item);
+            }
+        });
+
+        if (ValidateForm(authors).status === true) {
+            Swal.fire({
+                title: 'Do you want to insert or update this book?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, cancel!'
+            }).then((result) => {
+                if (result.value) {
+                    $.post("/InsertBook",
+                        {
+                            book: book,
+                            authors: authors,
+                            images: images,
+                            cateID: cateID,
+                            formID: formID,
+                            publisherID: publisherID,
+                            supplierID: supplierID
+                        },
+                        function (data) {
+                            if (data.status === true) {
+                                Swal.fire({
+                                    title: "Complete",
+                                    text: "Insert book successfully!",
+                                    icon: "success"
+                                });
+                            }
+                            else {
+                                Swal.fire({
+                                    title: "Fail",
+                                    text: data.message,
+                                    icon: "error"
+                                });
+                            }
+                        });
+                }
+            });
+        }
+        else {
+            Swal.fire({
+                title: "Fail",
+                text: ValidateForm(authors).message,
+                icon: "error"
+            });
+        }
+
+    });
+
+    $("input#search").keydown(function (e) {
+        if (e.which === 13) {
+            var value = $("input#search").val();
+            $.post("/SearchAdmin", { value: value }, function (data) {
+                console.log(data);
+                SearchBook(data.obj);
+                $('#search-result').show("slow");
+            });
+        }
+        if ($(this).val() === "" || $(this).val() === " ") {
+            $('#search-result').hide("slow");
+            $("div#search-result div.row div.col-md-2").remove();
+        }
+    });
+
+    $("input#search").change(function(e) {
+        if ($(this).val() === "" || $(this).val() === " ") {
+            $('#search-result').hide("slow");
+            $("div#search-result div.row div.col-md-2").remove();
+        }
+    });
+
+    function ValidateForm(authors) {
+        if ($("input#id").val() === "" || $("input#id").val() === " " || $("input#id").val() === null) {
+            return { status: false, message: "ID Field must be filled correctly!" };
+        }
+        else if ($("input#name").val() === "" || $("input#name").val() === " " || $("input#name").val() === null) {
+            return { status: false, message: "Name Field must be filled correctly!" };
+        }
+        else if ($("input#thumb").val() === "" || $("input#thumb").val() === " " || $("input#thumb").val() === null) {
+            return { status: false, message: "Thumbnail Field must be filled correctly!" };
+        }
+        else if (authors.length === 0) {
+            return { status: false, message: "Author Field must be filled correctly!" };
+        }
+        else {
+            return { status: true, message: "Success" };
+        }
+    }
+
+    function SearchBook(bookArr) {
+        for (var i = 0; i < bookArr.length; i++) {
+            $("div#search-result div.row").append(
+                '<div class="col-md-2">' +
+                '<div class="card display-on-hover">' + 
+                '<a href="' + bookArr[i].id + '">' +
+                '<img class="card-img-top" src="' + bookArr[i].image + '" alt="Card image cap">' +
+                '<div class="card-body">' +
+                '<h5 class="card__book-title">' + bookArr[i].name + '</h5>' +
+                '<p class="card__book-price">' + bookArr[i].currentPrice + '</p>' +
+                '</div>' +
+                '<div class="badge badge__utilities item-display">' +
+                '<a href="#" class="badge__utilities-blue" id="remove" data="' + bookArr[i].id + '">' +
+                '<i class="fas fa-trash-alt"></i>' +
+                '</a>' +
+                '<a href="#" class="badge__utilities-blue" id="update" data="' + bookArr[i].id + '">' +
+                '<i class="fas fa-pen"></i>' +
+                '</a>' +
+                '</div>' +
+                '</a>' +
+                '</div>' +
+                '</div>'
+            );
+            
+        }
+        $("div.card a#remove").click(function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Do you want to remove this book?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, cancel!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).attr("data");
+                    $.post("Remove", { id: id }, function (data) {
+                        if (data.status === true) {
+                            Swal.fire({
+                                title: "Complete",
+                                text: "Remove book successfully!",
+                                icon: "success"
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Fail",
+                                text: data.message,
+                                icon: "error"
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        $("div.card a#update").click(function (e) {
+            e.preventDefault();
+            var index = parseInt($("div.card a#update").index($(this)));
+            
+            $("input#id").val(bookArr[index].id);
+            $("input#name").val(bookArr[index].name);
+            $("input#o-price").val(bookArr[index].originalPrice);
+            $("input#c-price").val(bookArr[index].currentPrice);
+            $("input#releaseyear").val(bookArr[index].releaseYear);
+            $("input#weight").val(bookArr[index].weight);
+            $("input#numofpage").val(bookArr[index].numOfPage);
+            $("input#thumb").val(bookArr[index].image);
+            $("textarea#description").val(bookArr[index].summary);
+
+            $("select#category").val(bookArr[index].bookCategory[0].cate.id);
+            $("select#form").val(bookArr[index].formBook[0].form.id);
+            $("select#publisher").val(bookArr[index].publisherBook[0].publisher.id);
+            $("select#supplier").val(bookArr[index].supplierBook[0].supplier.id);
+
+            var authors = "";
+            $.each(bookArr[index].authorBook, function (i, item) {
+                authors += item.author.name;
+                authors += "\n";
+            });
+            $("textarea#authors").val(authors);
+
+            var images = "";
+            $.each(bookArr[index].imageBook, function (i, item) {
+                images += item.path;
+                images += "\n";
+            });
+            $("textarea#images").val(images);
+
+            $("#show").show("slow");
+        });
+    }
 });
