@@ -2551,7 +2551,7 @@ h1 {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-image: url(/img/cart_title.webp);
+    background: url('/images/data/cart_title.webp');
     position: relative;
     margin: 0 auto 5rem;
 }

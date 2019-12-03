@@ -7,8 +7,8 @@
 @using BookStore.Helper;
 @{
     Layout = "ListBook_Layout";
-    List<Category> CategoryList = (List<Category>)ViewBag.ListCategory;
-    List<FamousPublisher> PublisherList = (List<FamousPublisher>)ViewBag.ListPubliser;
+    List<Category> CategoryList = (List<Category>) ViewBag.ListCategory;
+    List<FamousPublisher> PublisherList = (List<FamousPublisher>) ViewBag.ListPubliser;
 }
 @model List<Book>
 
@@ -633,8 +633,12 @@
     });
 
     $("input.check__box").change(function(e) {
+        
+    });
+
+    $("button#btnFilter").click(function(e) {
         var filterPublisher = [];
-        $.each($("input.check__box:checked"), function(e) {
+        $.each($("input.check__box:checked"), function (e) {
             var id = parseInt($(this).attr("id").substring(5));
             filterPublisher.push(id);
         });

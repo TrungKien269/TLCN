@@ -42,7 +42,7 @@ namespace BookStore.BUS.Logic
                 var listBook = await context.PublisherBook.Where(x =>
                         x.Publisher.Name.Contains(publisher.Name, StringComparison.CurrentCultureIgnoreCase) &&
                         x.Book.Status.Equals("Available"))
-                    .Select(x => x.Book).Take(4).ToListAsync();
+                    .Select(x => x.Book).Take(6).ToListAsync();
                 foreach (var book in listBook)
                 {
                     book.Id = SecureHelper.GetSecureOutput(book.Id);

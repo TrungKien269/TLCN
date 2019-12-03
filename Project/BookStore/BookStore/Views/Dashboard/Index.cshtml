@@ -533,7 +533,59 @@
                                 </div>
                             </a>
                         </div>
-                    </div>                  
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="card display-on-hover">
+                            <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[4].Id)" class="linkBook">
+                                <img class="card-img-top img-contain" src="@ListSalesBook[4].Image" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">@ListSalesBook[4].Name</h5>
+                                    <p class="card__book-price" style="text-align: center">
+                                        @ListSalesBook[4].CurrentPrice.ToString("##,###") VND
+                                    </p>
+                                    <a href="@SecureHelper.GetSecureOutput(ListSalesBook[4].Id)"
+                                       class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[4].Id)"
+                                       class="badge__utilities-blue" data-toggle="modal" data-target="#modalQuickview"
+                                       data-object="@SecureHelper.GetSecureOutput(ListSalesBook[4].Id)">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="card display-on-hover">
+                            <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[5].Id)" class="linkBook">
+                                <img class="card-img-top img-contain" src="@ListSalesBook[5].Image" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card__book-title">@ListSalesBook[5].Name</h5>
+                                    <p class="card__book-price" style="text-align: center">
+                                        @ListSalesBook[3].CurrentPrice.ToString("##,###") VND
+                                    </p>
+                                    <a href="@SecureHelper.GetSecureOutput(ListSalesBook[5].Id)"
+                                       class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                                </div>
+                                <div class="badge badge__utilities item-display">
+                                    <a href="#" class="badge__utilities-blue">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[5].Id)"
+                                       class="badge__utilities-blue" data-toggle="modal" data-target="#modalQuickview"
+                                       data-object="@SecureHelper.GetSecureOutput(ListSalesBook[5].Id)">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
                 </div>
             </div>

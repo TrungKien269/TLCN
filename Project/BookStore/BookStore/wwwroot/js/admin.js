@@ -288,7 +288,7 @@
                 '<div class="col-md-2">' +
                 '<div class="card display-on-hover">' + 
                 '<a href="' + bookArr[i].id + '">' +
-                '<img class="card-img-top" src="' + bookArr[i].image + '" alt="Card image cap">' +
+                '<img class="card-img-top img-cover img-cover-25" src="' + bookArr[i].image + '" alt="Card image cap">' +
                 '<div class="card-body">' +
                 '<h5 class="card__book-title">' + bookArr[i].name + '</h5>' +
                 '<p class="card__book-price">' + bookArr[i].currentPrice + '</p>' +
@@ -375,5 +375,34 @@
 
             $("#show").show("slow");
         });
+    }
+
+    $("#button").click(function (e) {
+        if ($("form#show").css("display") === "none") {
+            $("form#show").show("slow");
+        }
+        else {
+            if ($("input#id").val().length === 0) {
+                $("form#show").hide("slow");
+                ResetFields();
+            }
+            else {
+                ResetFields();    
+            }
+        }
+    });
+
+    function ResetFields() {
+        $("input#id").val("");
+        $("input#name").val("");
+        $("input#o-price").val(50000);
+        $("input#c-price").val(50000);
+        $("input#releaseyear").val(2000);
+        $("input#weight").val(1.0);
+        $("input#numofpage").val(1);
+        $("input#thumb").val("");
+        $("textarea#description").val("");
+        $("textarea#authors").val("");
+        $("textarea#images").val("");
     }
 });
