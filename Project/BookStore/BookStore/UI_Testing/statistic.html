@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,7 +50,7 @@
     <nav class="navbar navbar-pad-sm navbar-expand-lg bg-light hidden-lg-elements">
         <!-- Collapse button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
-            aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -63,7 +63,8 @@
                 <!-- Books -->
                 <li class="nav-item dropdown mega-dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Books
+                       aria-haspopup="true" aria-expanded="false">
+                        Books
                         <span class="sr-only">(current)</span>
                         <i class="fa fa-angle-down hidden-xs"></i>
                     </a>
@@ -121,12 +122,14 @@
                     </div>
                 </li>
                 <!-- Magazine -->
-                <li class="nav-item mega-dropdown"><a href="/news.html" class="nav-link dropdown-toggle">Magazines</a>
+                <li class="nav-item mega-dropdown">
+                    <a href="/news.html" class="nav-link dropdown-toggle">Magazines</a>
                 </li>
                 <!-- Textbooks -->
                 <li class="nav-item dropdown mega-dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Textbooks
+                       aria-haspopup="true" aria-expanded="false">
+                        Textbooks
                         <i class="fa fa-angle-down hidden-xs"></i>
                     </a>
                     <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdownMenuLink3">
@@ -187,11 +190,15 @@
                     </div>
                 </li>
                 <!-- Audio book -->
-                <li class="nav-item mega-dropdown"><a href="/collections/productX.html"
-                        class="nav-link dropdown-toggle">Audio books</a></li>
+                <li class="nav-item mega-dropdown">
+                    <a href="/collections/productX.html"
+                       class="nav-link dropdown-toggle">Audio books</a>
+                </li>
                 <!-- recommended -->
-                <li class="nav-item mega-dropdown"><a href="/collections/productX.html"
-                        class="nav-link dropdown-toggle">Recommended</a></li>
+                <li class="nav-item mega-dropdown">
+                    <a href="/collections/productX.html"
+                       class="nav-link dropdown-toggle">Recommended</a>
+                </li>
                 <!-- Sale -->
                 <li class="nav-item mega-dropdown">
                     <a href="#" class="nav-link dropdown-toggle">Sale</a>
@@ -200,7 +207,8 @@
                 <!--Pages-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink4" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Pages
+                       aria-haspopup="true" aria-expanded="false">
+                        Pages
                         <i class="fa fa-angle-down hidden-xs"></i>
                     </a>
                     <div class="dropdown-menu mega-menu mega-menu-sm " aria-labelledby="navbarDropdownMenuLink4">
@@ -229,9 +237,14 @@
     </div>
 
     <div class="container">
-        <canvas id="myChart"></canvas>
-
-        <canvas id="myChart2" class="mar-top-md"></canvas>
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="topSale"></canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="saleMonthly"></canvas>
+            </div>
+        </div>
     </div>
 
 
@@ -250,9 +263,11 @@
             <div class="row">
                 <div class="col-md-3">
                     <img src="img/footer_logo.webp" alt="">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem architecto commodi corporis, quae
                         repudiandae nisi dolorum explicabo illum consequuntur magnam hic nemo quisquam optio voluptas
-                        ipsam, aperiam veritatis nulla alias?</p>
+                        ipsam, aperiam veritatis nulla alias?
+                    </p>
                 </div>
                 <div class="col-md-3">
                     <h4>
@@ -299,14 +314,14 @@
         new WOW().init();
     </script>
     <script src="js/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
-        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-        crossorigin="anonymous"></script>
+            integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+            crossorigin="anonymous"></script>
     <script src="js/bootstrap-material-design.min.js"
-        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-        crossorigin="anonymous"></script>
+            integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+            crossorigin="anonymous"></script>
     <script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
     <script src="js/all.js"></script>
     <script src="js/bootstrap.min.js"></script>
