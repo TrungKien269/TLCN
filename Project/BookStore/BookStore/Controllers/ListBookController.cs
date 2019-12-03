@@ -28,7 +28,7 @@ namespace BookStore.Controllers
             ViewBag.LoadNumber = 1;
             ViewBag.ListCategory = (await listBookBal.GetListCategory()).Obj as List<Category>;
             ViewBag.ListPubliser = (await listBookBal.GetListPublisher()).Obj as List<FamousPublisher>;
-            return View((await listBookBal.GetListBookByCategory("Fiction", 0)).Obj as List<Book>);
+            return View((await listBookBal.GetListBookByCategory("Fiction", 0, 0)).Obj as List<Book>);
         }
 
         [HttpGet("ListBook/{category}")]
@@ -38,13 +38,13 @@ namespace BookStore.Controllers
             ViewBag.LoadNumber = 1;
             ViewBag.ListCategory = (await listBookBal.GetListCategory()).Obj as List<Category>;
             ViewBag.ListPubliser = (await listBookBal.GetListPublisher()).Obj as List<FamousPublisher>;
-            return View("Index", (await listBookBal.GetListBookByCategory(category, 0)).Obj as List<Book>);
+            return View("Index", (await listBookBal.GetListBookByCategory(category, 0, 0)).Obj as List<Book>);
         }
 
         [HttpPost("GetMoreBook")]
-        public async Task<Response> GetMoreBook(string category, int skipNumber)
+        public async Task<Response> GetMoreBook(string category, int skipNumber, int indexPriceFilter)
         {
-            return await listBookBal.GetListBookByCategory(category, skipNumber);
+            return await listBookBal.GetListBookByCategory(category, skipNumber, indexPriceFilter);
         }
 
         [HttpGet("ListBook/Subcategory/{subcategory}")]
@@ -54,13 +54,13 @@ namespace BookStore.Controllers
             ViewBag.LoadNumber = 1;
             ViewBag.ListCategory = (await listBookBal.GetListCategory()).Obj as List<Category>;
             ViewBag.ListPubliser = (await listBookBal.GetListPublisher()).Obj as List<FamousPublisher>;
-            return View((await listBookBal.GetListBookBySubCategory(subcategory, 0)).Obj as List<Book>);
+            return View((await listBookBal.GetListBookBySubCategory(subcategory, 0, 0)).Obj as List<Book>);
         }
 
         [HttpPost("GetMoreBook/Subcategory")]
-        public async Task<Response> GetMoreBookSubcategory(string subcategory, int skipNumber)
+        public async Task<Response> GetMoreBookSubcategory(string subcategory, int skipNumber, int indexPriceFilter)
         {
-            return await listBookBal.GetListBookBySubCategory(subcategory, skipNumber);
+            return await listBookBal.GetListBookBySubCategory(subcategory, skipNumber, indexPriceFilter);
         }
 
         [HttpGet("Search/value={value}")]
@@ -71,26 +71,26 @@ namespace BookStore.Controllers
             ViewBag.ListCategory = (await listBookBal.GetListCategory()).Obj as List<Category>;
             ViewBag.ListPubliser = (await listBookBal.GetListPublisher()).Obj as List<FamousPublisher>;
             ViewBag.searchStr = value;
-            var books = await listBookBal.SearchBook(value, 0);
+            var books = await listBookBal.SearchBook(value, 0, 0);
             return View(books.Obj as List<Book>);
         }
 
         [HttpPost("GetMoreBook/Search")]
-        public async Task<Response> GetMoreBookSearch(string value, int skipNumber)
+        public async Task<Response> GetMoreBookSearch(string value, int skipNumber, int indexPriceFilter)
         {
-            return await listBookBal.SearchBook(value, skipNumber);
+            return await listBookBal.SearchBook(value, skipNumber, indexPriceFilter);
         }
 
         [HttpPost("Filter")]
-        public async Task<Response> FilterBook(List<int> cateIDs, int skipNumber)
+        public async Task<Response> FilterBook(List<int> cateIDs, int skipNumber, int indexPriceFilter)
         {
-            return await listBookBal.FilterBook(cateIDs, skipNumber);
+            return await listBookBal.FilterBook(cateIDs, skipNumber, indexPriceFilter);
         }
 
         [HttpPost("GetMoreBook/Filter")]
-        public async Task<Response> GetMoreBookFilter(List<int> cateIDs, int skipNumber)
+        public async Task<Response> GetMoreBookFilter(List<int> cateIDs, int skipNumber, int indexPriceFilter)
         {
-            return await listBookBal.FilterBook(cateIDs, skipNumber);
+            return await listBookBal.FilterBook(cateIDs, skipNumber, indexPriceFilter);
         }
     }
 }

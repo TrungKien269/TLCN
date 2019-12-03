@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.BUS.Logic
 {
-    public class BookBAL:IReporsitory<Book, string, Response>
+    public class BookBAL : IReporsitory<Book, string, Response>
     {
         private BookStoreContext context;
 
@@ -55,16 +55,137 @@ namespace BookStore.BUS.Logic
             }
         }
 
-        public async Task<Response> FilterBooksFromListFamousPublisher(List<int> cateIDs, int skipNumber)
+        public async Task<Response> FilterBooksFromListFamousPublisher(List<int> cateIDs, int skipNumber,
+            int indexPriceFilter)
         {
             try
             {
-                var publishers = await context.FamousPublisher.Where(x => cateIDs.Any(y => y.Equals(x.Id))).ToListAsync();
-                var listBook = await context.PublisherBook.Where(x => 
-                        publishers.Any(
-                            y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
-                        && x.Book.Status.Equals("Available"))
-                    .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                var publishers = await context.FamousPublisher.Where(x => cateIDs.Any(y => y.Equals(x.Id)))
+                    .ToListAsync();
+                var listBook = new List<Book>();
+                switch (indexPriceFilter)
+                {
+                    case 1:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice <= 100000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 2:
+                        {
+
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 100000 &&
+                                    x.Book.CurrentPrice <= 500000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 3:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 500000 &&
+                                    x.Book.CurrentPrice <= 1000000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 4:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 1000000 &&
+                                    x.Book.CurrentPrice <= 1500000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 5:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 1500000 &&
+                                    x.Book.CurrentPrice <= 2000000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 6:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 2000000 &&
+                                    x.Book.CurrentPrice <= 2500000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 7:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 2500000 &&
+                                    x.Book.CurrentPrice <= 3000000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 8:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 3000000 &&
+                                    x.Book.CurrentPrice <= 3500000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 9:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 3500000 &&
+                                    x.Book.CurrentPrice <= 4000000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 10:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 4000000 &&
+                                    x.Book.CurrentPrice <= 4500000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 11:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available") && x.Book.CurrentPrice >= 4500000 &&
+                                    x.Book.CurrentPrice <= 5000000)
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    default:
+                        {
+                            listBook = await context.PublisherBook.Where(x =>
+                                    publishers.Any(
+                                        y => x.Publisher.Name.Contains(y.Name, StringComparison.CurrentCultureIgnoreCase))
+                                    && x.Book.Status.Equals("Available"))
+                                .Select(x => x.Book).OrderBy(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                }
+
                 foreach (var book in listBook)
                 {
                     book.Id = SecureHelper.GetSecureOutput(book.Id);
@@ -419,14 +540,132 @@ namespace BookStore.BUS.Logic
             }
         }
 
-        public async Task<Response> GetBookByCategory(string category, int skipNumber)
+        public async Task<Response> GetBookByCategory(string category, int skipNumber, int indexPriceFilter)
         {
             try
             {
-                var books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
-                    .ThenInclude(x => x.Cate)
-                    .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) && x.Status.Equals("Available"))
-                    .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                var books = new List<Book>();
+                switch (indexPriceFilter)
+                {
+                    case 1:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice <= 100000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 2:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 100000 &&
+                                            x.CurrentPrice <= 500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 3:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 500000 &&
+                                            x.CurrentPrice <= 1000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 4:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 1000000 &&
+                                            x.CurrentPrice <= 1500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 5:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 1500000 &&
+                                            x.CurrentPrice <= 2000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 6:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 2000000 &&
+                                            x.CurrentPrice <= 2500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 7:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 2500000 &&
+                                            x.CurrentPrice <= 3000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 8:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 3000000 &&
+                                            x.CurrentPrice <= 3500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 9:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 3500000 &&
+                                            x.CurrentPrice <= 4000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 10:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 400000 &&
+                                            x.CurrentPrice <= 4500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 11:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 4500000 &&
+                                            x.CurrentPrice <= 5000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    default:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
+                                            x.Status.Equals("Available"))
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                }
                 foreach (var book in books)
                 {
                     book.Id = SecureHelper.GetSecureOutput(book.Id);
@@ -439,14 +678,133 @@ namespace BookStore.BUS.Logic
             }
         }
 
-        public async Task<Response> GetBookBySubCategory(string subcategory, int skipNumber)
+        public async Task<Response> GetBookBySubCategory(string subcategory, int skipNumber, int indexPriceFilter)
         {
             try
             {
-                var books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
-                    .ThenInclude(x => x.Cate)
-                    .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) && x.Status.Equals("Available"))
-                    .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                subcategory = System.Net.WebUtility.HtmlDecode(subcategory);
+                var books = new List<Book>();
+                switch (indexPriceFilter)
+                {
+                    case 1:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                        .ThenInclude(x => x.Cate)
+                                        .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice <= 100000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 2:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 100000 &&
+                                            x.CurrentPrice <= 500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 3:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 500000 &&
+                                            x.CurrentPrice <= 1000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 4:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 1000000 &&
+                                            x.CurrentPrice <= 1500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 5:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 1500000 &&
+                                            x.CurrentPrice <= 2000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 6:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 2000000 &&
+                                            x.CurrentPrice <= 2500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 7:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 2500000 &&
+                                            x.CurrentPrice <= 3000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 8:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 3000000 &&
+                                            x.CurrentPrice <= 3500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 9:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 3500000 &&
+                                            x.CurrentPrice <= 4000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 10:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 400000 &&
+                                            x.CurrentPrice <= 4500000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    case 11:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 4500000 &&
+                                            x.CurrentPrice <= 5000000)
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                    default:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate)
+                                .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
+                                            x.Status.Equals("Available"))
+                                .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
+                            break;
+                        }
+                }
                 foreach (var book in books)
                 {
                     book.Id = SecureHelper.GetSecureOutput(book.Id);
@@ -459,16 +817,145 @@ namespace BookStore.BUS.Logic
             }
         }
 
-        public async Task<Response> SearchBook(string value, int skipNumber)
+        public async Task<Response> SearchBook(string value, int skipNumber, int indexPriceFilter)
         {
             try
             {
-                var books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
-                    .ThenInclude(x => x.Cate).Where(x =>
-                        x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
-                        x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber).Take(12)
-                        .Where(x => x.Status.Equals("Available"))
-                    .ToListAsync();
+                var books = new List<Book>();
+                switch (indexPriceFilter)
+                {
+                    case 1:
+                    {
+                        books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                            .ThenInclude(x => x.Cate).Where(x =>
+                                x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                            .Take(12)
+                            .Where(x => x.Status.Equals("Available") && x.CurrentPrice <= 100000)
+                            .ToListAsync();
+                            break;
+                        }
+                    case 2:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 100000 &&
+                                            x.CurrentPrice <= 500000).ToListAsync();
+                            break;
+                        }
+                    case 3:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 500000 &&
+                                            x.CurrentPrice <= 1000000).ToListAsync();
+                            break;
+                        }
+                    case 4:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 1000000 &&
+                                            x.CurrentPrice <= 1500000).ToListAsync();
+                            break;
+                        }
+                    case 5:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 1500000 &&
+                                            x.CurrentPrice <= 2000000).ToListAsync();
+                            break;
+                        }
+                    case 6:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 2000000 &&
+                                            x.CurrentPrice <= 2500000).ToListAsync();
+                            break;
+                        }
+                    case 7:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 2500000 &&
+                                            x.CurrentPrice <= 3000000).ToListAsync();
+                            break;
+                        }
+                    case 8:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 3000000 &&
+                                            x.CurrentPrice <= 3500000).ToListAsync();
+                            break;
+                        }
+                    case 9:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 3500000 &&
+                                            x.CurrentPrice <= 4000000).ToListAsync();
+                            break;
+                        }
+                    case 10:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 400000 &&
+                                            x.CurrentPrice <= 4500000).ToListAsync();
+                            break;
+                        }
+                    case 11:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 4500000 &&
+                                            x.CurrentPrice <= 5000000).ToListAsync();
+                            break;
+                        }
+                    default:
+                        {
+                            books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                                .ThenInclude(x => x.Cate).Where(x =>
+                                    x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
+                                    x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
+                                .Take(12)
+                                .Where(x => x.Status.Equals("Available")).ToListAsync();
+                            break;
+                        }
+                }
                 foreach (var book in books)
                 {
                     book.Id = SecureHelper.GetSecureOutput(book.Id);

@@ -30,24 +30,24 @@ namespace BookStore.BUS.Control
             return await publisherBal.GetFamousList();
         }
 
-        public async Task<Response> GetListBookByCategory(string category, int skipNumber)
+        public async Task<Response> GetListBookByCategory(string category, int skipNumber, int indexPriceFilter)
         {
-            return await bookBal.GetBookByCategory(category, skipNumber);
+            return await bookBal.GetBookByCategory(category, skipNumber, indexPriceFilter);
         }
 
-        public async Task<Response> GetListBookBySubCategory(string subcategory, int skipNumber)
+        public async Task<Response> GetListBookBySubCategory(string subcategory, int skipNumber, int indexPriceFilter)
         {
-            return await bookBal.GetBookBySubCategory(subcategory, skipNumber);
+            return await bookBal.GetBookBySubCategory(subcategory, skipNumber, indexPriceFilter);
         }
 
-        public async Task<Response> SearchBook(string value, int skipNumber)
+        public async Task<Response> SearchBook(string value, int skipNumber, int indexPriceFilter)
         {
-            return await bookBal.SearchBook(value, skipNumber);
+            return await bookBal.SearchBook(value, skipNumber, indexPriceFilter);
         }
 
-        public async Task<Response> FilterBook(List<int> cateIDs, int skipNumber)
+        public async Task<Response> FilterBook(List<int> cateIDs, int skipNumber, int indexPriceFilter)
         {
-            return await bookBal.FilterBooksFromListFamousPublisher(cateIDs, skipNumber);
+            return await bookBal.FilterBooksFromListFamousPublisher(cateIDs, skipNumber, indexPriceFilter);
         }
     }
 }

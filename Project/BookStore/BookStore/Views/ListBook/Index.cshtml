@@ -246,7 +246,7 @@
                     <h2>Price Range</h2>
                     <select class="price-range">
                         <option>All</option>
-                        <option><=100.000</option>
+                        <option><= 100.000</option>
                         <option>100.000 - 500.000</option>
                         <option>500.000 - 1.000.000</option>
                         <option>1.000.000 - 1.500.000</option>
@@ -452,12 +452,14 @@
     $("button#btnViewMore").click(function(e) {
         var skipNumber = parseInt($("div.card").length);
         var category = "@Model[0].BookCategory[0].Cate.Cate.Name";
+        var indexPriceFilter = parseInt($("select.price-range").find(":selected").index());
         $.ajax({
             type: "POST",
             url: "/GetMoreBook/",
             data: {
                 category: category,
-                skipNumber: skipNumber
+                skipNumber: skipNumber,
+                indexPriceFilter: indexPriceFilter
             },
             success: function (data) {
                 console.log(data);
@@ -650,10 +652,6 @@
     });
 
     $("input.check__box").change(function(e) {
-        
-    });
-
-    $("button#btnFilter").click(function(e) {
         var filterPublisher = [];
         $.each($("input.check__box:checked"), function (e) {
             var id = parseInt($(this).attr("id").substring(5));
@@ -667,11 +665,13 @@
             $("div#listBook div.col-sm-3").remove("");
             $("button#btnViewMore").remove("");
             var skipNumber = parseInt($("div#listBook div.card").length);
+            var indexPriceFilter = parseInt($("select.price-range").find(":selected").index());
 
             $.post("/Filter",
                 {
                     cateIDs: filterPublisher,
-                    skipNumber: skipNumber
+                    skipNumber: skipNumber,
+                    indexPriceFilter: indexPriceFilter
                 }, function (data) {
                     for (var i = 0; i < data.obj.length; i++) {
                         $("div#listBook").append(
@@ -783,6 +783,143 @@
                 });
         }
     });
+
+    $("select.price-range").change(function(e) {
+        var filterPublisher = [];
+        $.each($("input.check__box:checked"), function (e) {
+            var id = parseInt($(this).attr("id").substring(5));
+            filterPublisher.push(id);
+        });
+        if (filterPublisher.length === 0) {
+            ViewMoreDefault();
+        }
+        else {
+            var viewMoreButton = $("button#btnViewMore");
+            $("div#listBook div.col-sm-3").remove("");
+            $("button#btnViewMore").remove("");
+            var skipNumber = parseInt($("div#listBook div.card").length);
+            var indexPriceFilter = parseInt($("select.price-range").find(":selected").index());
+
+            $.post("/Filter",
+                {
+                    cateIDs: filterPublisher,
+                    skipNumber: skipNumber,
+                    indexPriceFilter: indexPriceFilter
+                }, function (data) {
+                    for (var i = 0; i < data.obj.length; i++) {
+                        $("div#listBook").append(
+                            '<div class="col-sm-3 col-6">' +
+                            '<div class="card display-on-hover">' +
+                            '<a href="/Book/' + data.obj[i].id + '">' +
+                            '<img class="card-img-top" src="' + data.obj[i].image + '" alt="Card image cap">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card__book-title">' + data.obj[i].name + '</h5>' +
+                            '<p class="card__book-price">' + (parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND" +
+                            '</p>' +
+                            '<div id="rating" class="rating__section mar-0-0 w-100 align-items-center">' +
+                            '<div class="star__rating" id="rating" data-value-star="4">' +
+                            '<input type="radio" name="rating" value="5">' +
+                            '<label class="full" title="Awesome - 5 stars"></label>' +
+                            '<input type="radio" name="rating" value="4">' +
+                            '<label class="full" title="Pretty good - 4 stars"></label>' +
+                            '<input type="radio" name="rating" value="3">' +
+                            '<label class="full" title="Meh - 3 stars"></label>' +
+                            '<input type="radio" name="rating" value="2">' +
+                            '<label class="full" title="Kinda bad - 2 stars"></label>' +
+                            '<input type="radio" name="rating" value="1">' +
+                            '<label class="full" title="Sucks big time - 1 star"></label>' +
+                            '</div>' +
+                            '</div>' +
+                            '<a href="' + data.obj[i].id + '" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>' +
+                            '</div>' +
+                            '<div class="badge badge__utilities item-display">' +
+                            '<a href="#" class="badge__utilities-blue"><i class="fas fa-heart"></i></a>' +
+                            '<a href="#" class="badge__utilities-blue" data-toggle="modal"data-target="#modalQuickview" ' +
+                            'data-object="' + data.obj[i].id + '">' +
+                            '<i class="fas fa-search"></i>' +
+                            '</a>' +
+                            '</div>' +
+                            '</a>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    }
+
+                    $(viewMoreButton).insertAfter("div#listBook");
+
+                    $("div.card div.badge a.badge__utilities-blue").click(function (e) {
+                        $.post("/Book",
+                            { id: $(this).attr("data-object") },
+                            function (data) {
+                                if (data.status === true) {
+                                    $("a.articles__link").attr("href", "/Book/" + data.obj.id);
+                                    $("p.product__price").text((parseInt(data.obj.currentPrice) / 1000).toFixed(3) + " VND");
+
+                                    var authors = "";
+                                    for (var i = 0; i < data.obj.authorBook.length; i++) {
+                                        authors += data.obj.authorBook[i].author.name;
+                                        authors += ", ";
+                                    }
+                                    authors = authors.substring(0, authors.length - 2);
+                                    $("div.special-author").text("Authors: " + authors);
+
+                                    $("a.f-3").text(data.obj.name);
+                                    $("a.f-3").attr("href", "/Book/" + data.obj.id);
+
+                                    $("input.qty").val("1");
+
+                                    $("div.modal div.carousel-inner div.card img").attr("src", data.obj.image);
+                                }
+                                else {
+                                    console.log(data);
+                                }
+                            });
+                    });
+
+                    $("div.card a.btn--rounded").click(function (e) {
+                        e.preventDefault();
+                        $.post("/AddToCart",
+                            {
+                                id: $(this).attr("href"),
+                                quantity: 1
+                            },
+                            function (data) {
+                                if (data.status === true) {
+                                    Swal.fire({
+                                        title: 'Complete',
+                                        text: "Add book to cart successfully",
+                                        icon: 'success'
+                                    });
+                                } else {
+                                    popupFail("Fail", data.message);
+                                }
+                            });
+                    });
+
+                    $("#modalQuickview a.btn--rounded").click(function (e) {
+                        e.preventDefault();
+
+                        var id = $("a.f-3").attr("href");
+                        id = id.substring(6);
+                        var quantity = $("#modalQuickview input.qty").val();
+
+                        $.post("/AddToCart",
+                            {
+                                id: id,
+                                quantity: quantity
+                            },
+                            function (data) {
+                                window.location.href = "/ProceedOrder";
+                            });
+                    });
+                    ViewMoreFilter(filterPublisher);
+                });
+        }
+    });
+
+    //$("button#btnFilter").click(function(e) {
+        
+    //});
 
     function ViewMoreFilter(filterPublisher) {
         $("button#btnViewMore").click(function(e) {
@@ -913,12 +1050,14 @@
         $("div#listBook div.col-sm-3").remove("");
         var skipNumber = parseInt($("div#listBook div.card").length);
         var category = "@Model[0].BookCategory[0].Cate.Cate.Name";
+        var indexPriceFilter = parseInt($("select.price-range").find(":selected").index());
         $.ajax({
             type: "POST",
             url: "/GetMoreBook/",
             data: {
                 category: category,
-                skipNumber: skipNumber
+                skipNumber: skipNumber,
+                indexPriceFilter: indexPriceFilter
             },
             success: function (data) {
                 console.log(data);
@@ -1037,12 +1176,14 @@
         $("button#btnViewMore").click(function(e) {
             var skipNumber = parseInt($("div#listBook div.card").length);
             var category = "@Model[0].BookCategory[0].Cate.Cate.Name";
+            var indexPriceFilter = parseInt($("select.price-range").find(":selected").index());
             $.ajax({
                 type: "POST",
                 url: "/GetMoreBook/",
                 data: {
                     category: category,
-                    skipNumber: skipNumber
+                    skipNumber: skipNumber,
+                    indexPriceFilter: indexPriceFilter
                 },
                 success: function (data) {
                     console.log(data);
