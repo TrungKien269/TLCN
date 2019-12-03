@@ -81,5 +81,11 @@ namespace BookStore.Controllers
         {
             return await adminBal.RemoveBook(id);
         }
+
+        [HttpGet("Statistics")]
+        public IActionResult Statistics()
+        {
+            return View();
+        }
     }
 }
