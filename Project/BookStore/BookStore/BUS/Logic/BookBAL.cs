@@ -676,7 +676,7 @@ namespace BookStore.BUS.Logic
                             books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
                                 .ThenInclude(x => x.Cate)
                                 .Where(x => x.BookCategory.All(y => y.Cate.Cate.Name.Equals(category)) &&
-                                            x.Status.Equals("Available") && x.CurrentPrice >= 400000 &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 4000000 &&
                                             x.CurrentPrice <= 4500000)
                                 .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
                             break;
@@ -815,7 +815,7 @@ namespace BookStore.BUS.Logic
                             books = await context.Book.Include(x => x.BookCategory).ThenInclude(x => x.Cate)
                                 .ThenInclude(x => x.Cate)
                                 .Where(x => x.BookCategory.All(y => y.Cate.Name.Equals(subcategory)) &&
-                                            x.Status.Equals("Available") && x.CurrentPrice >= 400000 &&
+                                            x.Status.Equals("Available") && x.CurrentPrice >= 4000000 &&
                                             x.CurrentPrice <= 4500000)
                                 .OrderByDescending(x => x.CurrentPrice).Skip(skipNumber).Take(12).ToListAsync();
                             break;
@@ -965,7 +965,7 @@ namespace BookStore.BUS.Logic
                                     x.Name.Contains(value, StringComparison.CurrentCultureIgnoreCase) ||
                                     x.Id.Contains(value, StringComparison.CurrentCultureIgnoreCase)).Skip(skipNumber)
                                 .Take(12)
-                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 400000 &&
+                                .Where(x => x.Status.Equals("Available") && x.CurrentPrice >= 4000000 &&
                                             x.CurrentPrice <= 4500000).ToListAsync();
                             break;
                         }

@@ -7,8 +7,8 @@
 @using BookStore.Helper;
 @{
     Layout = "ListBook_Layout";
-    List<Category> CategoryList = (List<Category>)ViewBag.ListCategory;
-    List<FamousPublisher> PublisherList = (List<FamousPublisher>)ViewBag.ListPubliser;
+    List<Category> CategoryList = (List<Category>) ViewBag.ListCategory;
+    List<FamousPublisher> PublisherList = (List<FamousPublisher>) ViewBag.ListPubliser;
 }
 @model List<Book>
 
@@ -680,7 +680,7 @@
                             '<div class="col-sm-3 col-6">' +
                             '<div class="card display-on-hover">' +
                             '<a href="/Book/' + data.obj[i].id + '">' +
-                            '<img class="card-img-top" src="' + data.obj[i].image + '" alt="Card image cap">' +
+                            '<img class="card-img-top img-cover img-cover-25" src="' + data.obj[i].image + '" alt="Card image cap">' +
                             '<div class="card-body">' +
                             '<h5 class="card__book-title">' + data.obj[i].name + '</h5>' +
                             '<p class="card__book-price">' + (parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND" +
@@ -813,7 +813,7 @@
                             '<div class="col-sm-3 col-6">' +
                             '<div class="card display-on-hover">' +
                             '<a href="/Book/' + data.obj[i].id + '">' +
-                            '<img class="card-img-top" src="' + data.obj[i].image + '" alt="Card image cap">' +
+                            '<img class="card-img-top img-cover img-cover-25" src="' + data.obj[i].image + '" alt="Card image cap">' +
                             '<div class="card-body">' +
                             '<h5 class="card__book-title">' + data.obj[i].name + '</h5>' +
                             '<p class="card__book-price">' + (parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND" +
@@ -938,7 +938,7 @@
                             '<div class="col-sm-3 col-6">' +
                             '<div class="card display-on-hover">' +
                             '<a href="/Book/' + data.obj[i].id + '">' +
-                            '<img class="card-img-top" src="' + data.obj[i].image + '" alt="Card image cap">' +
+                            '<img class="card-img-top img-cover img-cover-25" src="' + data.obj[i].image + '" alt="Card image cap">' +
                             '<div class="card-body">' +
                             '<h5 class="card__book-title">' + data.obj[i].name + '</h5>' +
                             '<p class="card__book-price">' + (parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND" +
@@ -1065,7 +1065,7 @@
                         '<div class="col-sm-3 col-6">' +
                         '<div class="card display-on-hover">' +
                         '<a href="/Book/' + data.obj[i].id + '">' +
-                        '<img class="card-img-top" src="' + data.obj[i].image + '" alt="Card image cap">' +
+                        '<img class="card-img-top img-cover img-cover-25" src="' + data.obj[i].image + '" alt="Card image cap">' +
                         '<div class="card-body">' +
                         '<h5 class="card__book-title">' + data.obj[i].name + '</h5>' +
                         '<p class="card__book-price">' + (parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND" +
@@ -1189,7 +1189,7 @@
                         '<div class="col-sm-3 col-6">' +
                         '<div class="card display-on-hover">' +
                         '<a href="/Book/' + data.obj[i].id + '">' +
-                        '<img class="card-img-top" src="' + data.obj[i].image + '" alt="Card image cap">' +
+                        '<img class="card-img-top img-cover img-cover-25" src="' + data.obj[i].image + '" alt="Card image cap">' +
                         '<div class="card-body">' +
                         '<h5 class="card__book-title">' + data.obj[i].name + '</h5>' +
                         '<p class="card__book-price">' + (parseInt(data.obj[i].currentPrice) / 1000).toFixed(3) + " VND" +
