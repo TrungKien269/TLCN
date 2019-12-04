@@ -35,6 +35,16 @@ namespace BookStore.BUS.Control
             return await bookBal.GetList();
         }
 
+        public async Task<Response> GetList3FeaturedBook()
+        {
+            return await bookBal.GetList3FeaturedBook();
+        }
+
+        public async Task<Response> GetList6BestSaleBook()
+        {
+            return await bookBal.GetList6BestSaleBook();
+        }
+
         public async Task<Response> GetListSubCategory(string category)
         {
             return await categoryBal.GetSubList(category);

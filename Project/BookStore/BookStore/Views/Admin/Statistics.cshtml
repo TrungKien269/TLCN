@@ -1,12 +1,16 @@
 ﻿@using BookStore.Models.Objects;
 @using System.Net
+@using System.Text
 @using BookStore.Models.Objects;
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.AspNetCore.Http.Extensions;
 @using Microsoft.AspNetCore.WebUtilities
 @using BookStore.Helper;
+@using BookStore.Models.Statistics
 @{
-    Layout = "Admin_Layout";
+    Layout = "Statistics_Layout";
+    List<BookWithQuantity> ListBookWithQuantity = (List<BookWithQuantity>) ViewBag.ListBookWithQuantity;
+    List<TopUser> ListTop3User = (List<TopUser>) ViewBag.ListTop3User;
 }
 
 <div class="cart-title">
@@ -15,11 +19,14 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <canvas id="topSale"></canvas>
         </div>
-        <div class="col-md-6">
-            <canvas id="saleMonthly"></canvas>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @*<canvas id="saleMonthly"></canvas>*@
+            <canvas id="top3User"></canvas>
         </div>
     </div>
 </div>
@@ -43,27 +50,52 @@
 <script src="/js/sweetalert2.js"></script>
 <script src="/js/sweetalert.js"></script>
 
-<script>
+<script charset="UTF-8">
     var topSale = document.getElementById('topSale').getContext('2d');
 
     var massPopChart = new Chart(topSale, {
-        type: 'bar',
+        //type: 'bar',
+        type: 'horizontalBar',
         data: {
-            labels: ['Book 1', 'Book 2', 'Book 3', 'Book 4', 'Book 5', 'Book 6', 'Book 7', 'Book 8', 'Book 9', 'Book 10'],
+            //labels: ['Book 1', 'Book 2', 'Book 3', 'Book 4', 'Book 5', 'Book 6', 'Book 7', 'Book 8', 'Book 9', 'Book 10'],
+            labels: [
+                "@Html.Raw(ListBookWithQuantity[0].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[1].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[2].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[3].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[4].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[5].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[6].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[7].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[8].book.Name)",
+                "@Html.Raw(ListBookWithQuantity[9].book.Name)"
+            ],
             datasets: [{
-                label: 'Book sale',
+                label: 'Numbers of book are sold',
                 data: [
-                    500,
-                    300,
-                    400,
-                    200,
-                    600,
-                    700,
-                    720,
-                    670,
-                    654,
-                    582
+                    @ListBookWithQuantity[0].quantity,
+                    @ListBookWithQuantity[1].quantity,
+                    @ListBookWithQuantity[2].quantity,
+                    @ListBookWithQuantity[3].quantity,
+                    @ListBookWithQuantity[4].quantity,
+                    @ListBookWithQuantity[5].quantity,
+                    @ListBookWithQuantity[6].quantity,
+                    @ListBookWithQuantity[7].quantity,
+                    @ListBookWithQuantity[8].quantity,
+                    @ListBookWithQuantity[9].quantity
                 ],
+                //data: [
+                //    200,
+                //    300,
+                //    600,
+                //    100,
+                //    500,
+                //    1000,
+                //    600,
+                //    120,
+                //    280,
+                //    400
+                //],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -135,31 +167,29 @@
 
     });
 
-    var saleMonthly = document.getElementById('saleMonthly').getContext('2d');
+</script>
 
-    var massPopChart2 = new Chart(saleMonthly, {
-        type: 'line',
+<script charset="UTF-8">
+    var top3User = document.getElementById('top3User').getContext('2d');
+    var massPopChart2 = new Chart(top3User, {
+        type: 'bar',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            labels: [
+                "@Html.Raw(ListTop3User[0].user.FullName)",
+                "@Html.Raw(ListTop3User[1].user.FullName)",
+                "@Html.Raw(ListTop3User[2].user.FullName)"
+            ],
             datasets: [{
-                label: 'Book sale',
+                label: 'Numbers of book are bought',
                 data: [
-                    500,
-                    300,
-                    400,
-                    200,
-                    600,
-                    700,
-                    720,
-                    670,
-                    654,
-                    582,
-                    990,
-                    762
+                    @Html.Raw(ListTop3User[0].numberOfBook),
+                    @Html.Raw(ListTop3User[1].numberOfBook),
+                    @Html.Raw(ListTop3User[2].numberOfBook)
                 ],
                 backgroundColor: [
-                    'transparent'
-
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -181,7 +211,7 @@
         options: {
             title: {
                 display: true,
-                text: 'Book Sold by Month',
+                text: 'Top 3 users',
                 fontSize: 25,
             },
             legend: {
@@ -214,6 +244,4 @@
         },
 
     });
-
-
 </script>

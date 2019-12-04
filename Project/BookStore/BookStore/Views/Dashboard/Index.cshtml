@@ -10,6 +10,8 @@
     List<Book> ListSalesBook = (List<Book>)ViewBag.ListSalesBook;
     List<FamousPublisher> FamousPublisherList = (List<FamousPublisher>)ViewBag.ListFamousPublisher;
     List<Category> CategoryList = (List<Category>) ViewBag.ListCategory;
+    List<Book> ListFeaturedBook = (List<Book>) ViewBag.ListFeaturedBook;
+    List<Book> ListBestSaleBook = (List<Book>) ViewBag.ListBestSaleBook;
 }
 @model List<Category>
 
@@ -180,7 +182,7 @@
                         <h3>50% OFF</h3>
                     </div>
                     <h2 class="wow fadeInUp" data-wow-delay="1s">for our student community</h2>
-                    <a href="#" class="btn btn--lg btn--rounded btn--blue wow fadeIn" data-wow-delay="1.5s">get the deal</a>
+                    <a href="/ListBook" class="btn btn--lg btn--rounded btn--blue wow fadeIn" data-wow-delay="1.5s">get the deal</a>
                 </div>
                 <img class="d-block w-100" src="images/img__sale.webp" alt="First slide">
             </div>
@@ -437,7 +439,7 @@
                     <div class="col-md-2">
                         <div class="card display-on-hover">
                             <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[0].Id)" class="linkBook">
-                                <img class="card-img-top img-contain" src="@ListSalesBook[0].Image" alt="Card image cap">
+                                <img class="card-img-top img-cover img-cover-25" src="@ListSalesBook[0].Image" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card__book-title">@ListSalesBook[0].Name</h5>
                                     <p class="card__book-price" style="text-align: center">
@@ -462,7 +464,7 @@
                     <div class="col-md-2">
                         <div class="card display-on-hover">
                             <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[1].Id)" class="linkBook">
-                                <img class="card-img-top img-contain" src="@ListSalesBook[1].Image" alt="Card image cap">
+                                <img class="card-img-top img-cover img-cover-25" src="@ListSalesBook[1].Image" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card__book-title">@ListSalesBook[1].Name</h5>
                                     <p class="card__book-price" style="text-align: center">
@@ -487,7 +489,7 @@
                     <div class="col-md-2">
                         <div class="card display-on-hover">
                             <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[2].Id)" class="linkBook">
-                                <img class="card-img-top img-contain" src="@ListSalesBook[2].Image" alt="Card image cap">
+                                <img class="card-img-top img-cover img-cover-25" src="@ListSalesBook[2].Image" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card__book-title">@ListSalesBook[2].Name</h5>
                                     <p class="card__book-price" style="text-align: center">
@@ -512,7 +514,7 @@
                     <div class="col-md-2">
                         <div class="card display-on-hover">
                             <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[3].Id)" class="linkBook">
-                                <img class="card-img-top img-contain" src="@ListSalesBook[3].Image" alt="Card image cap">
+                                <img class="card-img-top img-cover img-cover-25" src="@ListSalesBook[3].Image" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card__book-title">@ListSalesBook[3].Name</h5>
                                     <p class="card__book-price" style="text-align: center">
@@ -538,7 +540,7 @@
                     <div class="col-md-2">
                         <div class="card display-on-hover">
                             <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[4].Id)" class="linkBook">
-                                <img class="card-img-top img-contain" src="@ListSalesBook[4].Image" alt="Card image cap">
+                                <img class="card-img-top img-cover img-cover-25" src="@ListSalesBook[4].Image" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card__book-title">@ListSalesBook[4].Name</h5>
                                     <p class="card__book-price" style="text-align: center">
@@ -564,7 +566,7 @@
                     <div class="col-md-2">
                         <div class="card display-on-hover">
                             <a href="/Book/@SecureHelper.GetSecureOutput(ListSalesBook[5].Id)" class="linkBook">
-                                <img class="card-img-top img-contain" src="@ListSalesBook[5].Image" alt="Card image cap">
+                                <img class="card-img-top img-cover img-cover-25" src="@ListSalesBook[5].Image" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card__book-title">@ListSalesBook[5].Name</h5>
                                     <p class="card__book-price" style="text-align: center">
@@ -600,14 +602,23 @@
             <div class="special-wrapper" style="background: url('/images/orange-bg.webp')">
                 <div class="row">
                     <div class="col-sm-3 special-img">
-                        <img src="/images/special-book-2.webp" class="img-contain" alt="">
+                        <img src="@ListFeaturedBook[0].Image" class="img-cover" alt="">
                     </div>
                     <div class="col">
                         <div class="special-text">
-                            <div class="special-title cut-text cut-text-1-line">Children of the god - Uprising</div>
-                            <div class="special-price">$120.00</div>
-                            <div class="special-author">Author: Jessica therrien</div>
-                            <a href="#" class="btn btn--rounded btn-fit btn--white">view detail</a>
+                            @{
+                                string authors1 = "";
+                                foreach (var author in ListFeaturedBook[0].AuthorBook)
+                                {
+                                    authors1 += author.Author.Name + ", ";
+                                }
+                                authors1 = authors1.Substring(0, authors1.Length - 2);
+                            }
+                            <div class="special-title cut-text cut-text-1-line">@ListFeaturedBook[0].Name</div>
+                            <div class="special-price">@ListFeaturedBook[0].CurrentPrice.ToString("##,###") VND</div>
+                            <div class="special-author">Author: @authors1</div>
+                            <a href="/Book/@SecureHelper.GetSecureOutput(@ListFeaturedBook[0].Id)"
+                               class="btn btn--rounded btn-fit btn--white">view detail</a>
                         </div>
                     </div>
                 </div>
@@ -617,14 +628,23 @@
             <div class="special-wrapper" style="background: url('images/pink-bg.webp')">
                 <div class="row">
                     <div class="col-sm-3 special-img">
-                        <img src="/images/special-book-3.webp" class="img-contain" alt="">
+                        <img src="@ListFeaturedBook[1].Image" class="img-cover" alt="">
                     </div>
                     <div class="col">
                         <div class="special-text">
-                            <div class="special-title cut-text cut-text-1-line">Lean in</div>
-                            <div class="special-price">$80.00</div>
-                            <div class="special-author">Author: Sheryl sandberg</div>
-                            <a href="#" class="btn btn--rounded btn-fit btn--white">view detail</a>
+                            @{
+                                string authors2 = "";
+                                foreach (var author in ListFeaturedBook[1].AuthorBook)
+                                {
+                                    authors2 += author.Author.Name + ", ";
+                                }
+                                authors2 = authors2.Substring(0, authors2.Length - 2);
+                            }
+                            <div class="special-title cut-text cut-text-1-line">@ListFeaturedBook[1].Name</div>
+                            <div class="special-price">@ListFeaturedBook[1].CurrentPrice.ToString("##,###") VND</div>
+                            <div class="special-author">Author: @authors2</div>
+                            <a href="/Book/@SecureHelper.GetSecureOutput(@ListFeaturedBook[1].Id)"
+                               class="btn btn--rounded btn-fit btn--white">view detail</a>
                         </div>
                     </div>
                 </div>
@@ -634,14 +654,23 @@
             <div class="special-wrapper" style="background: url('images/blue-bg.webp')">
                 <div class="row">
                     <div class="col-sm-3 special-img">
-                        <img src="/images/special-book-1.webp" class="img-contain" alt="">
+                        <img src="@ListFeaturedBook[2].Image" class="img-cover" alt="">
                     </div>
                     <div class="col">
                         <div class="special-text">
-                            <div class="special-title cut-text cut-text-1-line">The trial of apollo</div>
-                            <div class="special-price">$90.00</div>
-                            <div class="special-author">Author: rick riordan</div>
-                            <a href="#" class="btn btn--rounded btn-fit btn--white">view detail</a>
+                            @{
+                                string authors3 = "";
+                                foreach (var author in ListFeaturedBook[2].AuthorBook)
+                                {
+                                    authors3 += author.Author.Name + ", ";
+                                }
+                                authors3 = authors3.Substring(0, authors3.Length - 2);
+                            }
+                            <div class="special-title cut-text cut-text-1-line">@ListFeaturedBook[2].Name</div>
+                            <div class="special-price">@ListFeaturedBook[2].CurrentPrice.ToString("##,###") VND</div>
+                            <div class="special-author">Author: @authors3</div>
+                            <a href="/Book/@SecureHelper.GetSecureOutput(@ListFeaturedBook[2].Id)"
+                               class="btn btn--rounded btn-fit btn--white">view detail</a>
                         </div>
                     </div>
                 </div>
@@ -692,17 +721,19 @@
     </div>
     <div class="container">
         <div class="row">
+            @foreach (var book in ListBestSaleBook)
+            {
             <div class="col-md-2">
                 <div class="card display-on-hover">
                     <div class="badge badge__sale">32% off</div>
-                    <a href="#">
-                        <img class="card-img-top" src="~/images/data/book10.webp" alt="Card image cap">
+                    <a href="/Book/@SecureHelper.GetSecureOutput(book.Id)">
+                        <img class="card-img-top img-cover img-cover-25" src="@book.Image" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card__book-title">Product example #1</h5>
+                            <h5 class="card__book-title">@book.Name</h5>
                             <p class="card__book-price">
-                                $120.00
+                                @book.CurrentPrice.ToString("##,###") VND
                             </p>
-                            <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
+                            @*<div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
                                 <div class="star__rating" id="rating" data-value-star="4">
                                     <input type="radio" name="rating" value="5">
                                     <label class="full" title="Awesome - 5 stars"></label>
@@ -720,14 +751,17 @@
                                     <label class="full" title="Sucks big time - 1 star"></label>
                                 </div>
                                 1 review
-                            </div>
-                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                            </div>*@
+                            <a href="@SecureHelper.GetSecureOutput(book.Id)" 
+                               class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
                         </div>
                         <div class="badge badge__utilities item-display">
                             <a href="#" class="badge__utilities-blue">
                                 <i class="fas fa-heart"></i>
                             </a>
-                            <a href="#" class="badge__utilities-blue">
+                            <a href="#" class="badge__utilities-blue" 
+                               data-toggle="modal" data-target="#modalQuickview"
+                               data-object="@SecureHelper.GetSecureOutput(book.Id)">
                                 <i class="fas fa-search"></i>
                             </a>
 
@@ -735,218 +769,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="card display-on-hover">
-                    <a href="#">
-                        <img class="card-img-top" src="~/images/data/book8.webp" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card__book-title">Product example #1</h5>
-                            <p class="card__book-price">
-                                $120.00
-                            </p>
-                            <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
-                                <div class="star__rating" id="rating" data-value-star="4">
-                                    <input type="radio" name="rating" value="5">
-                                    <label class="full" title="Awesome - 5 stars"></label>
-
-                                    <input type="radio" name="rating" value="4">
-                                    <label class="full" title="Pretty good - 4 stars"></label>
-
-                                    <input type="radio" name="rating" value="3">
-                                    <label class="full" title="Meh - 3 stars"></label>
-
-                                    <input type="radio" name="rating" value="2">
-                                    <label class="full" title="Kinda bad - 2 stars"></label>
-
-                                    <input type="radio" name="rating" value="1">
-                                    <label class="full" title="Sucks big time - 1 star"></label>
-                                </div>
-                                1 review
-                            </div>
-                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
-                        </div>
-                        <div class="badge badge__utilities item-display">
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-heart"></i>
-                            </a>
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-search"></i>
-                            </a>
-
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card display-on-hover">
-                    <a href="#">
-                        <img class="card-img-top" src="~/images/data/book9.webp" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card__book-title">Product example #1</h5>
-                            <p class="card__book-price">
-                                $120.00
-                            </p>
-                            <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
-                                <div class="star__rating" id="rating" data-value-star="4">
-                                    <input type="radio" name="rating" value="5">
-                                    <label class="full" title="Awesome - 5 stars"></label>
-
-                                    <input type="radio" name="rating" value="4">
-                                    <label class="full" title="Pretty good - 4 stars"></label>
-
-                                    <input type="radio" name="rating" value="3">
-                                    <label class="full" title="Meh - 3 stars"></label>
-
-                                    <input type="radio" name="rating" value="2">
-                                    <label class="full" title="Kinda bad - 2 stars"></label>
-
-                                    <input type="radio" name="rating" value="1">
-                                    <label class="full" title="Sucks big time - 1 star"></label>
-                                </div>
-                                1 review
-                            </div>
-                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
-                        </div>
-                        <div class="badge badge__utilities item-display">
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-heart"></i>
-                            </a>
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-search"></i>
-                            </a>
-
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card display-on-hover">
-                    <div class="badge badge__sale">25% off</div>
-                    <a href="#">
-                        <img class="card-img-top" src="~/images/data/book7.webp" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card__book-title">Product example #1</h5>
-                            <p class="card__book-price">
-                                $120.00
-                            </p>
-                            <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
-                                <div class="star__rating" id="rating" data-value-star="4">
-                                    <input type="radio" name="rating" value="5">
-                                    <label class="full" title="Awesome - 5 stars"></label>
-
-                                    <input type="radio" name="rating" value="4">
-                                    <label class="full" title="Pretty good - 4 stars"></label>
-
-                                    <input type="radio" name="rating" value="3">
-                                    <label class="full" title="Meh - 3 stars"></label>
-
-                                    <input type="radio" name="rating" value="2">
-                                    <label class="full" title="Kinda bad - 2 stars"></label>
-
-                                    <input type="radio" name="rating" value="1">
-                                    <label class="full" title="Sucks big time - 1 star"></label>
-                                </div>
-                                1 review
-                            </div>
-                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
-                        </div>
-                        <div class="badge badge__utilities item-display">
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-heart"></i>
-                            </a>
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-search"></i>
-                            </a>
-
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card display-on-hover">
-                    <a href="#">
-                        <img class="card-img-top" src="~/images/data/book2.webp" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card__book-title">Product example #1</h5>
-                            <p class="card__book-price">
-                                $120.00
-                            </p>
-                            <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
-                                <div class="star__rating" id="rating" data-value-star="4">
-                                    <input type="radio" name="rating" value="5">
-                                    <label class="full" title="Awesome - 5 stars"></label>
-
-                                    <input type="radio" name="rating" value="4">
-                                    <label class="full" title="Pretty good - 4 stars"></label>
-
-                                    <input type="radio" name="rating" value="3">
-                                    <label class="full" title="Meh - 3 stars"></label>
-
-                                    <input type="radio" name="rating" value="2">
-                                    <label class="full" title="Kinda bad - 2 stars"></label>
-
-                                    <input type="radio" name="rating" value="1">
-                                    <label class="full" title="Sucks big time - 1 star"></label>
-                                </div>
-                                1 review
-                            </div>
-                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
-                        </div>
-                        <div class="badge badge__utilities item-display">
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-heart"></i>
-                            </a>
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-search"></i>
-                            </a>
-
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card display-on-hover">
-                    <div class="badge badge__sale">30% off</div>
-                    <a href="#">
-                        <img class="card-img-top" src="~/images/data/book1.webp" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card__book-title">Product example #1</h5>
-                            <p class="card__book-price">
-                                $120.00
-                            </p>
-                            <div id="rating" class="rating__section mar-0-0 w-100 align-items-center">
-                                <div class="star__rating" id="rating" data-value-star="4">
-                                    <input type="radio" name="rating" value="5">
-                                    <label class="full" title="Awesome - 5 stars"></label>
-
-                                    <input type="radio" name="rating" value="4">
-                                    <label class="full" title="Pretty good - 4 stars"></label>
-
-                                    <input type="radio" name="rating" value="3">
-                                    <label class="full" title="Meh - 3 stars"></label>
-
-                                    <input type="radio" name="rating" value="2">
-                                    <label class="full" title="Kinda bad - 2 stars"></label>
-
-                                    <input type="radio" name="rating" value="1">
-                                    <label class="full" title="Sucks big time - 1 star"></label>
-                                </div>
-                                1 review
-                            </div>
-                            <a href="#" class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
-                        </div>
-                        <div class="badge badge__utilities item-display">
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-heart"></i>
-                            </a>
-                            <a href="#" class="badge__utilities-blue">
-                                <i class="fas fa-search"></i>
-                            </a>
-
-                        </div>
-                    </a>
-                </div>
-            </div>
+            }
         </div>
     </div>
 

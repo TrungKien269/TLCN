@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BookStore.Helper;
 using BookStore.Models;
 using BookStore.Models.Objects;
+using BookStore.Models.Statistics;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.BUS.Logic
@@ -26,6 +27,40 @@ namespace BookStore.BUS.Logic
                         x.OriginalPrice > 50000 && x.OriginalPrice < 130000 && x.Status.Equals("Available"))
                     .OrderBy(x => x.Id)
                     .Take(30).Skip(10).ToListAsync();
+                return new Response("Success", true, 0, list);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetList3FeaturedBook()
+        {
+            try
+            {
+                var list = await context.Book.Include(x => x.AuthorBook).ThenInclude(x => x.Author)
+                    .Include(x => x.BookCategory).ThenInclude(x => x.Cate)                    
+                    .Where(x => x.Status.Equals("Available"))
+                    .OrderByDescending(x => x.CurrentPrice)
+                    .Take(3).ToListAsync();
+                return new Response("Success", true, 0, list);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetList6BestSaleBook()
+        {
+            try
+            {
+                var list = await context.Book.Include(x => x.AuthorBook).ThenInclude(x => x.Author)
+                    .Include(x => x.BookCategory).ThenInclude(x => x.Cate)
+                    .Where(x => x.Status.Equals("Available"))
+                    .OrderBy(x => x.CurrentPrice)
+                    .Take(6).ToListAsync();
                 return new Response("Success", true, 0, list);
             }
             catch (Exception e)
@@ -986,6 +1021,45 @@ namespace BookStore.BUS.Logic
                 //    book.Id = SecureHelper.GetSecureOutput(book.Id);
                 //}
                 return new Response("Success", true, books.Count, books);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> StatisticsBookWithQuantityByMonth()
+        {
+            try
+            {
+                var books = await context.OrderDetail.Include(x => x.Book).Include(x => x.Order)
+                    .Where(x => x.Order.Status.Equals("Delivered"))
+                    .GroupBy(x => x.Book).Select(x => new BookWithQuantity
+                    {
+                        book = x.Key,
+                        quantity = x.Sum(y => y.Quantity)
+                    }).OrderByDescending(x => x.quantity).Take(10).ToListAsync();
+                    
+                return new Response("Success", true, 1, books.OrderBy(x => x.book.Id).ToList());
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> StatisticsTop3Users()
+        {
+            try
+            {
+                var users = await context.OrderDetail.Include(x => x.Book).Include(x => x.Order)
+                    .Where(x => x.Order.Status.Equals("Delivered"))
+                    .GroupBy(x => x.Order.User).Select(x => new TopUser
+                    {
+                        user = x.Key,
+                        numberOfBook = x.Sum(y => y.Quantity)
+                    }).OrderByDescending(x => x.numberOfBook).Take(3).ToListAsync();
+                return new Response("Success", true, 1, users);
             }
             catch (Exception e)
             {

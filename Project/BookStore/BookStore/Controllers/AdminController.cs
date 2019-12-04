@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BookStore.BUS.Control;
 using BookStore.Models;
 using BookStore.Models.Objects;
+using BookStore.Models.Statistics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -83,8 +84,11 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("Statistics")]
-        public IActionResult Statistics()
+        public async Task<IActionResult> Statistics()
         {
+            ViewBag.ListBookWithQuantity =
+                (await adminBal.StatisticsBookWithQuantityByMonth()).Obj as List<BookWithQuantity>;
+            ViewBag.ListTop3User = (await adminBal.StatisticsTop3Users()).Obj as List<TopUser>;
             return View();
         }
     }

@@ -73,6 +73,8 @@ namespace BookStore.Controllers
             ViewBag.ListSalesBook = (await dashboardBal.GetListSalesBook()).Obj as List<Book>;
             ViewBag.ListFamousPublisher = (await dashboardBal.GetListFamousPublisher()).Obj as List<FamousPublisher>;
             ViewBag.ListCategory = (await dashboardBal.GetListCategory()).Obj as List<Category>;
+            ViewBag.ListFeaturedBook = (await dashboardBal.GetList3FeaturedBook()).Obj as List<Book>;
+            ViewBag.ListBestSaleBook = (await dashboardBal.GetList6BestSaleBook()).Obj as List<Book>;
             HttpContext.Session.SetString("PreviousState", "");
 
             return View(response.Obj as List<Category>);

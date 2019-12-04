@@ -99,5 +99,15 @@ namespace BookStore.BUS.Control
         {
             return await bookBal.Delete(id);
         }
+
+        public async Task<Response> StatisticsBookWithQuantityByMonth()
+        {
+            return await bookBal.StatisticsBookWithQuantityByMonth();
+        }
+
+        public async Task<Response> StatisticsTop3Users()
+        {
+            return await bookBal.StatisticsTop3Users();
+        }
     }
 }
