@@ -2,7 +2,7 @@
 @using BookStore.Helper
 @{
     Layout = "Order_Layout";
-    List<CartBook> ListCartBook = (List<CartBook>) ViewBag.ListCartBook;
+    List<CartBook> ListCartBook = (List<CartBook>)ViewBag.ListCartBook;
 }
 @model Order
 
@@ -64,8 +64,17 @@
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     <input type="text" id="address" placeholder="Your address..." asp-for="Address">
                     <span asp-validation-for="Address" class="text-danger"></span>
+
+                    <div class="title-wrapper">
+                        <h2>Choose your payment method</h2>
+                    </div>
+                    <select>
+                        <option>Cash payment on delivery</option>
+                        <option>Pay by international cards Visa/Master/JCB</option>
+                    </select>                    
                     <button class="btn btn--rounded btn-fit btn--blue" type="submit">Confirm your information</button>
                 </form>
+
                 <button class="btn btn--rounded btn-fit btn--blue" type="button" id="btnOnlineProceed">
                     Online Proceed
                 </button>
@@ -98,22 +107,22 @@
                                 </div>
                                 <table>
                                     <tbody>
-                                    <tr>
-                                        <td class="first">Delivery type</td>
-                                        <td class="second">Shipping</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Book code</td>
-                                        <td class="second">@cartBook.BookId</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Quantity</td>
-                                        <td class="second">@cartBook.Quantity</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first">Subtotal</td>
-                                        <td class="second">@cartBook.SubTotal.ToString("##,###") VND</td>
-                                    </tr>
+                                        <tr>
+                                            <td class="first">Delivery type</td>
+                                            <td class="second">Shipping</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="first">Book code</td>
+                                            <td class="second">@cartBook.BookId</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="first">Quantity</td>
+                                            <td class="second">@cartBook.Quantity</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="first">Subtotal</td>
+                                            <td class="second">@cartBook.SubTotal.ToString("##,###") VND</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
