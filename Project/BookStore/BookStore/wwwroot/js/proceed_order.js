@@ -30,6 +30,21 @@
         }
     });
 
+    $("button#btnOnlineProceed").click(function (e) {
+        var total = $("div.title-wrapper div.product-price").text();
+        total = total.substring(0, total.length - 4).replace(',', '');
+        $.post("/OnlineProceed",
+            {
+                fullname: $("input#name").val(),
+                mobile: $("input#number").val(),
+                email: $("input#address").val(),
+                total: total
+            },
+            function(data) {
+                window.location.href = data;
+            });
+    });
+
     function checkFormValidateOrNot(form) {
         console.log(form.attr("id"));
         if ($("#" + form.attr("id") + " .field-validation-error").length > 0) {

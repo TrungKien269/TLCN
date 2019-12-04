@@ -6,6 +6,7 @@ using BookStore.BUS.Control;
 using BookStore.Helper;
 using BookStore.Models;
 using BookStore.Models.Objects;
+using BookStore.Models.OnlinePayment;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -123,6 +124,55 @@ namespace BookStore.Controllers
                 }
                 await userOrderBal.ResetCart(HttpContext.Session.GetInt32("UserID").Value);
                 return await userOrderBal.CreateOrder(order);
+            }
+        }
+
+        [HttpPost("OnlineProceed")]
+        public string NganLuong(string fullname, string mobile, string email, string total)
+        {
+            string payment_method = "VISA";
+            string str_bankcode = "1234567890";
+
+
+            RequestInfo info = new RequestInfo();
+            info.Merchant_id = "36680";
+            info.Merchant_password = "matkhauketnoi";
+            info.Receiver_email = "demo@nganluong.vn";
+
+
+
+            info.cur_code = "vnd";
+            info.bank_code = str_bankcode;
+
+            info.Order_code = "ma_don_hang01";
+            //info.Total_amount = "10000";
+            info.Total_amount = total;
+            info.fee_shipping = "0";
+            info.Discount_amount = "0";
+            info.order_description = "Thanh toan tes thu dong hang";
+            info.return_url = "http://localhost";
+            info.cancel_url = "http://localhost";
+
+            //info.Buyer_fullname = buyer_fullname.Value;
+            //info.Buyer_email = buyer_email.Value;
+            //info.Buyer_mobile = buyer_mobile.Value;
+
+            info.Buyer_fullname = fullname;
+            info.Buyer_email = email;
+            info.Buyer_mobile = mobile;
+
+            APICheckoutV3 objNLChecout = new APICheckoutV3();
+            ResponseInfo result = objNLChecout.GetUrlCheckout(info, payment_method);
+
+            if (result.Error_code == "00")
+            {
+                //return Redirect(result.Checkout_url);
+                return result.Checkout_url;
+            }
+            else
+            {
+                //return Redirect(info.cancel_url);
+                return info.cancel_url;
             }
         }
     }

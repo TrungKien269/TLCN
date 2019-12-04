@@ -66,6 +66,10 @@
                     <span asp-validation-for="Address" class="text-danger"></span>
                     <button class="btn btn--rounded btn-fit btn--blue" type="submit">Confirm your information</button>
                 </form>
+                <button class="btn btn--rounded btn-fit btn--blue" type="button" id="btnOnlineProceed">
+                    Online Proceed
+                </button>
+
 
             </div>
             <div class="col-md">
@@ -120,9 +124,7 @@
                 </div>
                 <div class="title-wrapper">
                     <h2>Total</h2>
-                    <div class="product-price">
-                        @ListCartBook.Sum(x => x.SubTotal).ToString("##,###") VND
-                    </div>
+                    <div class="product-price">@ListCartBook.Sum(x => x.SubTotal).ToString("##,###") VND</div>
                 </div>
 
 
