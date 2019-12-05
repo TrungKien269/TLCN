@@ -53,8 +53,8 @@
                                                             text: "Success",
                                                             icon: "success"
                                                         }).then((result) => {
-                                                            $("button").remove(currentButton);
-                                                            $("div#delivered").append($("div#delivering div.order-block:eq(" + index + ")"));
+                                                            $("div#delivered").prepend($("div#delivering div.order-block:eq(" + index + ")"));
+                                                            $("div#delivered a.btn--blue").remove();
                                                         });
                                                     }
                                                     else {
@@ -110,8 +110,9 @@
                                 text: "Success",
                                 icon: "success"
                             }).then((result) => {
-                                $(currentButton).remove();
                                 $("div#delivered").append($("div#delivering div.order-block:eq(" + index + ")"));
+                                $("div#delivered a").remove($("div#delivered a.btn--blue"));
+                                $("div#delivered a.btn--blue").remove();
                             });
                         }
                         else {

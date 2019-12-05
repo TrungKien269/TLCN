@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStore.BUS.Control;
+using BookStore.Helper;
 using BookStore.Models;
 using BookStore.Models.Objects;
 using BookStore.Models.Statistics;
@@ -29,17 +30,7 @@ namespace BookStore.Controllers
             var session = HttpContext.Session.GetString("Admin");
             if (session is null)
             {
-                ViewBag.ListProcessing = (await adminBal.GetListProcessing()).Obj as List<Order>;
-                ViewBag.ListDelivery = (await adminBal.GetListDelivery()).Obj as List<Order>;
-                ViewBag.ListDelivered = (await adminBal.GetListDelivered()).Obj as List<Order>;
-                ViewBag.ListCanceled = (await adminBal.GetListCanceled()).Obj as List<Order>;
-
-                ViewBag.ListSubcategory = (await adminBal.GetListSubCategory()).Obj as List<SubCategory>;
-                ViewBag.ListFormBook = (await adminBal.GetListFormBook()).Obj as List<Form>;
-                ViewBag.ListSupplier = (await adminBal.GetListSupplier()).Obj as List<Supplier>;
-                ViewBag.ListPublisher = (await adminBal.GetListPublisher()).Obj as List<Publisher>;
-                return View();
-                //return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login");
             }
             else
             {
@@ -86,10 +77,18 @@ namespace BookStore.Controllers
         [HttpGet("Statistics")]
         public async Task<IActionResult> Statistics()
         {
-            ViewBag.ListBookWithQuantity =
-                (await adminBal.StatisticsBookWithQuantityByMonth()).Obj as List<BookWithQuantity>;
-            ViewBag.ListTop3User = (await adminBal.StatisticsTop3Users()).Obj as List<TopUser>;
-            return View();
+            var session = HttpContext.Session.GetString("Admin");
+            if (session is null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                ViewBag.ListBookWithQuantity =
+                    (await adminBal.StatisticsBookWithQuantityByMonth()).Obj as List<BookWithQuantity>;
+                ViewBag.ListTop3User = (await adminBal.StatisticsTop3Users()).Obj as List<TopUser>;
+                return View();
+            }
         }
     }
 }
