@@ -56,7 +56,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost("InsertBook")]
-        public async Task<Response> Test(Book book, List<Author> authors, List<string> images, int cateID, int formID,
+        public async Task<Response> InsertOrUpdate(Book book, List<Author> authors, List<string> images, int cateID, int formID,
             int supplierID, int publisherID)
         {
             return await adminBal.InsertBook(book, authors, images, cateID, formID, supplierID, publisherID);
