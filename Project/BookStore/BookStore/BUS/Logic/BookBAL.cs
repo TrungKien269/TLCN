@@ -69,6 +69,37 @@ namespace BookStore.BUS.Logic
             }
         }
 
+        public async Task<Response> GetListRelatedBooks(List<string> relatedList)
+        {
+            try
+            {
+                var list = await context.Book.Where(x => x.Id.Equals(relatedList[0]) || x.Id.Equals(relatedList[1]) 
+                                                    || x.Id.Equals(relatedList[2]) || x.Id.Equals(relatedList[3]) 
+                                                    || x.Id.Equals(relatedList[4])).ToListAsync();
+                return new Response("Success", true, 0, list);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
+        public async Task<Response> GetListSuggestedBooks(List<string> relatedList)
+        {
+            try
+            {
+                var list = await context.Book.Where(x => x.Id.Equals(relatedList[0]) || x.Id.Equals(relatedList[1])
+                                                         || x.Id.Equals(relatedList[2]) || x.Id.Equals(relatedList[3])
+                                                         || x.Id.Equals(relatedList[4]) || x.Id.Equals(relatedList[5]))
+                    .ToListAsync();
+                return new Response("Success", true, 0, list);
+            }
+            catch (Exception e)
+            {
+                return Response.CatchError(e.Message);
+            }
+        }
+
         public async Task<Response> GetBookFromFamousPublisher(string id)
         {
             try

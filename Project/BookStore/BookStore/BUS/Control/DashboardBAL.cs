@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStore.BUS.Logic;
+using BookStore.Helper;
 using BookStore.Models;
 using BookStore.Models.Objects;
 
@@ -78,6 +79,12 @@ namespace BookStore.BUS.Control
         public async Task<Response> GetUser(int id)
         {
             return await UserBal.GetUser(id);
+        }
+
+        public async Task<Response> GetListSuggestedBooks(int userID)
+        {
+            var relatedList = PythonHelper.GetSuggestedBooks(userID);
+            return await bookBal.GetListSuggestedBooks(relatedList);
         }
     }
 }

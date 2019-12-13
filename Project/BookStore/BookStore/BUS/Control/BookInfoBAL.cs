@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStore.BUS.Logic;
+using BookStore.Helper;
 using BookStore.Models;
 using BookStore.Models.Objects;
 
@@ -54,6 +55,12 @@ namespace BookStore.BUS.Control
         public async Task<Response> AddToCart(Cart cart, Book book, int quantity)
         {
             return await cartBal.InsertToCart(cart, book, quantity);
+        }
+
+        public async Task<Response> GetListRelatedBooks(string id)
+        {
+            var relatedList = PythonHelper.GetRelatedBooks(id);
+            return await bookBal.GetListRelatedBooks(relatedList);
         }
     }
 }

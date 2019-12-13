@@ -48,6 +48,11 @@ namespace BookStore.Controllers
                         ViewBag.FullName = account.Obj as Account is null
                             ? null
                             : (account.Obj as Account).IdNavigation.FullName;
+                        if (account.Obj as Account != null)
+                        {
+                            ViewBag.ListSuggestedBooks =
+                                (await dashboardBal.GetListSuggestedBooks((account.Obj as Account).Id)).Obj as List<Book>;
+                        }
                     }
                 }
                 else
@@ -69,6 +74,11 @@ namespace BookStore.Controllers
                 ViewBag.FullName = account.Obj as Account is null
                     ? null
                     : (account.Obj as Account).IdNavigation.FullName;
+                if(account.Obj as Account != null)
+                {
+                    ViewBag.ListSuggestedBooks =
+                        (await dashboardBal.GetListSuggestedBooks((account.Obj as Account).Id)).Obj as List<Book>;
+                }
             }
             ViewBag.ListSalesBook = (await dashboardBal.GetListSalesBook()).Obj as List<Book>;
             ViewBag.ListFamousPublisher = (await dashboardBal.GetListFamousPublisher()).Obj as List<FamousPublisher>;

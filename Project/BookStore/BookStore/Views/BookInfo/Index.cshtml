@@ -9,6 +9,7 @@
     Layout = "BookInfo_Layout";
     ViewBag.Title = Model.Name;
     List<Category> CategoryList = (List<Category>) ViewBag.ListCategory;
+    List<Book> RelatedList = (List<Book>) ViewBag.RelatedList;
 }
 @model Book
 
@@ -159,71 +160,24 @@
                 <div class="sidebar-block">
                     <h2>Related Books</h2>
                     <ul class="list-unstyled sidebar-list">
-                        <li>
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="/images/data/book10.webp" class="img-cover shadow-lg" alt="">
+                        @foreach (var book in RelatedList)
+                        {
+                            <li>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="/Book/@SecureHelper.GetSecureOutput(book.Id)">
+                                            <img src="@book.Image" class="img-cover shadow-lg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a href="/Book/@SecureHelper.GetSecureOutput(book.Id)">@book.Name</a>
+                                        <p class="card__book-price">
+                                            @book.CurrentPrice.ToString("##,###") VND
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <a href="#">Product example #1</a>
-                                    <p class="card__book-price">
-                                        50$
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="/images/data/book1.webp" class="img-cover shadow-lg" alt="">
-                                </div>
-                                <div class="col">
-                                    <a href="#">Product example #1</a>
-                                    <p class="card__book-price">
-                                        50$
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="/images/data/book2.webp" class="img-cover shadow-lg" alt="">
-                                </div>
-                                <div class="col">
-                                    <a href="#">Product example #1</a>
-                                    <p class="card__book-price">
-                                        50$
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="/images/data/book3.webp" class="img-cover shadow-lg" alt="">
-                                </div>
-                                <div class="col">
-                                    <a href="#">Product example #1</a>
-                                    <p class="card__book-price">
-                                        50$
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="/images/data/book6.webp" class="img-cover shadow-lg" alt="">
-                                </div>
-                                <div class="col">
-                                    <a href="#">Product example #1</a>
-                                    <p class="card__book-price">
-                                        50$
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

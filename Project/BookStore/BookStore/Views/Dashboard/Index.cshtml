@@ -12,6 +12,7 @@
     List<Category> CategoryList = (List<Category>) ViewBag.ListCategory;
     List<Book> ListFeaturedBook = (List<Book>) ViewBag.ListFeaturedBook;
     List<Book> ListBestSaleBook = (List<Book>) ViewBag.ListBestSaleBook;
+    List<Book> ListSuggestedBook = (List<Book>) ViewBag.ListSuggestedBooks;
 }
 @model List<Category>
 
@@ -372,6 +373,48 @@
         </div>
     </div>
 </div>
+
+@if (ViewBag.FullName != null)
+{
+<section class="section__suggestion">
+    <div class="container">
+        <div class="title-wrapper">
+            <h2>Suggested for you</h2>
+        </div>
+        <div class="row">
+            @foreach (var book in ListSuggestedBook)
+            {
+                <div class="col-md-2">
+                    <div class="card display-on-hover">
+                        <a href="/Book/@SecureHelper.GetSecureOutput(book.Id)">
+                            <img class="card-img-top img-cover img-cover-25" src="@book.Image" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card__book-title">@book.Name</h5>
+                                <p class="card__book-price">
+                                    @book.CurrentPrice.ToString("##,###") VND
+                                </p>
+                                <a href="@SecureHelper.GetSecureOutput(book.Id)"
+                                   class="btn btn--rounded btn-fw btn--blue item-display">Add to cart</a>
+                            </div>
+                            <div class="badge badge__utilities item-display">
+                                <a href="#" class="badge__utilities-blue">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <a href="#" class="badge__utilities-blue"
+                                   data-toggle="modal" data-target="#modalQuickview"
+                                   data-object="@SecureHelper.GetSecureOutput(book.Id)">
+                                    <i class="fas fa-search"></i>
+                                </a>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+}
 
 <section class="section__bestseller">
     <div class="container">
