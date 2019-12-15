@@ -331,7 +331,7 @@
             $("div#search-result div.row").append(
                 '<div class="col-md-2">' +
                 '<div class="card display-on-hover">' + 
-                '<a href="' + bookArr[i].id + '">' +
+                '<a href="#">' +
                 '<img class="card-img-top img-cover img-cover-25" src="' + bookArr[i].image + '" alt="Card image cap">' +
                 '<div class="card-body">' +
                 '<h5 class="card__book-title">' + bookArr[i].name + '</h5>' +
